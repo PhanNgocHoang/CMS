@@ -38,6 +38,7 @@ const ClassSchema = new Schema({
     _id: {type: mongoose.Schema.ObjectId, auto: true},
     Class_ID: {type: String, unique: true},
     Class_name: {type: String, unique: true},
+    Tutor_id: {type: mongoose.Schema.ObjectId, ref: 'User'},
     Create_at: Date,
     Update_at: Date,
     Subject_id: [{type: mongoose.Schema.ObjectId, ref: 'Subject'}]

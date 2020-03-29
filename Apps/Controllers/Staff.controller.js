@@ -219,14 +219,20 @@ async function Class_Page(req, res) {
     let Class = await Models.ClassModel.find({Subject_id:Subject_id}).sort({_id: -1}).skip(perRow).limit(rowsPerPage)
     return res.render('StaffPage/class/index', {data:{class:Class, totalPage:totalPage, pagePrev:pagePrev, pageNext:pageNext, subject:Subject_id, faculty: faculty}})
 }
-function Get_Create_Class(req, res) {
+async function Get_Create_Class(req, res) {
+  let role = await Models.RoleModel.findOne({roleName: "Tutor"})
+  let tutor = await Models.UserModel.find({User_role: role._id})
+  let faculty = req.params.faculty_id
   return res.render("StaffPage/class/create", {
-    data: { subject: req.params.subject_id }
+    data: { subject: req.params.subject_id, tutor: tutor, faculty:faculty}
   });
 }
 async function Post_Create_Class(req, res) {
   let class_id = req.body.class_id;
   let class_name = req.body.class_name;
+  let tutor_id = req.body.tutor_id;
+  let subject = req.params.subject_id
+  let faculty = req.params.faculty_id
   let Create_at = new Date();
   let date =
     Create_at.getFullYear() +
@@ -243,9 +249,10 @@ async function Post_Create_Class(req, res) {
   let New_Class = await new Models.ClassModel({
     Class_ID: class_id,
     Class_name: class_name,
+    Tutor_id: tutor_id,
     Create_at: date,
     Update_at: "",
-    Subject_id: req.params.subject_id
+    Subject_id: subject
   });
   New_Class.save(err => {
     if (err) {
@@ -253,7 +260,7 @@ async function Post_Create_Class(req, res) {
       return res.render("StaffPage/class/create", { data: { error: error } });
     }
     return res.redirect(
-      "/staff/Faculty/Subject/" + req.params.subject_id + "/Class/"
+      "/staff/Faculty/"+faculty+"/Subject/" + req.params.subject_id + "/Class"
     );
   });
 }
@@ -293,10 +300,11 @@ function Post_Update_Class(req, res) {
 }
 function Get_Delete_Class(req, res) {
   let class_id = req.params.class_id;
+  let faulty = req.params.faculty_id
   Models.ClassModel.findOneAndDelete({ _id: class_id }).exec(err => {
     if (err) console.log(err);
     return res.redirect(
-      "/staff/Faculty/Subject/" + req.params.subject_id + "/Class"
+      "/staff/Faculty"+faulty+"/Subject/" + req.params.subject_id + "/Class"
     );
   });
 }
@@ -305,12 +313,21 @@ async function Get_Class_Detail(req, res) {
   let subject_id = req.params.subject_id;
   let Class = await Models.ClassModel.findById({ _id: class_id });
   let Subject = await Models.SubjectModel.findById({ _id: subject_id });
+  let tutor = await Models.UserModel.find({_id: Class.Tutor_id})
   // let Class_Detail = await Models.ClassDetailModel.findOne({Class_id:class_id})
   // let MemberOfClass = await Models.UserModel.findById({_id: Class_Detail.User_id})
   // let Role = await Models.RoleModel.findById({_id : MemberOfClass.User_role})
   return res.render("StaffPage/class/detail", {
-    data: { Class: Class, Subject: Subject }
+    data: { Class: Class, Subject: Subject, tutor: tutor}
   });
+}
+function Get_Add_Tutor(req, res)
+{
+  let role_id = req.params.id
+  Models.UserModel.findById({User_role: role_id}).exec((err, user)=>{
+    if(err) throw err
+    return res.render('StaffPage/class/add-tutor', {data: {tutor:user}})
+  })
 }
 function Get_Exercise(req, res) {
   let class_id = req.params.class_id;
@@ -466,6 +483,10 @@ function Get_Delete_Account(req, res)
     return res.redirect('/staff/Account/'+ role)
   })
 }
+async function Get_Add_Tutor(req, res)
+{
+
+}
 module.exports = {
   Page_Index: Page_Index,
   Staff_Profile: Staff_Profile,
@@ -495,5 +516,6 @@ module.exports = {
   Detail_Account: Detail_Account,
   Get_Update_Account: Get_Update_Account,
   Post_Update_Account: Post_Update_Account,
-  Get_Delete_Account: Get_Delete_Account
+  Get_Delete_Account: Get_Delete_Account,
+  Get_Add_Tutor: Get_Add_Tutor
 };

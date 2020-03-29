@@ -12,7 +12,7 @@
 <!-- Main content -->
 <section class="content">
     <h1>Class</h1>
-    <a href="/staff/Faculty/Subject/<%=data.subject%>/Class/Create" class="btn btn-primary">
+    <a href="/staff/Faculty/<%=data.faculty%>/Subject/<%=data.subject%>/Class/Create" class="btn btn-primary">
        <i class="fa fa-plus"></i> Create New Class
     </a>
     <br />
@@ -34,6 +34,7 @@
                 <td>
                     <%=data.class[x].Class_name%>
                 </td>
+                <td></td>
                 <td>
                     <%=data.class[x].Create_at%>
                 </td>
@@ -41,16 +42,16 @@
                     <%=data.class[x].Update_at%>
                 </td>
                 <td>
-                    <a href="/staff/Faculty/Subject/<%=data.subject%>/Class/<%=data.class[x]._id%>/Exercise" title="ViewExercise">
+                    <a href="/staff/Faculty/<%=data.faculty%>/Subject/<%=data.subject%>/Class/<%=data.class[x]._id%>/Exercise" title="ViewExercise">
                         <i class="fa fa-eye"> View Exercise</i>
                     </a>
-                    <a href="/staff/Faculty/Subject/<%=data.subject%>/Class/<%=data.class[x]._id%>/Detail" title="Detail">
+                    <a href="/staff/Faculty/<%=data.faculty%>/Subject/<%=data.subject%>/Class/<%=data.class[x]._id%>/Detail" title="Detail">
                         <i class="fa fa-eye">Detail</i>
                     </a> &nbsp;
-                    <a href="/staff/Faculty/Subject/<%=data.subject%>/Class/<%=data.class[x]._id%>/Update" title="Update">
+                    <a href="/staff/Faculty/<%=data.faculty%>/Subject/<%=data.subject%>/Class/<%=data.class[x]._id%>/Update" title="Update">
                         <i class="fa fa-pencil">Update</i>
                     </a> &nbsp;
-                    <a href="/staff/Faculty/Subject/<%=data.subject%>/Class/<%=data.class[x]._id%>/Delete" title="Delete" onclick="return confirm('Are you sure delete?')">
+                    <a href="/staff/Faculty/<%=data.faculty%>/Subject/<%=data.subject%>/Class/<%=data.class[x]._id%>/Delete" title="Delete" onclick="return confirm('Are you sure delete?')">
                         <i class="fa fa-trash">Delete</i>
                     </a>
                 </td>
