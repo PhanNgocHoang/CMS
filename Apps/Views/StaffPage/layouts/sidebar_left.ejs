@@ -1,12 +1,12 @@
 <!-- Left side column. contains the logo and sidebar -->
-<aside class="main-sidebar" id="menu">
+<aside class="main-sidebar">
     <section class="sidebar">
         <!-- Sidebar user panel -->
         <div class="user-panel">
             <%for(x in locals.user){%>
-            <div class="pull-left info">
+            <div class="pull-left" style="color: white;">
                 <p><%=locals.user[x].User_full%></p>
-                <a href="#"><i class="fa fa-circle text-success"></i>Online</a>
+                <a href="#" style="font-size: 13px;"><i class="fa fa-circle text-success"></i>Online</a>
             </div>
            <%}%>
         </div>
@@ -19,10 +19,14 @@
                 </a>
             </li><br>
             <li>
-                <a href="/staff/Faculty"class="fa fa-code">Faculty Management</a>
+                <a href="/staff/Faculty">
+                    <i class="fa fa-code"></i> <span>Faculty Management</span>
+                </a>
             </li><br>
             <li>
-                <a href="/Faculty" class="fa fa-code">Interactive Management</a>
+                <a href="/Faculty">
+                    <i class="fa fa-code"></i> <span>Interactive Management</span>
+                </a>
             </li>
         </ul>
     </section>

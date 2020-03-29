@@ -11,7 +11,62 @@
                         <form class="form-horizontal">
                             <fieldset class="fieldset">
                                 <h3 class="fieldset-title">Information Of Account</h3>
-                                <table>
+                                <div class="form-group avatar">
+                                    <figure class="figure col-md-2 col-sm-3 col-xs-12">
+                                        <img class="img-rounded img-responsive" <%if(data.user.User_avatar == ''){%>src="https://bootdey.com/img/Content/avatar/avatar1.png"
+                                        <%}else{%>src="/static/images/<%=data.user.User_avatar%>" <%}%> alt="">
+                                    </figure>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 col-sm-3 col-xs-12 control-label">Role</label>
+                                    <div class="col-md-10 col-sm-9 col-xs-12">
+                                        <%=data.userRole.roleName%>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-2 col-sm-3 col-xs-12 control-label">Full Name</label>
+                                    <div class="col-md-10 col-sm-9 col-xs-12">
+                                        <%=data.user.User_full%>
+                                    </div>
+                                </div>
+    
+                                <div class="form-group">
+                                    <label class="col-md-2 col-sm-3 col-xs-12 control-label">Address</label>
+                                    <div class="col-md-10 col-sm-9 col-xs-12">
+                                        <%=data.user.User_address%>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 col-sm-3 col-xs-12 control-label">Gender</label>
+                                    <div class="col-md-10 col-sm-9 col-xs-12">
+                                        <%=data.user.User_gender%>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <fieldset class="fieldset">
+                                <div class="form-group">
+                                    <label class="col-md-2  col-sm-3 col-xs-12 control-label">Date</label>
+                                    <div class="col-md-10 col-sm-9 col-xs-12">
+                                        <%=data.user.User_birth%>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2  col-sm-3 col-xs-12 control-label">Date</label>
+                                    <div class="col-md-10 col-sm-9 col-xs-12">
+                                        <%=data.user.User_mail%>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2  col-sm-3 col-xs-12 control-label">Phone</label>
+                                    <div class="col-md-10 col-sm-9 col-xs-12">
+                                        <%=data.user.User_phone%>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <!-- <fieldset class="fieldset">
+                                <h3 class="fieldset-title">Information Of Account</h3>
+                                <table border="1px solid red">
                                     <tr>
                                         <th>
                                             <div class="form-group avatar">
@@ -23,53 +78,54 @@
                                             </div>
                                         </th>
                                         <th>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-md-2 col-sm-3 col-xs-12 control-label">Role</label>
-                                            <div class="col-md-10 col-sm-9 col-xs-12">
-                                                <%=data.userRole.roleName%> </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-md-2 col-sm-3 col-xs-12 control-label">Full Name</label>
-                                            <div class="col-md-10 col-sm-9 col-xs-12">
-                                                <%=data.user.User_full%> </div>
-                                        </div>
-        
-                                        <div class="form-group">
-                                            <label class="col-md-2 col-sm-3 col-xs-12 control-label">Address</label>
-                                            <div class="col-md-10 col-sm-9 col-xs-12">
-                                                <%=data.user.User_address%>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-md-2 col-sm-3 col-xs-12 control-label">Gender</label>
-                                            <div class="col-md-10 col-sm-9 col-xs-12">
-                                                <%=data.user.User_gender%>
-                                            </div>
-                                        </div>
-                                    </fieldset>
-                                    <fieldset class="fieldset">
-                                        <div class="form-group">
-                                            <label class="col-md-2  col-sm-3 col-xs-12 control-label">Date</label>
-                                            <div class="col-md-10 col-sm-9 col-xs-12">
-                                                <%=data.user.User_birth%>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-md-2 col-sm-3 col-xs-12 control-label">Email</label>
-                                            <div class="col-md-10 col-sm-9 col-xs-12">
-                                                <%=data.user.User_mail%> </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-md-2  col-sm-3 col-xs-12 control-label">Phone</label>
-                                            <div class="col-md-10 col-sm-9 col-xs-12">
-                                                <%=data.user.User_phone%>
-                                            </div>
-                                        </div>
+                                            <fieldset class="fieldset">
+                                                <div class="form-group">
+                                                    <label class="col-md-4 col-sm-3 col-xs-12 control-label">Role: </label>
+                                                    <div class="col-md-12 col-sm-9 col-xs-12">
+                                                        <%=data.userRole.roleName%> </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-md-4 col-sm-3 col-xs-12 control-label">Full Name:</label>
+                                                    <div class="col-md-12 col-sm-9 col-xs-12">
+                                                        <%=data.user.User_full%> </div>
+                                                </div>
+                
+                                                <div class="form-group">
+                                                    <label class="col-md-4 col-sm-3 col-xs-12 control-label">Address:</label>
+                                                    <div class="col-md-12 col-sm-9 col-xs-12">
+                                                        <%=data.user.User_address%>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-md-4 col-sm-3 col-xs-12 control-label">Gender:</label>
+                                                    <div class="col-md-12 col-sm-9 col-xs-12">
+                                                        <%=data.user.User_gender%>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                            <fieldset class="fieldset">
+                                                <div class="form-group">
+                                                    <label class="col-md-4  col-sm-3 col-xs-12 control-label">Date:</label>
+                                                    <div class="col-md-12 col-sm-9 col-xs-12">
+                                                        <%=data.user.User_birth%>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-md-4 col-sm-3 col-xs-12 control-label">Email:</label>
+                                                    <div class="col-md-12 col-sm-9 col-xs-12">
+                                                        <%=data.user.User_mail%> </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-md-4  col-sm-3 col-xs-12 control-label">Phone:</label>
+                                                    <div class="col-md-12 col-sm-9 col-xs-12">
+                                                        <%=data.user.User_phone%>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
                                         </th>
                                     </tr>
                                 </table>
-                            </fieldset>
+                            </fieldset> -->
                             <hr>
                             <div class="form-group">
                                 <div class="col-md-10 col-sm-9 col-xs-12 col-md-push-2 col-sm-push-3 col-xs-push-0">
