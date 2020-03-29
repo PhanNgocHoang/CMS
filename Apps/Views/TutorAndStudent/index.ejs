@@ -12,33 +12,16 @@
                                 <br>
                                 <h3 class="fieldset-title">Your Information</h3>
                                 <br> <br>
-                                <%for(x in locals.user){%>
-                                    <img <%if(locals.user[x].User_avatar == ''){%>src="static/Admin/image/user2-160x160.jpg"
-                                    <%} else{%>src="/static/Admin/image/<%=locals.user[x].User_avatar%>" <%}%>  class="img" alt="User Image" style="with">
-                                    <div class="form-group">
-                                    <label class="col-md-2 col-sm-3 col-xs-12 control-label">Your Full Name:</label>
-                                    <div class="col-md-10 col-sm-9 col-xs-12" style="margin-top: 7px;">
-                                        <%=locals.user[x].User_full%>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-md-2 col-sm-3 col-xs-12 control-label">Your ID:</label>
-                                    <div class="col-md-10 col-sm-9 col-xs-12" style="margin-top: 7px;">
-                                        <%=locals.user[x].User_ID%>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-md-2 col-sm-3 col-xs-12 control-label">Your Email:</label>
-                                    <div class="col-md-10 col-sm-9 col-xs-12" style="margin-top: 7px;">
-                                        <%=locals.user[x].User_mail%>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-md-10 col-sm-9 col-xs-12" style="margin-top: 7px;">
-                                        <a href="/user/profile">Detail</a>
-                                    </div>
-                                </div>
-                                <%}%>
+                                    <%for(x in locals.user){%>
+                                        <div class="card" style="background-color:#9494b8">
+                                            <img
+                                            <%if(locals.user[x].User_avatar == ''){%>src="https://bootdey.com/img/Content/avatar/avatar1.png"
+                                            <%}else{%>src="/static/Admin/image/<%=locals.user[x].User_avatar%>" <%}%> alt="" style="width:70%">
+                                        <h2><%=locals.user[x].User_full%></h2>
+                                        <p class="title">ID: <%=locals.user[x].User_ID%></p>
+                                        <p class="font"><%=locals.user[x].User_mail%></p>
+                                        </div>
+                                    <%}%>
                             </fieldset>
                             <br>
                             <div class="clearfix"></div>
@@ -93,11 +76,6 @@
                         </div>
                         <div class="clearfix"></div>
                         <hr>
-                        <div class="form-group">
-                            <div class="col-md-10 col-sm-9 col-xs-12 col-md-push-2 col-sm-push-3 col-xs-push-0">
-                                <a class="btn btn-secondary" href="#" style="margin-left: 180px;">Cancel</a>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </section>

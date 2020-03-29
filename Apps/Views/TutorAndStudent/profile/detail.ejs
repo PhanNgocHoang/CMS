@@ -7,55 +7,35 @@
             <section class="module">
                 <div class="module-inner">
                     <div class="content-panel">
-                        <form class="form-horizontal" style="font-size:15px;" method="POST">
                             <fieldset class="fieldset">
                                 <br>
                                 <h3 class="fieldset-title">Your Profile</h3>
                                 <br> <br>
                                 <%for(x in locals.user){%>
-                                <div class="form-group">
-                                    <label class="col-md-2 col-sm-3 col-xs-12 control-label">Your Full Name:</label>
-                                    <div class="col-md-10 col-sm-9 col-xs-12" style="margin-top: 7px;">
-                                        <%=locals.user[x].User_full%></div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="col-md-2 col-sm-3 col-xs-12 control-label">Your ID:</label>
-                                    <div class="col-md-10 col-sm-9 col-xs-12" style="margin-top: 7px;"> <%=locals.user[x].User_ID%></div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="col-md-2 col-sm-3 col-xs-12 control-label">Your Email:</label>
-                                    <div class="col-md-10 col-sm-9 col-xs-12" style="margin-top: 7px;"> <%=locals.user[x].User_mail%></div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="col-md-2 col-sm-3 col-xs-12 control-label">Your Birth</label>
-                                    <div class="col-md-10 col-sm-9 col-xs-12" style="margin-top: 7px;"> <%=locals.user[x].User_birth%></div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="col-md-2 col-sm-3 col-xs-12 control-label">Your Address</label>
-                                    <div class="col-md-10 col-sm-9 col-xs-12" style="margin-top: 7px;"><%=locals.user[x].User_address%></div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="col-md-2 col-sm-3 col-xs-12 control-label">Your Gender</label>
-                                    <div class="col-md-10 col-sm-9 col-xs-12" style="margin-top: 7px;"> <%=locals.user[x].User_gender%></div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-md-2 col-sm-3 col-xs-12 control-label">Your phone</label>
-                                    <div class="col-md-10 col-sm-9 col-xs-12" style="margin-top: 7px;"> <%=locals.user[x].User_phone%></div>
-                                </div>
+                                    <div class="card">
+                                        <img class=""
+                                        <%if(locals.user[x].User_avatar == ''){%>src="https://bootdey.com/img/Content/avatar/avatar1.png"
+                                        <%}else{%>src="/static/Admin/image/<%=locals.user[x].User_avatar%>" <%}%> alt="" style="width:50%">
+                                    <h2><%=locals.user[x].User_full%></h2>
+                                    <%if(locals.role){%>
+                                    <p class="title"><%=locals.role%></p>
+                                    <%}%>
+                                    <p class="title">ID: <%=locals.user[x].User_ID%></p>
+                                    <p class="title">Email <%=locals.user[x].User_mail%></p>
+                                    <p class="font">Day Of Birth: <%=locals.user[x].User_birth%></p>
+                                    <p class="font">Address: <%=locals.user[x].User_address%></p>
+                                    <p class="font">Gender: <%=locals.user[x].User_gender%></p>
+                                    <p class="font">Phone Number: <%=locals.user[x].User_phone%></p>
+                                    </div>
                                 <%}%>
                             </fieldset>
                             <hr>
                             <div class="form-group">
                                 <div class="col-md-10 col-sm-9 col-xs-12 col-md-push-2 col-sm-push-3 col-xs-push-0">
-                                    <a class="btn btn-secondary" href="/user">Cancel</a>
+                                    <button class="btn btn-secondary"><a href="/user">Back</a></button>
                                 </div>
                             </div>
-                        </form>
+
                     </div>
                 </div>
             </section>

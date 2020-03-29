@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>University of Greenwich Viet Nam</title>
+    <link href="/static/User/css/slider.css" rel="stylesheet">
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.7 -->
@@ -20,41 +21,13 @@
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/2.4.12/js"></script>
-    <style>
-        #dropd {
-            width: 100%;
-            padding: 5px;
-            height: 80px;
-            display: inline-block;
-        }
-
-        #dropd li {
-            padding-left: 30px;
-        }
-
-        #dropd li:hover {
-            background-color: #1c1c1c;
-        }
-
-        .img {
-            display: block;
-            max-width: 100%;
-            max-height: 100%;
-            width: auto;
-            height: auto;
-        }
-
-        ul {
-            list-style-type: none;
-        }
-    </style>
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper" id="main">
         <header class="main-header">
             <!-- Logo -->
-            <a href="/staff" class="logo">
+            <a href="/staff">
                 <span class="logo-mini"><b></b></span>
                 <!-- logo for regular state and mobile devices -->
                 <span class="logo-lg"><b>STAFF</b></span>
@@ -79,9 +52,12 @@
                             <ul class="dropdown-menu">
                                 <!-- User avatar -->
                                 <li class="user-header">
-                                    <p style="font-size: 200%;">
-                                        <big>ROLE</big><br>
-                                        STAFF
+                                    <img <%if(locals.user[x].User_avatar == ''){%>src="/static/images/user2-160x160.jpg"
+                                    <%} else{%>src="/static/images/<%=locals.user[x].User_avatar%>" <%}%>  class="user-image" alt="User Image">
+                                    <span class="hidden-xs"><%=locals.user[x].User_full%></span>
+                                    <p>
+                                       <small>Role</small>
+                                        Staff
                                     </p>
                                 </li>
                                 <!-- Menu Footer-->

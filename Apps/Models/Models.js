@@ -17,8 +17,9 @@ const UserSchema = new Schema({
     User_phone: String,
     User_avatar: String,
     User_birth: String,
+    Faculty_id:[{type: Schema.Types.ObjectId, ref: 'Faculty'}],
     Create_at: Date,
-    Update_at: Date
+    Update_at: Date,
 })
 const FacultySchema = new Schema({
     _id: {type: mongoose.Schema.ObjectId, auto: true},

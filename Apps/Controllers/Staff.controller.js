@@ -3,6 +3,7 @@ const mongoose = require("../../common/database")();
 const path = require("path");
 const formidable = require("formidable");
 const mv = require("mv");
+const ObjectId = require('mongoose').Types.ObjectId
 async function Page_Index(req, res) {
   return res.render("StaffPage/index");
 }
@@ -266,15 +267,19 @@ async function Post_Create_Class(req, res) {
 }
 async function Get_Update_Class(req, res) {
   let class_id = req.params.class_id;
+  let faculty = req.params.faculty_id
   let Class = await Models.ClassModel.findById({ _id: class_id });
+  let role = await Models.RoleModel.findOne({roleName: "Tutor"})
+  let tutor = await Models.UserModel.find({User_role: role._id})
   return res.render("StaffPage/class/edit", {
-    data: { class: Class, subject: req.params.subject_id }
+    data: { class: Class, subject: req.params.subject_id, tutor: tutor, faculty:faculty }
   });
 }
 function Post_Update_Class(req, res) {
   let classId = req.params.class_id;
   let class_id = req.body.class_id;
   let class_name = req.body.class_name;
+  let Tutor_id = req.body.tutor_id
   let DateTime = new Date();
   let date =
     DateTime.getFullYear() +
@@ -290,7 +295,7 @@ function Post_Update_Class(req, res) {
     DateTime.getSeconds();
   Models.ClassModel.findByIdAndUpdate(
     { _id: classId },
-    { Update_at: date, Class_ID: class_id, Class_name: class_name }
+    { Update_at: date, Class_ID: class_id, Class_name: class_name, Tutor_id: Tutor_id}
   ).exec(err => {
     if (err) console.log(err);
     return res.redirect(
@@ -311,23 +316,16 @@ function Get_Delete_Class(req, res) {
 async function Get_Class_Detail(req, res) {
   let class_id = req.params.class_id;
   let subject_id = req.params.subject_id;
+  let faculty = req.params.faculty_id
   let Class = await Models.ClassModel.findById({ _id: class_id });
   let Subject = await Models.SubjectModel.findById({ _id: subject_id });
   let tutor = await Models.UserModel.find({_id: Class.Tutor_id})
   // let Class_Detail = await Models.ClassDetailModel.findOne({Class_id:class_id})
   // let MemberOfClass = await Models.UserModel.findById({_id: Class_Detail.User_id})
-  // let Role = await Models.RoleModel.findById({_id : MemberOfClass.User_role})
+  let student = await Models.RoleModel.find({roleName: "Student"})
   return res.render("StaffPage/class/detail", {
-    data: { Class: Class, Subject: Subject, tutor: tutor}
+    data: { Class: Class, Subject: Subject, tutor: tutor, student:student, faculty:faculty, class:class_id}
   });
-}
-function Get_Add_Tutor(req, res)
-{
-  let role_id = req.params.id
-  Models.UserModel.findById({User_role: role_id}).exec((err, user)=>{
-    if(err) throw err
-    return res.render('StaffPage/class/add-tutor', {data: {tutor:user}})
-  })
 }
 function Get_Exercise(req, res) {
   let class_id = req.params.class_id;
@@ -378,9 +376,10 @@ async function List_Account(req, res) {
     let User = await Models.UserModel.find({User_role: role_id}).sort({_id: -1}).skip(perRow).limit(rowsPerPage)
     return res.render('StaffPage/account/listAccount', {data:{account:User, totalPage:totalPage, pagePrev:pagePrev, pageNext:pageNext, role: role_id}})
 }
-function Get_Create_Account(req, res) {
-  let role = req.params.role_id;
-  return res.render("StaffPage/account/create", { data: { role: role } });
+async function Get_Create_Account(req, res) {
+  let role_id = req.params.role_id;
+  let faculty = await Models.FacultyModel.find()
+  return res.render("StaffPage/account/create", { data: { role_id: role_id,faculty:faculty} });
 }
 function Post_Create_Account(req, res) {
   let DateTime = new Date();
@@ -431,12 +430,13 @@ async function Detail_Account(req, res) {
     data: { user: User, role: role, userRole: user_role }
   });
 }
-function Get_Update_Account(req, res)
+async function Get_Update_Account(req, res)
 {
   let user_id = req.params.user_id
   let role = req.params.role_id
+  let faculty = await Models.FacultyModel.find()
   Models.UserModel.findById({_id:user_id}).exec((err, user)=>{
-    return res.render('StaffPage/account/edit', {data:{user: user, role:role}})
+    return res.render('StaffPage/account/edit', {data:{user: user, role:role, faculty:faculty}})
   })
 }
 function Post_Update_Account(req, res)
@@ -483,9 +483,12 @@ function Get_Delete_Account(req, res)
     return res.redirect('/staff/Account/'+ role)
   })
 }
-async function Get_Add_Tutor(req, res)
+async function Get_Add_Student(req, res)
 {
-
+  let role = req.params.id
+  let faculty_id = req.params.faculty_id
+  let ListStudent = await Models.UserModel.find({User_role: role, Faculty_id: faculty_id})
+  return res.render('StaffPage/class/add-student', {data:{ListStudent:ListStudent}})
 }
 module.exports = {
   Page_Index: Page_Index,
@@ -517,5 +520,5 @@ module.exports = {
   Get_Update_Account: Get_Update_Account,
   Post_Update_Account: Post_Update_Account,
   Get_Delete_Account: Get_Delete_Account,
-  Get_Add_Tutor: Get_Add_Tutor
+  Get_Add_Student: Get_Add_Student
 };
