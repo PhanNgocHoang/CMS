@@ -66,7 +66,7 @@
                                         <tr>
                                             <th>Student ID</th>
                                             <th>Student Name</th>
-                                            <th></th>
+                                            <th>Action</th>
                                         </tr>
                                         <tr>
                                             <%for(x in data.StudentOfClass){%>
@@ -80,6 +80,9 @@
                                                 <a href="#" title="Delete"
                                                     onclick="return confirm('Are you sure delete?')">
                                                     <i class="fa fa-trash"></i>
+                                                </a>
+                                                <a href="#" title="Email" style="margin-left: 10px;">
+                                                    <i class="glyphicon glyphicon-envelope"></i>
                                                 </a>
                                             </td>
                                         </tr>
