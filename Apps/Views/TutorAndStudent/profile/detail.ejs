@@ -17,9 +17,7 @@
                                         <%if(locals.user[x].User_avatar == ''){%>src="https://bootdey.com/img/Content/avatar/avatar1.png"
                                         <%}else{%>src="/static/Admin/image/<%=locals.user[x].User_avatar%>" <%}%> alt="" style="width:50%">
                                     <h2><%=locals.user[x].User_full%></h2>
-                                    <%if(locals.role){%>
-                                    <p class="title"><%=locals.role%></p>
-                                    <%}%>
+                                    <p class="title">Role: <%=locals.role%></p>
                                     <p class="title">ID: <%=locals.user[x].User_ID%></p>
                                     <p class="title">Email <%=locals.user[x].User_mail%></p>
                                     <p class="font">Day Of Birth: <%=locals.user[x].User_birth%></p>

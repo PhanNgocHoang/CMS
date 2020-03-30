@@ -26,9 +26,14 @@ function CheckStaff(req, res, next) {
     return res.redirect("/login");
   });
 }
-function CheckTutor(req, res, next) {
-  Model.RoleModels.findById({ _id: user_ifo.user_role }).exec((err, role) => {
+function CheckTutorAndStudent(req, res, next) {
+  Models.RoleModel.findById({ _id: user_ifo.user_role }).exec((err, role) => {
     if (role.roleName === "Tutor") {
+      res.locals.role = role.roleName;
+      return next();
+    }
+    if(role.role.roleName === "Student")
+    {
       res.locals.role = role.roleName;
       return next();
     }
@@ -38,5 +43,5 @@ function CheckTutor(req, res, next) {
 module.exports = {
   reqAuth: checkAth,
   CheckStaff: CheckStaff,
-  CheckTutor: CheckTutor
+  CheckTutorAndStudent: CheckTutorAndStudent
 };

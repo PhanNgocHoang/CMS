@@ -15,6 +15,6 @@ require('./Apps/kernal')(app, express, Body_parser, session)
 app.use(cookieParser('123@123@!T'))
 app.use('/', home)
 app.use('/staff',auth.reqAuth,auth.CheckStaff,staff)
-app.use('/user', auth.reqAuth, TutorAndStudent)
+app.use('/user', auth.reqAuth, auth.CheckTutorAndStudent, TutorAndStudent)
 
 module.exports = app
