@@ -32,7 +32,7 @@ function CheckTutorAndStudent(req, res, next) {
       res.locals.role = role.roleName;
       return next();
     }
-    if(role.role.roleName === "Student")
+    if(role.roleName === "Student")
     {
       res.locals.role = role.roleName;
       return next();
