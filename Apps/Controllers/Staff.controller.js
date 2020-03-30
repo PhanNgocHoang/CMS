@@ -339,19 +339,114 @@ async function Get_Class_Detail(req, res) {
   let faculty = req.params.faculty_id;
   let Class = await Models.ClassModel.findById({ _id: class_id });
   let Subject = await Models.SubjectModel.findById({ _id: subject_id });
-  let tutor = await Models.UserModel.find({ _id: Class.Tutor_id });
-  // let Class_Detail = await Models.ClassDetailModel.findOne({Class_id:class_id})
-  // let MemberOfClass = await Models.UserModel.findById({_id: Class_Detail.User_id})
+  let subjectId = Subject.Subject_ID;
+  let subjectName = Subject.Subject_name;
+  let tutor = await Models.UserModel.findById({ _id: Class.Tutor_id });
+  let tutorName = tutor.User_full;
+  let ClassID = Class.Class_ID;
+  let ClassName = Class.Class_name;
+  let Class_Detail = await Models.ClassDetailModel.findOne({Class_id:class_id})
+  let StudentOfClass = await Models.UserModel.find({_id: Class_Detail.User_id})
   let student = await Models.RoleModel.find({ roleName: "Student" });
   return res.render("StaffPage/class/detail", {
     data: {
-      Class: Class,
-      Subject: Subject,
-      tutor: tutor,
+      ClassID: ClassID,
+      ClassName: ClassName,
+      SubjectID: subjectId,
+      SubjectName: subjectName,
+      tutor: tutorName,
       student: student,
       faculty: faculty,
-      class: class_id
+      class: class_id,
+      subject: subject_id,
+      StudentOfClass: StudentOfClass
     }
+  });
+}
+async function Get_List_Student(req, res) {
+  let role = req.params.id;
+  let subject = req.params.subject_id;
+  let class_id = req.params.class_id;
+  let faculty_id = req.params.faculty_id;
+  let ListStudent = await Models.UserModel.find({
+    User_role: role,
+    Faculty_id: faculty_id
+  });
+  return res.render("StaffPage/class/add-student", {
+    data: {
+      ListStudent: ListStudent,
+      faculty: faculty_id,
+      class: class_id,
+      subject: subject,
+      role: role
+    }
+  });
+}
+function Add_To_ListStudent(req, res) {
+  let student_id = req.params.student_id;
+  let role = req.params.id;
+  let subject = req.params.subject_id;
+  let class_id = req.params.class_id;
+  let faculty_id = req.params.faculty_id;
+  if (!req.session.ListStudent) req.session.ListStudent = [];
+  req.session.ListStudent.push(student_id);
+  return res.redirect(
+    "/staff/Faculty/" +
+      faculty_id +
+      "/Subject/" +
+      subject +
+      "/Class/" +
+      class_id +
+      "/ListStudent/" +
+      role
+  );
+}
+async function Get_Add_Student(req, res) {
+  let list_student = req.session.ListStudent;
+  let role = req.params.id;
+  let subject = req.params.subject_id;
+  let class_id = req.params.class_id;
+  let faculty_id = req.params.faculty_id;
+  let List = await Models.UserModel.find({ _id: list_student });
+  return res.render("StaffPage/class/list-add-student", {
+    data: {
+      List: List,
+      faculty: faculty_id,
+      class: class_id,
+      subject: subject,
+      role: role
+    }
+  });
+}
+async function Post_Add_Student(req, res) {
+  let student_id = req.body._id;
+  let role = req.params.id;
+  let subject = req.params.subject_id;
+  let class_id = req.params.class_id;
+  let faculty_id = req.params.faculty_id;
+  let DateTime = new Date();
+  let date =
+    DateTime.getFullYear() +
+    "-" +
+    (DateTime.getMonth() + 1) +
+    "-" +
+    DateTime.getDate() +
+    "/" +
+    DateTime.getHours() +
+    ":" +
+    DateTime.getMinutes() +
+    ":" +
+    DateTime.getSeconds();
+  let List_Student = await new Models.ClassDetailModel({
+    User_id: student_id,
+    Class_id: class_id,
+    Create_at: date,
+    Update_at: ""
+  });
+  console.log(List_Student)
+  List_Student.save(err => {
+    if (err) console.log(err);
+    return res.send("Thanh Cong");
   });
 }
 function Get_Exercise(req, res) {
@@ -513,79 +608,6 @@ function Get_Delete_Account(req, res) {
     return res.redirect("/staff/Account/" + role);
   });
 }
-async function Get_Add_Student(req, res) {
-  let role = req.params.id;
-  let subject = req.params.subject_id;
-  let class_id = req.params.class_id;
-  let faculty_id = req.params.faculty_id;
-  let ListStudent = await Models.UserModel.find({
-    User_role: role,
-    Faculty_id: faculty_id
-  });
-  return res.render("StaffPage/class/add-student", {
-    data: {
-      ListStudent: ListStudent,
-      faculty: faculty_id,
-      class: class_id,
-      subject: subject,
-      role: role
-    }
-  });
-}
-function Add_To_ListStudent(req, res) {
-  let student_id = req.params.student_id;
-  let role = req.params.id;
-  let subject = req.params.subject_id;
-  let class_id = req.params.class_id;
-  let faculty_id = req.params.faculty_id;
-  if (!req.session.ListStudent) req.session.ListStudent = [];
-  req.session.ListStudent.push(student_id);
-  return res.redirect(
-    "/staff/Faculty/" +
-      faculty_id +
-      "/Subject/" +
-      subject +
-      "/Class/" +
-      class_id +
-      "/AddStudent/" +
-      role
-  );
-}
-async function List_Student_Add(req, res) {
-  let list_student = req.session.ListStudent;
-  let role = req.params.id;
-  let subject = req.params.subject_id;
-  let class_id = req.params.class_id;
-  let faculty_id = req.params.faculty_id;
-  console.log(list_student);
-  let List = await Models.UserModel.find({ _id: list_student });
-  return res.render("StaffPage/class/list-add-student", {
-    data: {
-      List: List,
-      faculty: faculty_id,
-      class: class_id,
-      subject: subject,
-      role: role
-    }
-  });
-}
-async function Post_Add_Student(req, res) {
-  let student_id = req.body._id;
-  let role = req.params.id;
-  let subject = req.params.subject_id;
-  let class_id = req.params.class_id;
-  let faculty_id = req.params.faculty_id;
-  let List_Student = await new Models.ClassDetailModel({
-    User_id: student_id,
-    Class_id: class_id,
-    Create_at: "",
-    Update_at: ""
-  });
-  List_Student.save(err => {
-    if (err) console.log(err);
-    return res.send("Thanh Cong");
-  });
-}
 module.exports = {
   Page_Index: Page_Index,
   Staff_Profile: Staff_Profile,
@@ -616,8 +638,8 @@ module.exports = {
   Get_Update_Account: Get_Update_Account,
   Post_Update_Account: Post_Update_Account,
   Get_Delete_Account: Get_Delete_Account,
-  Get_Add_Student: Get_Add_Student,
+  Get_List_Student: Get_List_Student,
   Add_To_ListStudent: Add_To_ListStudent,
-  List_Student_Add: List_Student_Add,
+  Get_Add_Student: Get_Add_Student,
   Post_Add_Student: Post_Add_Student
 };
