@@ -16,7 +16,7 @@
         <section class="module">
             <div class="module-inner">
                 <div class="content-panel">
-                    <form class="form-horizontal">
+                    <form class="form-horizontal" method="GET">
                         <fieldset class="fieldset">
                             <h3 class="fieldset-title">Add Student</h3>
 
@@ -40,7 +40,7 @@
                                             <%=data.ListStudent[x].User_mail%>
                                         </td>
                                         <td>
-                                            <a href="/staff/Faculty/<%=data.faculty%>/Subject/<%=data.subject%>/Class/<%=data.class%>/AddStudent/<%=data.role%>/<%=data.ListStudent[x]._id%>" title="Add">
+                                            <a href="/staff/Faculty/<%=data.faculty%>/Subject/<%=data.subject%>/Class/<%=data.class%>/AddStudent/<%=data.role%>/<%=data.ListStudent[x]._id%>" title="Add" onclick="alert('<%=data.ListStudent[x].User_full%>have been added to the list of class students')">
                                                 <i class="fa fa-eye">Add</i>
                                             </a> &nbsp;
                                         </td>
@@ -51,7 +51,7 @@
                         <hr>
                         <div class="form-group">
                             <div class="col-md-10 col-sm-9 col-xs-12 col-md-push-2 col-sm-push-3 col-xs-push-0">
-                                <a href="/staff/Faculty/<%=data.faculty%>/Subject/Class/AddStudent/List" class="btn btn-primary">List Student Add</a>
+                                <a href="/staff/Faculty/Subject/<%=data.subject%>/Class/<%=data.class%>/AddStudent/<%=data.role%>" class="btn btn-primary">List Student Add</a>
                                 <a class="btn btn-secondary" href="#">Cancel</a>
                             </div>
                         </div>

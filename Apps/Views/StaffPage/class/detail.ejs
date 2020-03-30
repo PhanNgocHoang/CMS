@@ -24,41 +24,39 @@
                                     <div class="form-group">
                                         <label class="col-md-2 col-sm-3 col-xs-12 control-label">Class ID:</label>
                                         <div class="col-md-10 col-sm-9 col-xs-12" style="margin-top: 7px;">
-                                            <%=data.Class.Class_ID%>
+                                            <%=data.ClassID%>
                                         </div>
                                     </div>
 
                                     <div class="form-group">
                                         <label class="col-md-2 col-sm-3 col-xs-12 control-label">Class Name:</label>
                                         <div class="col-md-10 col-sm-9 col-xs-12" style="margin-top: 7px;">
-                                            <%=data.Class.Class_name%>
+                                            <%=data.ClassName%>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-2 col-sm-3 col-xs-12 control-label">Subject ID:</label>
                                         <div class="col-md-10 col-sm-9 col-xs-12" style="margin-top: 7px;">
-                                            <%=data.Subject.Subject_ID%>
+                                            <%=data.SubjectID%>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-2 col-sm-3 col-xs-12 control-label">Subject Name:</label>
                                         <div class="col-md-10 col-sm-9 col-xs-12" style="margin-top: 7px;">
-                                            <%=data.Subject.Subject_name%>
+                                            <%=data.SubjectName%>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-2 col-sm-3 col-xs-12 control-label">Tutor:</label>
-                                        <%for(x in data.tutor){%>
                                         <div class="col-md-10 col-sm-9 col-xs-12" style="margin-top: 7px;">
-                                            <%=data.tutor[x].User_full%>
+                                            <%=data.tutor%>
                                         </div>
-                                        <%}%>
                                     </div>
                                 </fieldset>
                                 <div class="clearfix"></div>
                                 <h3>List of Student in Class</h3>
                                 <%for(x in data.student){%>
-                                <a href="/staff/Faculty/<%=data.faculty%>/Subject/<%=data.Subject%>/Class/<%=data.class%>/AddStudent/<%=data.student[x]._id%>" class="btn btn-primary">
+                                <a href="/staff/Faculty/<%=data.faculty%>/Subject/<%=data.subject%>/Class/<%=data.class%>/ListStudent/<%=data.student[x]._id%>" class="btn btn-primary">
                                     <i class="fa fa-plus"></i> Add Student
                                 </a>
                                 <%}%>
@@ -66,24 +64,17 @@
                                 <div class="table-responsive">
                                     <table class="table table-striped table-hover">
                                         <tr>
-                                            <th>Student ID (User ID)</th>
+                                            <th>Student ID</th>
                                             <th>Student Name</th>
-                                            <th>Created_at</th>
-                                            <th>Updated at</th>
-                                            <th>Action</th>
+                                            <th></th>
                                         </tr>
                                         <tr>
+                                            <%for(x in data.StudentOfClass){%>
                                             <td>
-                                                GCH175251
+                                                <%=data.StudentOfClass[x].User_ID%>
                                             </td>
                                             <td>
-                                                Ngo Quang Huy
-                                            </td>
-                                            <td>
-                                                03:02:52
-                                            </td>
-                                            <td>
-                                                00:00:00
+                                                <%=data.StudentOfClass[x].User_full%>
                                             </td>
                                             <td>
                                                 <a href="#" title="Delete"
@@ -92,6 +83,7 @@
                                                 </a>
                                             </td>
                                         </tr>
+                                        <%}%>
                                     </table>
                                 </div>
 
