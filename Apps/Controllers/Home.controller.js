@@ -85,11 +85,16 @@ function Post_Forgot_Password(req, res)
     }
   })
 }
+function sendMail(req, res)
+{
+  res.render('StaffPage/class/email')
+}
 module.exports = {
   Home_Page: Home_Page,
   GetLogin: GetLogin,
   PostLogin: PostLogin,
   LogOut: LogOut,
   Get_Forgot_Password: Get_Forgot_Password,
-  Post_Forgot_Password: Post_Forgot_Password
+  Post_Forgot_Password: Post_Forgot_Password,
+  sendMail: sendMail
 };

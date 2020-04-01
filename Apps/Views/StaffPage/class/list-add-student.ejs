@@ -40,6 +40,12 @@
                                         <td>
                                             <%=data.List[x].User_mail%>
                                         </td>
+                                        <td>
+                                            <a href="/staff/Faculty/<%=data.faculty%>/Subject/<%=data.subject%>/Class/<%=data.class%>/delete/<%=data.role%>/<%=data.List[x]._id%>" title="Delete"
+                                                onclick="return confirm('Are you sure delete?')">
+                                                <i class="fa fa-trash"></i>
+                                            </a>
+                                        </td>
                                     </tr>
                                     <%}%>
                                 </table>

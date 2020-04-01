@@ -13,4 +13,6 @@ router.route('/ForgotPassword')
     .post(HomeController.Post_Forgot_Password)
 router.route('/logout', auth.reqAuth)
     .get(HomeController.LogOut)
+router.route('/SendMail')
+    .get(HomeController.sendMail)
 module.exports = router

@@ -404,12 +404,33 @@ function Add_To_ListStudent(req, res) {
       role
   );
 }
+function arrayRemove(arr, value) {
+  return arr.filter(function(ele){
+      return ele != value;
+  });
+}
+function Delete_StudentInListAdd(req, res)
+{
+  let role = req.params.role_id;
+  let subject = req.params.subject_id;
+  let class_id = req.params.class_id;
+  let faculty_id = req.params.faculty_id;
+  let student_id = req.params.student_id
+  let arr = new Array(req.session.ListStudent)
+  let result = arrayRemove(arr[0], student_id)
+  req.session.ListStudent = result
+  return res.redirect('/staff/Faculty/'+faculty_id+'/Subject/'+subject+'/Class/'+class_id+'/AddStudent/'+ role)
+}
 async function Get_Add_Student(req, res) {
   let list_student = req.session.ListStudent;
   let role = req.params.id;
   let subject = req.params.subject_id;
   let class_id = req.params.class_id;
   let faculty_id = req.params.faculty_id;
+  if(list_student === undefined)
+  {
+    return res.redirect('/staff/Faculty/'+faculty_id+'/Subject/'+subject+'/Class/'+class_id+'/ListStudent/'+ role)
+  }
   let List = await Models.UserModel.find({ _id: list_student });
   return res.render("StaffPage/class/list-add-student", {
     data: {
@@ -657,4 +678,5 @@ module.exports = {
   Get_Add_Student: Get_Add_Student,
   Post_Add_Student: Post_Add_Student,
   Delete_Student_Of_Class: Delete_Student_Of_Class,
+  Delete_StudentInListAdd: Delete_StudentInListAdd
 };
