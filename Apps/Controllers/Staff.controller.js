@@ -3,6 +3,7 @@ const mongoose = require("../../common/database")();
 const path = require("path");
 const formidable = require("formidable");
 const mv = require("mv");
+const ObjectId = require('mongoose').Types.ObjectId
 async function Page_Index(req, res) {
   return res.render("StaffPage/index");
 }
@@ -97,7 +98,7 @@ async function Subject_Page(req, res) {
     var page = 1;
   }
 
-  let rowsPerPage = 2;
+  let rowsPerPage = 5;
   let perRow = page * rowsPerPage - rowsPerPage;
   let SubjectAll = await Models.SubjectModel.find({ Faculty_id: facultyId });
   var totalRow = SubjectAll.length;
@@ -170,10 +171,11 @@ async function Post_Create_Subject(req, res) {
 }
 function Get_Update_Subject(req, res) {
   let subject_id = req.params.subject_id;
+  let faculty = req.params.faculty_id
   Models.SubjectModel.findById({ _id: subject_id }).exec((err, subject) => {
     if (err) console.log(err);
     return res.render("StaffPage/Subject/updateSubject", {
-      data: { subject: subject }
+      data: { subject: subject , faculty:faculty}
     });
   });
 }
@@ -188,13 +190,14 @@ function Get_Delete_Subject(req, res) {
 async function Class_Page(req, res) {
   let Subject_id = req.params.subject_id;
   let faculty = req.params.faculty_id;
+  let student = await Models.RoleModel.findOne({ roleName: "Student" });
   if (req.query.page) {
     var page = parseInt(req.query.page);
   } else {
     var page = 1;
   }
 
-  let rowsPerPage = 2;
+  let rowsPerPage = 5;
   let perRow = page * rowsPerPage - rowsPerPage;
   let ClassAll = await Models.ClassModel.find({ Subject_id: Subject_id });
   var totalRow = ClassAll.length;
@@ -221,7 +224,8 @@ async function Class_Page(req, res) {
       pagePrev: pagePrev,
       pageNext: pageNext,
       subject: Subject_id,
-      faculty: faculty
+      faculty: faculty,
+      student: student._id
     }
   });
 }
@@ -328,7 +332,7 @@ function Get_Delete_Class(req, res) {
   Models.ClassModel.findOneAndDelete({ _id: class_id }).exec(err => {
     if (err) console.log(err);
     return res.redirect(
-      "/staff/Faculty" + faulty + "/Subject/" + req.params.subject_id + "/Class"
+      "/staff/Faculty/" + faulty + "/Subject/" + req.params.subject_id + "/Class"
     );
   });
 }
@@ -344,26 +348,26 @@ async function Get_Class_Detail(req, res) {
   let tutorName = tutor.User_full;
   let ClassID = Class.Class_ID;
   let ClassName = Class.Class_name;
-  let Class_Detail = await Models.ClassDetailModel.findOne({Class_id:class_id})
-  let StudentOfClass = await Models.UserModel.find({_id: Class_Detail.User_id})
-  let student = await Models.RoleModel.find({ roleName: "Student" });
-  return res.render("StaffPage/class/detail", {
-    data: {
-      ClassID: ClassID,
-      ClassName: ClassName,
-      SubjectID: subjectId,
-      SubjectName: subjectName,
-      tutor: tutorName,
-      student: student,
-      faculty: faculty,
-      class: class_id,
-      subject: subject_id,
-      StudentOfClass: StudentOfClass
-    }
-  });
+  let StudentOfClass = await Models.UserModel.find({_id: Class.Student_id})
+  let Student = await Models.RoleModel.findOne({ roleName: "Student" });
+  let student_id = Student._id
+    return res.render("StaffPage/class/detail", {
+      data: {
+        ClassID: ClassID,
+        ClassName: ClassName,
+        SubjectID: subjectId,
+        SubjectName: subjectName,
+        tutor: tutorName,
+        StudentOfClass: StudentOfClass,
+        faculty: faculty,
+        class: class_id,
+        subject: subject_id,
+        student: student_id
+      }
+    });
 }
 async function Get_List_Student(req, res) {
-  let role = req.params.id;
+  let role = req.params.role_id;
   let subject = req.params.subject_id;
   let class_id = req.params.class_id;
   let faculty_id = req.params.faculty_id;
@@ -387,7 +391,7 @@ function Add_To_ListStudent(req, res) {
   let subject = req.params.subject_id;
   let class_id = req.params.class_id;
   let faculty_id = req.params.faculty_id;
-  if (!req.session.ListStudent) req.session.ListStudent = [];
+  if (!req.session.ListStudent) req.session.ListStudent = new Array();
   req.session.ListStudent.push(student_id);
   return res.redirect(
     "/staff/Faculty/" +
@@ -417,15 +421,11 @@ async function Get_Add_Student(req, res) {
     }
   });
 }
-function Delete_StudentInList(req, res)
-{
-  
-}
 async function Post_Add_Student(req, res) {
-  let student_id = req.body._id;
+  let student_id = req.session.ListStudent;;
   let role = req.params.id;
   let subject = req.params.subject_id;
-  let class_id = req.params.class_id;
+  let classId = req.params.class_id;
   let faculty_id = req.params.faculty_id;
   let DateTime = new Date();
   let date =
@@ -440,17 +440,29 @@ async function Post_Add_Student(req, res) {
     DateTime.getMinutes() +
     ":" +
     DateTime.getSeconds();
-  let List_Student = await new Models.ClassDetailModel({
-    User_id: student_id,
-    Class_id: class_id,
-    Create_at: date,
-    Update_at: ""
-  });
-  console.log(List_Student)
-  List_Student.save(err => {
-    if (err) console.log(err);
-    return res.send("Thanh Cong");
-  });
+    let Class = await Models.ClassModel.findById({_id: classId})
+    let list = new Array()
+    if(Class.Student_id == list)
+    {
+      let List_Student = await Models.ClassModel.findByIdAndUpdate({_id:classId},{
+        Student_id: student_id,
+        Update_at: date
+      });
+      return res.redirect('/staff/Faculty/'+faculty_id+'/Subject/'+subject+'/Class/'+classId+'/Detail')
+    }
+      let AddStudent = await Models.ClassModel.findByIdAndUpdate({_id: classId}, {$addToSet:{Student_id: student_id}})
+      req
+      return res.redirect('/staff/Faculty/'+faculty_id+'/Subject/'+subject+'/Class/'+classId+'/Detail')
+}
+async function Delete_Student_Of_Class(req, res)
+{
+  let subject = req.params.subject_id;
+  let faculty_id = req.params.faculty_id;
+  let student_id = req.params.student_of_id
+  let class_id = req.params.class_id
+  let Class = await Models.ClassModel.findByIdAndUpdate({_id: class_id}, {$pull:{Student_id:student_id}})
+  return res.redirect('/staff/Faculty/'+faculty_id+'/Subject/'+subject+'/Class/'+class_id+'/Detail')
+  
 }
 function Get_Exercise(req, res) {
   let class_id = req.params.class_id;
@@ -644,5 +656,6 @@ module.exports = {
   Get_List_Student: Get_List_Student,
   Add_To_ListStudent: Add_To_ListStudent,
   Get_Add_Student: Get_Add_Student,
-  Post_Add_Student: Post_Add_Student
+  Post_Add_Student: Post_Add_Student,
+  Delete_Student_Of_Class: Delete_Student_Of_Class,
 };

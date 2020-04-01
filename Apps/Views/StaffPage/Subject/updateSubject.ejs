@@ -35,29 +35,15 @@
                             <div class="form-group">
                                 <label class="col-md-2 col-sm-3 col-xs-12 control-label">Subject Description</label>
                                 <div class="col-md-10 col-sm-9 col-xs-12">
-                                    <input type="text" class="form-control" value="<%=data.subject.Subject_detail%>">
+                                    <textarea class="form-control" name="subject_des" placeholder="Subject Description"><%=data.subject.Subject_des%></textarea>
                                 </div>
                             </div>
-
-                            <div class="form-group">
-                                <label class="col-md-2 col-sm-3 col-xs-12 control-label">Create At</label>
-                                <div class="col-md-10 col-sm-9 col-xs-12">
-                                    <input type="text" class="form-control" value="<%=data.subject.Create_at%>">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-2 col-sm-3 col-xs-12 control-label">Update At</label>
-                                <div class="col-md-10 col-sm-9 col-xs-12">
-                                    <input type="text" class="form-control" value="<%=data.subject.Update_at%>">
-                                </div>
-                            </div>
-
-                        </fieldset>
+                         </fieldset>
                         <hr>
                         <div class="form-group">
                             <div class="col-md-10 col-sm-9 col-xs-12 col-md-push-2 col-sm-push-3 col-xs-push-0">
                                 <input class="btn btn-primary" type="submit" value="Update Information">
-                                <a class="btn btn-secondary" href="">Cancel</a>
+                                <a class="btn btn-danger" href="/staff/Faculty/<%=data.faculty%>/Subject" role="button">Cancel</a>
                             </div>
                         </div>
                     </form>

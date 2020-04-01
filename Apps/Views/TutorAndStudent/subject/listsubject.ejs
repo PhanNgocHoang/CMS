@@ -1,0 +1,39 @@
+<%-include ('../layouts/header.ejs');-%>
+
+<div class="col-md-10 col-sm-9 col-xs-12">
+    <!-- Main content -->
+    <main class="main-container container">
+        <div class="view-account">
+            <section class="module">
+                <div class="module-inner">
+                    <div class="content-panel">
+                        <div class="clearfix"></div>
+                        <div class="table-responsive">
+                            <div class=" col-md-9 col-sm-9 col-xs-12">
+                                <table class="table-class">
+                                    <tr>
+                                        <%for(x in data.subject){%>
+                                        <td>
+                                            <div class="card" style="width: 250px; height: 200px;">
+                                                <%for(u in locals.user){%>
+                                                <div class="card-body" style="display: inline-block;"><a href="/user/<%=data.faculty%>/Subject/<%=data.subject[x]._id%>/<%=locals.user[u]._id%>/Class"><img src="/static/User/images/class.jpg" alt="" height= 800px; width= 800px>
+                                                    <div class="card-footer"><a href=""><%=data.subject[x].Subject_ID%></div>
+                                                    <div class="card-footer"><a href=""><%=data.subject[x].Subject_name%></div>
+                                                </a></div>
+                                                <%}%>
+                                            </div>
+                                        </td>
+                                        <%}%>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+</div>
+
+<%-include ('../layouts/footer.ejs');-%>

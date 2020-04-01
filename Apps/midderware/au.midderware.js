@@ -14,6 +14,7 @@ async function checkAth(req, res, next) {
         return res.redirect("/login");
       }
       res.locals.user = docs;
+      global.User_id = docs._id
       return next();
     });
   });
