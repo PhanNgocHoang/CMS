@@ -462,7 +462,6 @@ async function Delete_Student_Of_Class(req, res)
   let class_id = req.params.class_id
   let Class = await Models.ClassModel.findByIdAndUpdate({_id: class_id}, {$pull:{Student_id:student_id}})
   return res.redirect('/staff/Faculty/'+faculty_id+'/Subject/'+subject+'/Class/'+class_id+'/Detail')
-  
 }
 function Get_Exercise(req, res) {
   let class_id = req.params.class_id;
