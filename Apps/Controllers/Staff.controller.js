@@ -366,7 +366,7 @@ async function Get_Class_Detail(req, res) {
       }
     });
 }
-async function Get_List_Student(req, res) {
+async function Get_List_Student(req, res) { //Get list student 
   let role = req.params.role_id;
   let subject = req.params.subject_id;
   let class_id = req.params.class_id;
@@ -385,7 +385,7 @@ async function Get_List_Student(req, res) {
     }
   });
 }
-function Add_To_ListStudent(req, res) {
+function Add_To_ListStudent(req, res) { //add student into list student(list student be save in session) before save
   let student_id = req.params.student_id;
   let role = req.params.id;
   let subject = req.params.subject_id;
@@ -409,7 +409,7 @@ function arrayRemove(arr, value) {
       return ele != value;
   });
 }
-function Delete_StudentInListAdd(req, res)
+function Delete_StudentInListAdd(req, res) //Delete student in list student add 
 {
   let role = req.params.role_id;
   let subject = req.params.subject_id;
