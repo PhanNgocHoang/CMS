@@ -417,6 +417,10 @@ async function Get_Add_Student(req, res) {
     }
   });
 }
+function Delete_StudentInList(req, res)
+{
+  
+}
 async function Post_Add_Student(req, res) {
   let student_id = req.body._id;
   let role = req.params.id;
