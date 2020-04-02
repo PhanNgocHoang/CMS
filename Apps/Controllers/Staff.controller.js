@@ -387,7 +387,7 @@ async function Get_List_Student(req, res) { //Get list student
 }
 function Add_To_ListStudent(req, res) { //add student into list student(list student be save in session) before save
   let student_id = req.params.student_id;
-  let role = req.params.id;
+  let role = req.params.role_id;
   let subject = req.params.subject_id;
   let class_id = req.params.class_id;
   let faculty_id = req.params.faculty_id;
@@ -423,7 +423,7 @@ function Delete_StudentInListAdd(req, res) //Delete student in list student add
 }
 async function Get_Add_Student(req, res) {
   let list_student = req.session.ListStudent;
-  let role = req.params.id;
+  let role = req.params.role_id;
   let subject = req.params.subject_id;
   let class_id = req.params.class_id;
   let faculty_id = req.params.faculty_id;
@@ -444,7 +444,7 @@ async function Get_Add_Student(req, res) {
 }
 async function Post_Add_Student(req, res) {
   let student_id = req.session.ListStudent;;
-  let role = req.params.id;
+  let role = req.params.role_id;
   let subject = req.params.subject_id;
   let classId = req.params.class_id;
   let faculty_id = req.params.faculty_id;
