@@ -8,11 +8,15 @@ function Profile_Page(req, res)
 {
     res.render('TutorAndStudent/profile/detail')
 }
-async function Subject_Page(req, res)
+async function Personal_Tutor(req, res)
 {
-    let faculty = req.params.faculty_id
-    let subject = await Models.SubjectModel.find({Faculty_id: faculty})
-    return res.render('TutorAndStudent/subject/listsubject', {data:{subject:subject, faculty:faculty}})
+    let user_id = req.params.user_id
+    let Tutor_id = await Models.ClassModel.findOne({Student_id: user_id})
+    let Tutor = await Models.UserModel.findById({_id: Tutor_id.Tutor_id})
+    let TutorId = Tutor._id
+    let Tutor_name = Tutor.User_name
+    return res.render('TuTorAndStudent/chat/chat')
+    
 }
 async function Class_Page(req, res)
 {
@@ -32,7 +36,7 @@ async function Detail_Class(req, res)
 module.exports = {
     Index_Page: Index_Page,
     Profile_Page: Profile_Page,
-    Subject_Page:Subject_Page,
+    Personal_Tutor:Personal_Tutor,
     Class_Page: Class_Page,
     Detail_Class: Detail_Class
 }

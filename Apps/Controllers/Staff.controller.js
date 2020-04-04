@@ -7,189 +7,10 @@ const ObjectId = require('mongoose').Types.ObjectId
 async function Page_Index(req, res) {
   return res.render("StaffPage/index");
 }
-async function Faculty_Page(req, res) {
-  if (req.query.page) {
-    var page = parseInt(req.query.page);
-  } else {
-    var page = 1;
-  }
-
-  let rowsPerPage = 2;
-  let perRow = page * rowsPerPage - rowsPerPage;
-  let FacultyAll = await Models.FacultyModel.find();
-  var totalRow = FacultyAll.length;
-  var totalPage = Math.ceil(totalRow / rowsPerPage);
-  var pagePrev, pageNext;
-  if (page - 1 <= 0) {
-    pagePrev = 1;
-  } else {
-    pagePrev = page - 1;
-  }
-  if (page + 1 >= totalPage) {
-    pageNext = totalPage;
-  } else {
-    pageNext = page + 1;
-  }
-  let faculty = await Models.FacultyModel.find()
-    .sort({ _id: -1 })
-    .skip(perRow)
-    .limit(rowsPerPage);
-  return res.render("StaffPage/Faculty/index", {
-    data: {
-      faculty: faculty,
-      totalPage: totalPage,
-      pagePrev: pagePrev,
-      pageNext: pageNext
-    }
-  });
-}
 function Staff_Profile(req, res) {
   return res.render("StaffPage/profile/profile");
 }
-function Get_Create_Faculty(req, res) {
-  return res.render("StaffPage/Faculty/CreateFaculty", { data: {} });
-}
-async function Post_Create_Faculty(req, res) {
-  let faculty_name = req.body.faculty_name;
-  let faculty_des = req.body.faculty_des;
-
-  let New_Faculty = await new Models.FacultyModel({
-    Faculty_name: faculty_name,
-    Faculty_des: faculty_des
-  });
-  New_Faculty.save(err => {
-    if (err) return console.log(err);
-    return res.redirect("/staff/Faculty");
-  });
-}
-function Get_Update_Faculty(req, res) {
-  let faculty_id = req.params.faculty_id;
-  Models.FacultyModel.findById({ _id: faculty_id }).exec((err, faculty) => {
-    if (err) console.log(err);
-    return res.render("StaffPage/Faculty/updateFaculty", {
-      data: { faculty: faculty }
-    });
-  });
-}
-function Post_Upload_Faculty(req, res) {
-  let faculty_name = req.body.faculty_name;
-  let faculty_des = req.body.faculty_des;
-  let faculty_id = req.params.faculty_id;
-  Models.FacultyModel.findByIdAndUpdate(faculty_id, {
-    Faculty_name: faculty_name,
-    Faculty_des: faculty_des
-  }).exec(err => {
-    if (err) return console.log(err);
-    return res.redirect("/staff/Faculty");
-  });
-}
-function Delete_Faculty(req, res) {
-  let faculty_id = req.params.faculty_id;
-  Models.FacultyModel.findByIdAndDelete({ _id: faculty_id }).exec(err => {
-    if (err) return console.log(err);
-    return res.redirect("/staff/Faculty");
-  });
-}
-async function Subject_Page(req, res) {
-  let facultyId = req.params.faculty_id;
-  if (req.query.page) {
-    var page = parseInt(req.query.page);
-  } else {
-    var page = 1;
-  }
-
-  let rowsPerPage = 5;
-  let perRow = page * rowsPerPage - rowsPerPage;
-  let SubjectAll = await Models.SubjectModel.find({ Faculty_id: facultyId });
-  var totalRow = SubjectAll.length;
-  var totalPage = Math.ceil(totalRow / rowsPerPage);
-  var pagePrev, pageNext;
-  if (page - 1 <= 0) {
-    pagePrev = 1;
-  } else {
-    pagePrev = page - 1;
-  }
-  if (page + 1 >= totalPage) {
-    pageNext = totalPage;
-  } else {
-    pageNext = page + 1;
-  }
-  let subject = await Models.SubjectModel.find({ Faculty_id: facultyId })
-    .sort({ _id: -1 })
-    .skip(perRow)
-    .limit(rowsPerPage);
-  return res.render("StaffPage/Subject/index", {
-    data: {
-      subject: subject,
-      totalPage: totalPage,
-      pagePrev: pagePrev,
-      pageNext: pageNext,
-      faculty: facultyId
-    }
-  });
-}
-function Get_Create_Subject(req, res) {
-  let faculty_id = req.params.faculty_id;
-  return res.render("StaffPage/Subject/createSubject", {
-    data: { faculty: faculty_id }
-  });
-}
-async function Post_Create_Subject(req, res) {
-  let subject_id = req.body.subject_id;
-  let subject_name = req.body.subject_name;
-  let subject_des = req.body.subject_des;
-  let Create_at = new Date();
-  let date =
-    Create_at.getFullYear() +
-    "-" +
-    (Create_at.getMonth() + 1) +
-    "-" +
-    Create_at.getDate() +
-    "/" +
-    Create_at.getHours() +
-    ":" +
-    Create_at.getMinutes() +
-    ":" +
-    Create_at.getSeconds();
-  let New_Subject = await new Models.SubjectModel({
-    Subject_ID: subject_id,
-    Subject_name: subject_name,
-    Subject_des: subject_des,
-    Create_at: date,
-    Update_at: "",
-    Faculty_id: req.body.faculty_id
-  });
-  New_Subject.save(err => {
-    if (err) {
-      let error = " Subject already exist";
-      return res.render("StaffPage/Subject/createSubject", {
-        data: { err: error }
-      });
-    }
-    return res.redirect("/staff/Faculty/" + req.body.faculty_id + "/Subject");
-  });
-}
-function Get_Update_Subject(req, res) {
-  let subject_id = req.params.subject_id;
-  let faculty = req.params.faculty_id
-  Models.SubjectModel.findById({ _id: subject_id }).exec((err, subject) => {
-    if (err) console.log(err);
-    return res.render("StaffPage/Subject/updateSubject", {
-      data: { subject: subject , faculty:faculty}
-    });
-  });
-}
-function Get_Delete_Subject(req, res) {
-  let subject_id = req.params.subject_id;
-  let faculty_id = req.params.faculty_id;
-  Models.SubjectModel.findByIdAndDelete({ _id: subject_id }).exec(err => {
-    if (err) console.log(err);
-    return res.redirect("/staff/Faculty/" + faculty_id + "/Subject");
-  });
-}
-async function Class_Page(req, res) {
-  let Subject_id = req.params.subject_id;
-  let faculty = req.params.faculty_id;
+async function Group_Page(req, res) {
   let student = await Models.RoleModel.findOne({ roleName: "Student" });
   if (req.query.page) {
     var page = parseInt(req.query.page);
@@ -199,7 +20,7 @@ async function Class_Page(req, res) {
 
   let rowsPerPage = 5;
   let perRow = page * rowsPerPage - rowsPerPage;
-  let ClassAll = await Models.ClassModel.find({ Subject_id: Subject_id });
+  let ClassAll = await Models.GroupModel.find();
   var totalRow = ClassAll.length;
   var totalPage = Math.ceil(totalRow / rowsPerPage);
   var pagePrev, pageNext;
@@ -213,36 +34,31 @@ async function Class_Page(req, res) {
   } else {
     pageNext = page + 1;
   }
-  let Class = await Models.ClassModel.find({ Subject_id: Subject_id })
+  let Group = await Models.GroupModel.find()
     .sort({ _id: -1 })
     .skip(perRow)
     .limit(rowsPerPage);
-  return res.render("StaffPage/class/index", {
+  return res.render("StaffPage/groups/index", {
     data: {
-      class: Class,
+      group: Group,
       totalPage: totalPage,
       pagePrev: pagePrev,
       pageNext: pageNext,
-      subject: Subject_id,
-      faculty: faculty,
-      student: student._id
+      role: student._id
     }
   });
 }
-async function Get_Create_Class(req, res) {
+async function Get_Create_Group(req, res) {
   let role = await Models.RoleModel.findOne({ roleName: "Tutor" });
   let tutor = await Models.UserModel.find({ User_role: role._id });
-  let faculty = req.params.faculty_id;
-  return res.render("StaffPage/class/create", {
-    data: { subject: req.params.subject_id, tutor: tutor, faculty: faculty }
+  return res.render("StaffPage/groups/create", {
+    data: {tutor: tutor }
   });
 }
-async function Post_Create_Class(req, res) {
-  let class_id = req.body.class_id;
-  let class_name = req.body.class_name;
+async function Post_Create_Group(req, res) {
+  let group_id = req.body.group_id
+  let group_name = req.body.group_name;
   let tutor_id = req.body.tutor_id;
-  let subject = req.params.subject_id;
-  let faculty = req.params.faculty_id;
   let Create_at = new Date();
   let date =
     Create_at.getFullYear() +
@@ -256,47 +72,41 @@ async function Post_Create_Class(req, res) {
     Create_at.getMinutes() +
     ":" +
     Create_at.getSeconds();
-  let New_Class = await new Models.ClassModel({
-    Class_ID: class_id,
-    Class_name: class_name,
+  let New_Group = await new Models.GroupModel({
+    Group_ID: group_id,
+    Group_name: group_name,
     Tutor_id: tutor_id,
     Create_at: date,
     Update_at: "",
-    Subject_id: subject
   });
-  New_Class.save(err => {
+  New_Group.save(err => {
     if (err) {
-      let error = "Class already exist";
-      return res.render("StaffPage/class/create", { data: { error: error } });
+      let error = "Group ID already exist";
+      return res.render("StaffPage/groups/create", { data: { error: error } });
     }
     return res.redirect(
-      "/staff/Faculty/" +
-        faculty +
-        "/Subject/" +
-        req.params.subject_id +
-        "/Class"
+      "/staff/PersonalSupport"
     );
   });
 }
-async function Get_Update_Class(req, res) {
-  let class_id = req.params.class_id;
-  let faculty = req.params.faculty_id;
-  let Class = await Models.ClassModel.findById({ _id: class_id });
+async function Get_Update_Group(req, res) {
+  let group_id = req.params.group_id;
+  let Group = await Models.GroupModel.findById({ _id: group_id});
   let role = await Models.RoleModel.findOne({ roleName: "Tutor" });
+  let nowTutor = await Models.UserModel.findOne({_id: Group.Tutor_id})
   let tutor = await Models.UserModel.find({ User_role: role._id });
-  return res.render("StaffPage/class/edit", {
+  return res.render("StaffPage/groups/edit", {
     data: {
-      class: Class,
-      subject: req.params.subject_id,
+      group: Group,
       tutor: tutor,
-      faculty: faculty
+      nowTutor: nowTutor.User_full
     }
   });
 }
-function Post_Update_Class(req, res) {
-  let classId = req.params.class_id;
-  let class_id = req.body.class_id;
-  let class_name = req.body.class_name;
+function Post_Update_Group(req, res) {
+  let group_id = req.params.group_id;
+  let group_ID = req.body.Group_id;
+  let group_name = req.body.Group_name;
   let Tutor_id = req.body.tutor_id;
   let DateTime = new Date();
   let date =
@@ -311,76 +121,61 @@ function Post_Update_Class(req, res) {
     DateTime.getMinutes() +
     ":" +
     DateTime.getSeconds();
-  Models.ClassModel.findByIdAndUpdate(
-    { _id: classId },
+  Models.GroupModel.findByIdAndUpdate(
+    { _id: group_id },
     {
       Update_at: date,
-      Class_ID: class_id,
-      Class_name: class_name,
+      Group_ID: group_ID,
+      Group_name: group_name,
       Tutor_id: Tutor_id
     }
   ).exec(err => {
-    if (err) console.log(err);
+    if (err) return res.redirect('/staff/PersonalSupport/UpdateGroup/'+ group_id);
     return res.redirect(
-      "/staff/Faculty/Subject/" + req.params.subject_id + "/Class"
+      "/staff/PersonalSupport"
     );
   });
 }
-function Get_Delete_Class(req, res) {
-  let class_id = req.params.class_id;
-  let faulty = req.params.faculty_id;
-  Models.ClassModel.findOneAndDelete({ _id: class_id }).exec(err => {
-    if (err) console.log(err);
+function Get_Delete_Group(req, res) {
+  let group_id = req.params.group_id;
+  Models.GroupModel.findOneAndDelete({ _id: group_id }).exec(err => {
+    if (err) throw err;
     return res.redirect(
-      "/staff/Faculty/" + faulty + "/Subject/" + req.params.subject_id + "/Class"
+      "/staff/PersonalSupport"
     );
   });
 }
-async function Get_Class_Detail(req, res) {
-  let class_id = req.params.class_id;
-  let subject_id = req.params.subject_id;
-  let faculty = req.params.faculty_id;
-  let Class = await Models.ClassModel.findById({ _id: class_id });
-  let Subject = await Models.SubjectModel.findById({ _id: subject_id });
-  let subjectId = Subject.Subject_ID;
-  let subjectName = Subject.Subject_name;
-  let tutor = await Models.UserModel.findById({ _id: Class.Tutor_id });
+async function Get_Group_Detail(req, res) {
+  let group_id = req.params.group_id;
+  let Group = await Models.GroupModel.findById({ _id: group_id});
+  let tutor = await Models.UserModel.findById({ _id: Group.Tutor_id });
   let tutorName = tutor.User_full;
-  let ClassID = Class.Class_ID;
-  let ClassName = Class.Class_name;
-  let StudentOfClass = await Models.UserModel.find({_id: Class.Student_id})
-  let Student = await Models.RoleModel.findOne({ roleName: "Student" });
-  let student_id = Student._id
-    return res.render("StaffPage/class/detail", {
+  let GroupID = Group.Group_ID;
+  let GroupName = Group.Group_name;
+  let StudentOfGroup = await Models.UserModel.find({_id: Group.Student_id})
+  let Role = await Models.RoleModel.findOne({ roleName: "Student" });
+  let role = Role._id
+    return res.render("StaffPage/groups/detail", {
       data: {
-        ClassID: ClassID,
-        ClassName: ClassName,
-        SubjectID: subjectId,
-        SubjectName: subjectName,
+        GroupID: GroupID,
+        GroupName: GroupName,
         tutor: tutorName,
-        StudentOfClass: StudentOfClass,
-        faculty: faculty,
-        class: class_id,
-        subject: subject_id,
-        student: student_id
+        StudentOfGroup: StudentOfGroup,
+        role: role, 
+        group_id: group_id
       }
     });
 }
 async function Get_List_Student(req, res) { //Get list student 
   let role = req.params.role_id;
-  let subject = req.params.subject_id;
-  let class_id = req.params.class_id;
-  let faculty_id = req.params.faculty_id;
+  let group_id = req.params.group_id;
   let ListStudent = await Models.UserModel.find({
     User_role: role,
-    Faculty_id: faculty_id
   });
-  return res.render("StaffPage/class/add-student", {
+  return res.render("StaffPage/groups/add-student", {
     data: {
       ListStudent: ListStudent,
-      faculty: faculty_id,
-      class: class_id,
-      subject: subject,
+      group_id: group_id,
       role: role
     }
   });
@@ -388,20 +183,17 @@ async function Get_List_Student(req, res) { //Get list student
 function Add_To_ListStudent(req, res) { //add student into list student(list student be save in session) before save
   let student_id = req.params.student_id;
   let role = req.params.role_id;
-  let subject = req.params.subject_id;
-  let class_id = req.params.class_id;
-  let faculty_id = req.params.faculty_id;
-  if (!req.session.ListStudent) req.session.ListStudent = new Array();
+  let group_id = req.params.group_id;
+  if (!req.session.ListStudent) {
+  req.session.ListStudent = new Array();
+    req.session.ListStudent.push(student_id);
+    return res.redirect(
+    '/staff/PersonalSupport/Group/'+group_id+'/AddStudent/'+role
+  );
+  }
   req.session.ListStudent.push(student_id);
-  return res.redirect(
-    "/staff/Faculty/" +
-      faculty_id +
-      "/Subject/" +
-      subject +
-      "/Class/" +
-      class_id +
-      "/ListStudent/" +
-      role
+    return res.redirect(
+    '/staff/PersonalSupport/Group/'+group_id+'/AddStudent/'+role
   );
 }
 function arrayRemove(arr, value) {
@@ -412,32 +204,26 @@ function arrayRemove(arr, value) {
 function Delete_StudentInListAdd(req, res) //Delete student in list student add 
 {
   let role = req.params.role_id;
-  let subject = req.params.subject_id;
-  let class_id = req.params.class_id;
-  let faculty_id = req.params.faculty_id;
+  let group_id = req.params.group_id;
   let student_id = req.params.student_id
   let arr = new Array(req.session.ListStudent)
   let result = arrayRemove(arr[0], student_id)
   req.session.ListStudent = result
-  return res.redirect('/staff/Faculty/'+faculty_id+'/Subject/'+subject+'/Class/'+class_id+'/AddStudent/'+ role)
+  return res.redirect('/staff/PersonalSupport/Group/'+group_id+'/ListAddStudent/'+ role)
 }
 async function Get_Add_Student(req, res) {
   let list_student = req.session.ListStudent;
   let role = req.params.role_id;
-  let subject = req.params.subject_id;
-  let class_id = req.params.class_id;
-  let faculty_id = req.params.faculty_id;
+  let group_id = req.params.group_id;
   if(list_student === undefined)
   {
-    return res.redirect('/staff/Faculty/'+faculty_id+'/Subject/'+subject+'/Class/'+class_id+'/ListStudent/'+ role)
+    return res.redirect('/staff/PersonalSupport/Group/'+group_id+'/AddStudent/'+role);
   }
   let List = await Models.UserModel.find({ _id: list_student });
-  return res.render("StaffPage/class/list-add-student", {
+  return res.render("StaffPage/groups/list-add-student", {
     data: {
       List: List,
-      faculty: faculty_id,
-      class: class_id,
-      subject: subject,
+      group_id: group_id,
       role: role
     }
   });
@@ -445,9 +231,7 @@ async function Get_Add_Student(req, res) {
 async function Post_Add_Student(req, res) {
   let student_id = req.session.ListStudent;;
   let role = req.params.role_id;
-  let subject = req.params.subject_id;
-  let classId = req.params.class_id;
-  let faculty_id = req.params.faculty_id;
+  let group_id = req.params.group_id;
   let DateTime = new Date();
   let date =
     DateTime.getFullYear() +
@@ -461,36 +245,25 @@ async function Post_Add_Student(req, res) {
     DateTime.getMinutes() +
     ":" +
     DateTime.getSeconds();
-    let Class = await Models.ClassModel.findById({_id: classId})
+    let Class = await Models.GroupModel.findById({_id: group_id})
     let list = new Array()
     if(Class.Student_id == list)
     {
-      let List_Student = await Models.ClassModel.findByIdAndUpdate({_id:classId},{
+      let List_Student = await Models.GroupModel.findByIdAndUpdate({_id:group_id},{
         Student_id: student_id,
         Update_at: date
       });
-      return res.redirect('/staff/Faculty/'+faculty_id+'/Subject/'+subject+'/Class/'+classId+'/Detail')
+      return res.redirect('/staff/PersonalSupport/GroupDetail/'+ group_id)
     }
-      let AddStudent = await Models.ClassModel.findByIdAndUpdate({_id: classId}, {$addToSet:{Student_id: student_id}})
-      req
-      return res.redirect('/staff/Faculty/'+faculty_id+'/Subject/'+subject+'/Class/'+classId+'/Detail')
+      let AddStudent = await Models.GroupModel.findByIdAndUpdate({_id: group_id}, {$addToSet:{Student_id: student_id}, Update_at: date})
+      return res.redirect('/staff/PersonalSupport/GroupDetail/'+ group_id)
 }
-async function Delete_Student_Of_Class(req, res)
+async function Delete_Student_Of_Group(req, res)
 {
-  let subject = req.params.subject_id;
-  let faculty_id = req.params.faculty_id;
   let student_id = req.params.student_of_id
   let class_id = req.params.class_id
   let Class = await Models.ClassModel.findByIdAndUpdate({_id: class_id}, {$pull:{Student_id:student_id}})
   return res.redirect('/staff/Faculty/'+faculty_id+'/Subject/'+subject+'/Class/'+class_id+'/Detail')
-}
-function Get_Exercise(req, res) {
-  let class_id = req.params.class_id;
-  Models.ExerciseModel.findById({ Class_ID: class_id }).exec(exercise => {
-    return res.render("StaffPage/class/exercise", {
-      data: { exercise: exercise }
-    });
-  });
 }
 function Index_Account(req, res) {
   Models.RoleModel.find({}).exec((err, Role) => {
@@ -646,25 +419,13 @@ function Get_Delete_Account(req, res) {
 module.exports = {
   Page_Index: Page_Index,
   Staff_Profile: Staff_Profile,
-  Faculty_Page: Faculty_Page,
-  Get_Create_Faculty: Get_Create_Faculty,
-  Post_Create_Faculty: Post_Create_Faculty,
-  Get_Update_Faculty: Get_Update_Faculty,
-  Post_Upload_Faculty: Post_Upload_Faculty,
-  Delete_Faculty: Delete_Faculty,
-  Subject_Page: Subject_Page,
-  Get_Create_Subject: Get_Create_Subject,
-  Post_Create_Subject: Post_Create_Subject,
-  Get_Update_Subject: Get_Update_Subject,
-  Get_Delete_Subject: Get_Delete_Subject,
-  Class_Page: Class_Page,
-  Get_Create_Class: Get_Create_Class,
-  Post_Create_Class: Post_Create_Class,
-  Get_Update_Class: Get_Update_Class,
-  Post_Update_Class: Post_Update_Class,
-  Get_Delete_Class: Get_Delete_Class,
-  Get_Class_Detail: Get_Class_Detail,
-  Get_Exercise: Get_Exercise,
+  Group_Page: Group_Page,
+  Get_Create_Group: Get_Create_Group,
+  Post_Create_Group: Post_Create_Group,
+  Get_Update_Group: Get_Update_Group,
+  Post_Update_Group: Post_Update_Group,
+  Get_Delete_Group: Get_Delete_Group,
+  Get_Group_Detail: Get_Group_Detail,
   Index_Account: Index_Account,
   List_Account: List_Account,
   Get_Create_Account: Get_Create_Account,
@@ -677,6 +438,6 @@ module.exports = {
   Add_To_ListStudent: Add_To_ListStudent,
   Get_Add_Student: Get_Add_Student,
   Post_Add_Student: Post_Add_Student,
-  Delete_Student_Of_Class: Delete_Student_Of_Class,
+  Delete_Student_Of_Group: Delete_Student_Of_Group,
   Delete_StudentInListAdd: Delete_StudentInListAdd
 };

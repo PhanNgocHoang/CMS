@@ -41,7 +41,7 @@
                                             <%=data.List[x].User_mail%>
                                         </td>
                                         <td>
-                                            <a href="/staff/Faculty/<%=data.faculty%>/Subject/<%=data.subject%>/Class/<%=data.class%>/delete/<%=data.role%>/<%=data.List[x]._id%>" title="Delete"
+                                            <a href="/staff/PersonalSupport/Group/<%=data.group_id%>/ListAddStudent/<%=data.role%>/delete/<%=data.List[x]._id%>" title="Delete"
                                                 onclick="return confirm('Are you sure delete?')">
                                                 <i class="fa fa-trash"></i>
                                             </a>
@@ -54,7 +54,7 @@
                         <div class="form-group">
                             <div class="col-md-10 col-sm-9 col-xs-12 col-md-push-2 col-sm-push-3 col-xs-push-0">
                                 <input class="btn btn-primary" type="submit" value="Add">
-                                <a class="btn btn-danger" href="/staff/Faculty/<%=data.faculty%>/Subject/<%=data.subject%>/Class/<%=data.class%>/ListStudent/<%=data.role%>" role="button">Cancel</a>
+                                <a class="btn btn-danger" href="/staff/PersonalSupport/Group/<%=data.group_id%>/AddStudent/<%=data.role%>" role="button">Cancel</a>
                             </div>
                         </div>
                     </form>

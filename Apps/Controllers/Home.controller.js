@@ -2,6 +2,8 @@ const Models = require("../Models/Models");
 const mongoose = require("../../common/database")();
 const jwt = require("jsonwebtoken");
 const nodemailer = require('nodemailer')
+const server = require('../../app')
+const io = require('socket.io')(server)
 
 function Home_Page(req, res) {
   res.render("HomePage/index");
@@ -32,12 +34,14 @@ async function PostLogin(req, res) {
         algorithm: "HS256",
         expiresIn: "3h"
       });
-      res.cookie("user", token, { maxAge: 10800000, signed: true }); //set domain and httpOnly to cookie only send to a domain and https
+      res.cookie("user", token, { maxAge: 10800000, signed: true });
+       //set domain and httpOnly to cookie only send to a domain and https
       Models.RoleModel.findById({ _id: docs.User_role }).exec((err, role) => {
         if (role.roleName === "Staff") {
           return res.redirect("/staff");
         }
         if (role.roleName === "Student") {
+
           return res.redirect("/user");
         }
         if (role.roleName === "Tutor") {

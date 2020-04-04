@@ -40,7 +40,7 @@
                                             <%=data.ListStudent[x].User_mail%>
                                         </td>
                                         <td>
-                                            <a href="/staff/Faculty/<%=data.faculty%>/Subject/<%=data.subject%>/Class/<%=data.class%>/AddStudent/<%=data.role%>/<%=data.ListStudent[x]._id%>" title="Add" onclick="alert('<%=data.ListStudent[x].User_full%>have been added to the list of class students')">
+                                            <a href="/staff/PersonalSupport/Group/<%=data.group_id%>/AddStudent/<%=data.role%>/<%=data.ListStudent[x]._id%>" title="Add" onclick="alert('<%=data.ListStudent[x].User_full%>have been added to the list of class students')">
                                                 <i class="fa fa-eye">Add</i>
                                             </a> &nbsp;
                                         </td>
@@ -51,8 +51,8 @@
                         <hr>
                         <div class="form-group">
                             <div class="col-md-10 col-sm-9 col-xs-12 col-md-push-2 col-sm-push-3 col-xs-push-0">
-                                <a href="/staff/Faculty/<%=data.faculty%>/Subject/<%=data.subject%>/Class/<%=data.class%>/AddStudent/<%=data.role%>" class="btn btn-primary">List Student Add</a>
-                                <a class="btn btn-danger" href="/staff/Faculty/<%=data.faculty%>/Subject/<%=data.subject%>/Class" role="button">Cancel</a>
+                                <a href="/staff/PersonalSupport/Group/<%=data.group_id%>/ListAddStudent/<%=data.role%>" class="btn btn-primary">List Student Add</a>
+                                <a class="btn btn-danger" href="/staff/PersonalSupport" role="button">Cancel</a>
                             </div>
                         </div>
                     </form>

@@ -1,4 +1,0 @@
-const app = require('../app.js')
-app.listen(process.env.PORT || 1000, function(){
-    console.log('Server run on port 1000')
-})

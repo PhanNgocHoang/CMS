@@ -7,7 +7,6 @@
             <section class="module">
                 <div class="module-inner">
                     <div class="content-panel">
-                        <form class="form-horizontal" style="font-size:15px;">
                             <fieldset class="fieldset">
                                 <br>
                                 <h3 class="fieldset-title">Your Information</h3>
@@ -23,66 +22,16 @@
                                         </div>
                             </fieldset>
                             <br>
+                            <input type="hidden" value=<%=locals.user[x]._id%> id="userid"> 
                             <div class="clearfix"></div>
                             <hr>
-<<<<<<< HEAD
                             <div class="form-group">
                                 <div class="col-md-10 col-sm-9 col-xs-12 col-md-push-2 col-sm-push-3 col-xs-push-0">
-                                    <a class="btn btn-info" href="/user/<%=locals.user[x].Faculty_id%>/Subject">View Class</a>
+                                    <a class="btn btn-info" href="/user/<%=locals.user[x]._id%>/PersonalTutor" id="chat">Your Personal Tutor</a>
                                 </div>
-=======
-                        </form>
-                        <div class="clearfix"></div>
-                        <div class="table-responsive">
-                            <div class=" col-md-12 col-sm-12 col-xs-12">
-                                <table class="table-class">
-                                    <tr>
-                                        <td>
-                                            <div class="card" style="width: 250px; height: 200px;">
-                                                <div class="card-body" style="display: inline-block;"><a href=""><img src="static/User/images/class.jpg" alt="" height= 800px; width= 800px></a></div>
-                                                <div class="card-footer"><a href="">Subject</div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="card" style="width: 250px; height: 200px;">
-                                                <div class="card-body" style="display: inline-block;"><a href=""><img src="static/User/images/class.jpg" alt="" height= 800px; width= 800px></a></div>
-                                                <div class="card-footer"><a href="">Subject</div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="card" style="width: 250px; height: 200px;">
-                                                <div class="card-body" style="display: inline-block;"><a href=""><img src="static/User/images/class.jpg" alt="" height= 800px; width= 800px></a></div>
-                                                <div class="card-footer"><a href="">Subject</div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="card" style="width: 250px; height: 200px;">
-                                                <div class="card-body" style="display: inline-block;"><a href=""><img src="static/User/images/class.jpg" alt="" height= 800px; width= 800px></a></div>
-                                                <div class="card-footer"><a href="">Subject</div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="card" style="width: 250px; height: 200px;">
-                                                <div class="card-body" style="display: inline-block;"><a href=""><img src="static/User/images/class.jpg" alt="" height= 800px; width= 800px></a></div>
-                                                <div class="card-footer"><a href="">Subject</div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="card" style="width: 250px; height: 200px;">
-                                                <div class="card-body" style="display: inline-block;"><a href=""><img src="static/User/images/class.jpg" alt="" height= 800px; width= 800px></a></div>
-                                                <div class="card-footer"><a href="">Subject</div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </table>
->>>>>>> bc8f5519708d55ae694e8f9a8a3d1a04686339be
-                            </div>
-                            <%}%>
-                        </form>
                         <div class="clearfix"></div>
                         <hr>
+                        <%}%>
                     </div>
                 </div>
             </section>
