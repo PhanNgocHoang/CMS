@@ -3,7 +3,6 @@ const mongoose = require("../../common/database")();
 const jwt = require("jsonwebtoken");
 const nodemailer = require('nodemailer')
 const server = require('../../app')
-const io = require('socket.io')(server)
 
 function Home_Page(req, res) {
   res.render("HomePage/index");
@@ -76,7 +75,7 @@ function Post_Forgot_Password(req, res)
   }
     })
     let mailOptions = {
-        from: "Admin",
+        from: '"Admin" <hoangpn2201@gmail.com>',
         to: user.User_mail,
         subject: "Your password of University",
         text: ("Your Password of email : " + user.User_mail + " is : " + user.User_pass),

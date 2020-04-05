@@ -44,7 +44,7 @@
                                 <div class="clearfix"></div>
                                 <h3>List of Student in Class</h3>
                                 <br>
-                                <a href="" title="Send Mail" class="btn btn-success" role="button">
+                                <a href="/staff/PersonalSupport/Group/<%=data.group_id%>/SendMail" title="Send Mail" class="btn btn-success" role="button">
                                     Send Mail
                                     </a>
                                 <a href="/staff/PersonalSupport/Group/<%=data.group_id%>/AddStudent/<%=data.role%>" title="Add Student" class="btn btn-success" role="button">
@@ -68,7 +68,7 @@
                                                 <%=data.StudentOfGroup[x].User_full%>
                                             </td>
                                             <td>
-                                                <a href="" title="Delete"
+                                                <a href="/staff/PersonalSupport/GroupDetail/<%=data.group_id%>/DeleteStudentOfGroup/<%=data.StudentOfGroup[x]._id%>" title="Delete"
                                                     onclick="return confirm('Are you sure delete?')">
                                                     <i class="fa fa-trash"></i>
                                                 </a>
