@@ -22,11 +22,7 @@
                                 <div class="form-group" style="font-size: 20px;">
                                     <label class="col-md-2 col-sm-3 col-xs-12 control-label">To:</label>
                                     <div class="col-md-8 col-sm-9 col-xs-12">
-                                        <%for(x in data.Student){%>
-                                        <textarea name="student_mail" cols="50"
-                                            rows="1"><%=data.Student[x].User_mail%></textarea>
-                                        <%}%>
-                                        <textarea name="tutor_mail" cols="50" rows="1" ><%=data.Tutor_mail%></textarea>
+                                        <textarea name="email" cols="50" rows="1"></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -53,7 +49,7 @@
                             <div class="form-group">
                                 <div class="col-md-10 col-sm-9 col-xs-12 col-md-push-2 col-sm-push-3 col-xs-push-0">
                                     <input class="btn btn-primary" type="submit" value="Send">
-                                    <a class="btn btn-danger" role="button" href="/staff/PersonalSupport/GroupDetail/<%=data.group_id%>">Cancel</a>
+                                    <a class="btn btn-danger" href="/staff/Account/<%=data.role%>" role="button">Cancel</a>
                                 </div>
                             </div>
                         </form>
