@@ -49,5 +49,7 @@ router.route('/Account/:role_id/Update/:user_id')
     .post(StaffController.Post_Update_Account)
 router.route('/Account/:role_id/Delete/:user_id')
     .get(StaffController.Get_Delete_Account)
+router.route('/chart')
+    .get(StaffController.Chart)
 
 module.exports = router

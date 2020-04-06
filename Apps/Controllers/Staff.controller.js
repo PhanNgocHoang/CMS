@@ -436,7 +436,10 @@ function Post_SendMail_For_Account(req, res)
     if(err) throw err
     return res.redirect('/staff/Account/'+role)
   })
- 
+}
+function Chart(req, res)
+{
+  return res.render('StaffPage/report/chart')
 }
 module.exports = {
   Page_Index: Page_Index,
@@ -465,5 +468,6 @@ module.exports = {
   Delete_Student_Of_Group: Delete_Student_Of_Group,
   Delete_StudentInListAdd: Delete_StudentInListAdd,
   Get_SendMail_For_Account:Get_SendMail_For_Account,
-  Post_SendMail_For_Account: Post_SendMail_For_Account
+  Post_SendMail_For_Account: Post_SendMail_For_Account,
+  Chart: Chart
 };

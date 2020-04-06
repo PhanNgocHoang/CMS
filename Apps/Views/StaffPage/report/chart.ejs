@@ -1,8 +1,25 @@
 <%-include ('../layouts/header.ejs')-%>
-<div id = "container" style = "width: 550px; height: 400px; margin: 0 auto">
+<div class="content-wrapper">
+   <!-- Content Header (Page header) -->
+   <!-- Main content -->
+   <main class="main-container container">
+       <div class="view-account">
+           <section class="module">
+               <div class="module-inner">
+                   <div class="content-panel">
+                     <div id = "personal_tutor" style = "width: 550px; height: 400px; margin: 0 auto">
+                     </div><br>
+                     <div id = "student" style = "width: 550px; height: 400px; margin: 0 auto">
+                     </div>
+                   </div>
+               </div>
+           </section>
+       </div>
+   </main>
+   <!-- /.content -->
 </div>
 <script language = "JavaScript">
-   function drawChart() {
+   function Personal_tutor_Chart() {
       // Define the chart to be drawn.
       var data = google.visualization.arrayToDataTable([
          ['Message', 'Send', 'Get'],
@@ -22,9 +39,33 @@
       };
 
       // Instantiate and draw the chart.
-      var chart = new google.visualization.ComboChart(document.getElementById('container'));
+      var chart = new google.visualization.ComboChart(document.getElementById('personal_tutor'));
       chart.draw(data, options);
    }
-   google.charts.setOnLoadCallback(drawChart);
+   function StudentChart() {
+      // Define the chart to be drawn.
+      var data = google.visualization.arrayToDataTable([
+         ['Message', 'Send', 'Get'],
+         ['Student 1', 3, 2],
+         ['Student 2', 2, 3],
+         ['Student 3', 1, 5],
+         ['Student 4', 3, 9],
+         ['Student 4', 4, 2]
+      ]);
+
+      // Set chart options
+      var options = {
+         title : 'Message',
+         vAxis: {title: 'Message'},
+         hAxis: {title: 'Student'},
+         seriesType: 'bars',
+      };
+
+      // Instantiate and draw the chart.
+      var chart = new google.visualization.ComboChart(document.getElementById('student'));
+      chart.draw(data, options);
+   }
+   google.charts.setOnLoadCallback(Personal_tutor_Chart);
+   google.charts.setOnLoadCallback(StudentChart);
 </script>
 <%-include ('../layouts/footer.ejs')-%>
