@@ -6,6 +6,6 @@ router.route('/')
     .get(Student.Index_Page)
 router.route('/profile')
     .get(Student.Profile_Page)
-router.route('/:user_id/PersonalTutor')
-    .get(Student.Personal_Tutor)
+router.route('/chat')
+    .get(Student.Chat)
 module.exports = router

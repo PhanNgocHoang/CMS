@@ -76,11 +76,13 @@ img {
 }
 .chat_img {
   float: left;
-  width: 11%;
+  width: 40%;
+  padding-top: 10px;
+  border-radius: 5px
 }
 .chat_ib {
   float: left;
-  padding: 0 0 0 15px;
+  padding: 0 0 0 45%;
   width: 88%;
 }
 

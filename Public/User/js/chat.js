@@ -9,14 +9,19 @@ $(document).ready(() => {
     user_role,
     user_full
   })
-  socket.on('chat_info', (data)=>{
-    $('<img src="/static/images/'+data.tutor_avatar+'" alt="sunil">').appendTo('div.chat_img')
-    $('<h5>'+data.tutor_full+'</h5>').appendTo('div.chat_ib')
+  socket.on('chat_tutor', (data)=>{
+    let tutor = '<div user_id ="'+data.tutor_id+'"><img src="/static/images/'+data.tutor_avatar+'" alt="sunil" class="chat_img"><span class="chat_ib">'+data.tutor_full+'</span> <div>'
+      $('#chat_user').append(tutor)
+  })
+  socket.on('chat_student', (data)=>{
+    data.students.forEach(student =>{
+      let user = '<div user_id ="'+student._id+'"><img src="/static/images/'+student.User_avatar+'" alt="sunil" class="chat_img"><span class="chat_ib">'+student.User_full+'</span> <div>'
+      $('#chat_user').append(user)
+    })
   })
   $("#send").click(() => {
     socket.emit("message", $("#input-message").val());
     socket.on('r-message', (data)=>{
-      console.log(data)
     })
   });
 });
