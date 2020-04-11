@@ -29,7 +29,6 @@
     "nodemon": "^2.0.2",
     "path": "^0.12.7",
     "semantic-ui-css": "^2.4.1",
-    "simplewebrtc": "^3.0.2",
-    "ws": "^7.2.3"
+    "socket.io": "^2.3.0"
   }
 }

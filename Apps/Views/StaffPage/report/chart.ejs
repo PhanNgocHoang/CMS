@@ -6,23 +6,29 @@
        <div class="view-account">
            <section class="module">
                <div class="module-inner">
+                  <h3 class="fieldset-title">ROLE: <%=User_info.Role_Name%></h3>
                    <div class="content-panel">
                      <div id = "personal_tutor" style = "width: 550px; height: 400px; margin: 0 auto">
-                     </div><br>
-                     <div id = "student" style = "width: 550px; height: 400px; margin: 0 auto">
                      </div>
                    </div>
                </div>
            </section>
+           <table id="name">
+         </table>
        </div>
    </main>
    <!-- /.content -->
 </div>
-<script language = "JavaScript">
-   function Personal_tutor_Chart() {
+<script type = "text/javascript" src = "https://www.gstatic.com/charts/loader.js">
+</script>
+<script type = "text/javascript">
+   google.charts.load('current', {packages: ['corechart']});
+</script>
+<script>
+   function Chart() {
       // Define the chart to be drawn.
       var data = google.visualization.arrayToDataTable([
-         ['Message', 'Send', 'Get'],
+         ['Message', 'Send', 'Receive'],
          ['Personal tutor 1', 3, 2],
          ['Personal tutor 2', 2, 3],
          ['Personal tutor 3', 1, 5],
@@ -34,7 +40,6 @@
       var options = {
          title : 'Message',
          vAxis: {title: 'Message'},
-         hAxis: {title: 'Personal Tutor'},
          seriesType: 'bars',
       };
 
@@ -42,30 +47,6 @@
       var chart = new google.visualization.ComboChart(document.getElementById('personal_tutor'));
       chart.draw(data, options);
    }
-   function StudentChart() {
-      // Define the chart to be drawn.
-      var data = google.visualization.arrayToDataTable([
-         ['Message', 'Send', 'Get'],
-         ['Student 1', 3, 2],
-         ['Student 2', 2, 3],
-         ['Student 3', 1, 5],
-         ['Student 4', 3, 9],
-         ['Student 4', 4, 2]
-      ]);
-
-      // Set chart options
-      var options = {
-         title : 'Message',
-         vAxis: {title: 'Message'},
-         hAxis: {title: 'Student'},
-         seriesType: 'bars',
-      };
-
-      // Instantiate and draw the chart.
-      var chart = new google.visualization.ComboChart(document.getElementById('student'));
-      chart.draw(data, options);
-   }
-   google.charts.setOnLoadCallback(Personal_tutor_Chart);
-   google.charts.setOnLoadCallback(StudentChart);
+   google.charts.setOnLoadCallback(Chart);
 </script>
 <%-include ('../layouts/footer.ejs')-%>

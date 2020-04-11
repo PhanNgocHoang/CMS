@@ -51,5 +51,7 @@ router.route('/Account/:role_id/Delete/:user_id')
     .get(StaffController.Get_Delete_Account)
 router.route('/chart')
     .get(StaffController.Chart)
+router.route('/chart/:role_id')
+    .get(StaffController.Chart_Role)
 
 module.exports = router

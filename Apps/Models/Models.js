@@ -30,7 +30,6 @@ const GroupSchema = new Schema({
     Update_at: Date,
 })
 
-
 const Role = mongoose.model('Role', RoleSchema, 'Role')
 const User = mongoose.model('User', UserSchema, 'User')
 const Group = mongoose.model('Group', GroupSchema, 'Group')

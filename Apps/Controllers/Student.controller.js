@@ -11,12 +11,9 @@ function Profile_Page(req, res)
 async function Personal_Tutor(req, res)
 {
     let user_id = req.params.user_id
-    let Tutor_id = await Models.ClassModel.findOne({Student_id: user_id})
-    let Tutor = await Models.UserModel.findById({_id: Tutor_id.Tutor_id})
-    let TutorId = Tutor._id
-    let Tutor_name = Tutor.User_name
-    return res.render('TuTorAndStudent/chat/chat')
-    
+    let tutor_id = await Models.GroupModel.findOne({Student_id: user_id})
+    let Tutor = await Models.UserModel.findById({_id: tutor_id.Tutor_id})
+    return res.render('TuTorAndStudent/chatbox/index', {data:{Tutor: Tutor, tutorId: tutor_id.Tutor_id}})
 }
 async function Class_Page(req, res)
 {
@@ -33,10 +30,11 @@ async function Detail_Class(req, res)
     let Exercise = await Models.ExerciseModel.find({Class_id: class_id})
     return res.render('TutorAndStudent/exercise/index')
 }
+
 module.exports = {
     Index_Page: Index_Page,
     Profile_Page: Profile_Page,
     Personal_Tutor:Personal_Tutor,
     Class_Page: Class_Page,
-    Detail_Class: Detail_Class
+    Detail_Class: Detail_Class,
 }

@@ -437,10 +437,20 @@ function Post_SendMail_For_Account(req, res)
     return res.redirect('/staff/Account/'+role)
   })
 }
-function Chart(req, res)
+async function Chart(req, res)
 {
-  return res.render('StaffPage/report/chart')
+  let role = await Models.RoleModel.find({})
+  return res.render('StaffPage/report/index', {role:{User_role: role}})
 }
+async function Chart_Role(req, res)
+{
+  let role_id = req.params.role_id
+  let role = await Models.RoleModel.findById({_id: role_id})
+  let Role_Name = role.roleName
+  let User = await Models.UserModel.find({User_role: role_id})
+  return res.render('StaffPage/report/chart', {User_info:{Role_Name: Role_Name, User: User}})
+}
+
 module.exports = {
   Page_Index: Page_Index,
   Staff_Profile: Staff_Profile,
@@ -469,5 +479,6 @@ module.exports = {
   Delete_StudentInListAdd: Delete_StudentInListAdd,
   Get_SendMail_For_Account:Get_SendMail_For_Account,
   Post_SendMail_For_Account: Post_SendMail_For_Account,
-  Chart: Chart
+  Chart: Chart,
+  Chart_Role: Chart_Role,
 };
