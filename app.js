@@ -17,16 +17,16 @@ const Models = require('./Apps/Models/Models')
 require('./Apps/kernal')(app, express, Body_parser, session)
 app.use(cookieParser('123@123@!T'))
 app.use('/', home)
-app.use('/staff',auth.reqAuth,auth.CheckStaff, staff)
+app.use('/staff', auth.reqAuth, auth.CheckStaff, staff)
 app.use('/user', auth.reqAuth, auth.CheckTutorAndStudent, Student)
-io.on('connection', (socket)=>{
-    console.log(' a user connect' + socket.id )
-    socket.on('user_info', async(data)=>{
+io.on('connection', (socket) => {
+    console.log('A user connected: ' + socket.id)
+    socket.on('user_info', async (data) => {
         socket.name = data.name
-        if(data.user_role === "Student")
-        {
-            let group = await Models.GroupModel.findOne({Student_id: data.user_id})
-            let tutor = await Models.UserModel.findById({_id: group.Tutor_id})
+        socket.id = data.user_id
+        if (data.user_role === "Student") {
+            let group = await Models.GroupModel.findOne({ Student_id: data.user_id })
+            let tutor = await Models.UserModel.findById({ _id: group.Tutor_id })
             let tutor_id = group.Tutor_id
             let tutor_full = tutor.User_full
             let tutor_avatar = tutor.User_avatar
@@ -36,19 +36,19 @@ io.on('connection', (socket)=>{
                 tutor_avatar,
             })
         }
-        if(data.user_role === "Tutor"){
-            let group = await Models.GroupModel.findOne({Tutor_id: data.user_id})
-            let students = await Models.UserModel.find({_id: group.Student_id})
+        if (data.user_role === "Tutor") {
+            let group = await Models.GroupModel.findOne({ Tutor_id: data.user_id })
+            let students = await Models.UserModel.find({ _id: group.Student_id })
             socket.emit('chat_student', {
                 students
             })
         }
     })
-   socket.on('message', (data)=>{
-       socket.emit('r-message', 'hello client')
-   })
-    socket.on('disconnect', ()=>{
-        console.log(socket.id + ' ngat let noi')
+    socket.on('message', (data) => {
+        socket.emit('r-message', 'hello client')
+    })
+    socket.on('disconnect', () => {
+        console.log(socket.id + ' disconnected!')
     })
 })
 server.listen(1000)
