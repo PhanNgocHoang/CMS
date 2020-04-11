@@ -14,7 +14,7 @@
             <section class="module">
                 <div class="module-inner">
                     <div class="content-panel">
-                        <form class="form-horizontal" method="POST" enctype="multipart/form-data" onsubmit = "return validateForm()">
+                        <form class="form-horizontal" method="POST" enctype="multipart/form-data">
                             <fieldset class="fieldset">
                                 <h3 class="fieldset-title">Create A New Account</h3>
                                 <%if(data.err){%>
@@ -68,8 +68,8 @@
                             <fieldset class="fieldset">
                                 <div class="form-group">
                                     <label class="col-md-2  col-sm-3 col-xs-12 control-label">Phone</label>
-                                    <div class="col-md-10 col-sm-9 col-xs-12">
-                                        <input type="number" class="form-control" name="User_phone" required>
+                                    <div class="col-md-10 col-sm-9 col-xss-12">
+                                        <input type="phone" class="form-control" name="User_phone" required>
                                     </div>
                                 </div>
 
@@ -86,16 +86,16 @@
                                             <%for (x in data.faculty){%>
                                             <option value=<%=data.faculty[x]._id%>><%=data.faculty[x].Faculty_name%></option>
                                             <%}%>
-                                    </select>
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
-                                            <div class="form-group">
-                                                <label class="col-md-2  col-sm-3 col-xs-12 control-label">Avatar</label>
-                                                <div class="col-md-10 col-sm-9 col-xs-12">
-                                                    <input type="file" class="file-uploader pull-left"
-                                                        name="User_avatar">
-                                                </div>
-                                            </div>
+                                <div class="form-group">
+                                    <label class="col-md-2  col-sm-3 col-xs-12 control-label">Avatar</label>
+                                    <div class="col-md-10 col-sm-9 col-xs-12">
+                                        <input type="file" class="file-uploader pull-left"
+                                            name="User_avatar">
+                                    </div>
+                                </div>
 
                             </fieldset>
                             <hr>
@@ -105,12 +105,6 @@
                                     <a class="btn btn-danger" href="/staff/Account/<%=data.role_id%>" role="button">Cancel</a>
                                 </div>
                             </div>
-                            <script type = "text/javascript">
-                                function validateForm()  {
-                                    alert("Create Successfull!")
-                                    return true;
-                                }
-                            </script>
                         </form>
                     </div>
                 </div>
