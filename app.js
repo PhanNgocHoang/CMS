@@ -20,9 +20,7 @@ app.use('/', home)
 app.use('/staff',auth.reqAuth,auth.CheckStaff, staff)
 app.use('/user', auth.reqAuth, auth.CheckTutorAndStudent, Student)
 io.on('connection', (socket)=>{
-    console.log(' a user connect' + socket.id )
     socket.on('user_info', async(data)=>{
-        socket.name = data.name
         if(data.user_role === "Student")
         {
             let group = await Models.GroupModel.findOne({Student_id: data.user_id})
@@ -43,13 +41,11 @@ io.on('connection', (socket)=>{
                 students
             })
         }
+        socket.on('message', (to)=>{
+           socket.to(to.id).emit('user-message', to)
+        })
     })
-   socket.on('message', (data)=>{
-       socket.emit('r-message', 'hello client')
-   })
-    socket.on('disconnect', ()=>{
-        console.log(socket.id + ' ngat let noi')
-    })
+
 })
 server.listen(1000)
 module.exports = app

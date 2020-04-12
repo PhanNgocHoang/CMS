@@ -1,4 +1,5 @@
 const socket = io();
+$('#send_message').hide()
 
 $(document).ready(() => {
     let user_id = $("#user_id").val()
@@ -10,18 +11,27 @@ $(document).ready(() => {
     user_full
   })
   socket.on('chat_tutor', (data)=>{
-    let tutor = '<div user_id ="'+data.tutor_id+'"><img src="/static/images/'+data.tutor_avatar+'" alt="sunil" class="chat_img"><span class="chat_ib">'+data.tutor_full+'</span> <div>'
+    let tutor = "<div Id ='"+data.tutor_id+"' class='a-user'><img src='/static/images/"+data.tutor_avatar+"' alt='sunil' class='chat_img'><span class='chat_ib'>"+data.tutor_full+"</span></div>"
       $('#chat_user').append(tutor)
   })
   socket.on('chat_student', (data)=>{
     data.students.forEach(student =>{
-      let user = '<div user_id ="'+student._id+'"><img src="/static/images/'+student.User_avatar+'" alt="sunil" class="chat_img"><span class="chat_ib">'+student.User_full+'</span> <div>'
+      let user = "<div Id ='"+student._id+"' class='a-user'><img src='/static/images/"+student.User_avatar+"' alt='sunil' class='chat_img'><span class='chat_ib'>"+student.User_full+"</span></div>"
       $('#chat_user').append(user)
     })
   })
-  $("#send").click(() => {
-    socket.emit("message", $("#input-message").val());
-    socket.on('r-message', (data)=>{
-    })
-  });
+  socket.on('user-message', (data)=>{
+    alert(data.msg)
+  })
+  $(document).on("click", ".a-user", function(){
+    $('#send_message').show()
+    let id = $(this).attr("Id")
+    $("#send").click(() => {
+      let message = $("#input-message").val()
+      socket.emit("message", {
+        id,
+        message
+      });
+    });
+  })
 });
