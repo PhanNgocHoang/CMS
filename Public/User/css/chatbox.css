@@ -60,7 +60,7 @@ img {
     margin: 0 0 0 -27px;
 }
 
-.chat_ib h5 {
+/* .chat_ib h5 {
     font-size:15px;
     color:#464646;
     margin:0 0 8px 0;
@@ -73,19 +73,30 @@ img {
     font-size:14px;
     color:#989898;
     margin:auto
-}
+} */
 .chat_img {
   float: left;
-  width: 40%;
-  padding-top: 10px;
-  border-radius: 5px
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
 }
 .chat_ib {
-  float: left;
-  padding: 0 0 0 45%;
-  width: 88%;
+  font-size: 12px;
+  margin-left: 60px;
 }
-
+.chat_title {
+  width: 100px;
+  float: left;
+  margin-left: 10px;
+  font-size: 15px;
+  font-weight: bold;
+  /* border: 1px solid red; */
+}
+.chat_date {
+  float: right;
+  margin-top: 2px;
+  font-size: 12px;
+}
 .chat_people {
     overflow:hidden;
 }
@@ -165,21 +176,16 @@ img {
 }
 
 .type_msg {
-    border-top: 1px solid #c4c4c4;
     position: relative;
 }
 .msg_send_btn {
-  background: #05728f none repeat scroll 0 0;
-  border: medium none;
-  border-radius: 50%;
   color: #fff;
-  cursor: pointer;
-  font-size: 17px;
-  height: 33px;
   position: absolute;
-  right: 0;
-  top: 5px;
-  width: 33px;
+  right: 5px;
+  top: 5px;background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+  color: #4c4c4c;
+  font-size: 15px;
+  min-height: 30px;
 }
 .messaging {
     padding: 0 0 50px 0;
