@@ -36,10 +36,8 @@ const MessageSchema = new Schema({
   Message: [
     {
       message: { type: String, require: true },
-    },
-    {
-      date: { type: String },
-    },
+      Date: Date
+    }
   ],
 });
 

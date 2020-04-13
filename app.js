@@ -55,34 +55,43 @@ io.on("connection", (socket) => {
       });
       let message = data.message;
       let name = socket.name;
+      let time = data.time
+      let img = data.user_img
       io.sockets.to(data.id).emit("user-message", {
         name,
         message,
+        time, 
+        img
       });
       if(sender == null)
       {
-          let new_mess = new Models.MessageModel({
+          let new_mess_sender = new Models.MessageModel({
               Sender: socket.user,
               Receiver: data.id,
-              Message: ({
+              Message: [
+                {
                   message: message,
-                  data: new Date
-              
-                })
+                  Date: data.time
+                }
+              ]
           })
-          await new_mess.save()
+          await new_mess_sender.save()
+      }
+      else{
+        await Models.MessageModel.findByIdAndUpdate({_id: sender._id},{$addToSet:{Message: {message: message, Date: data.time}}})
       }
     });
     socket.on("get_mess", async (data) => {
-      let sender = await Models.MessageModel.find({
+      let sender = await Models.MessageModel.findOne({
         Sender: socket.user,
-        Receiver: data,
-      }).populate("Sender", "Receiver");
-      let receiver = await Models.MessageModel.find({
-        Sender: data,
-        Receiver: socket.user,
-      }).populate("Sender", "Receiver");
-      socket.emit("list_message", { sender, receiver });
+        Receiver: data.id,
+      }).populate("Receiver, Sender");
+      let receiver = await Models.MessageModel.findOne({
+        Sender: data.id,
+        Receiver: socket.user
+      }).populate("Receiver, Sender")
+      let name = data.name
+      socket.emit("list_message", sender, receiver ,name);
     });
   });
 });
