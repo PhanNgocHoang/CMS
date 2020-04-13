@@ -1,5 +1,5 @@
 const socket = io();
-$('#send_message').hide()
+$('#list_mess').hide()
 
 $(document).ready(() => {
     let user_id = $("#user_id").val()
@@ -20,18 +20,23 @@ $(document).ready(() => {
       $('#chat_user').append(user)
     })
   })
-  socket.on('user-message', (data)=>{
-    alert(data.msg)
-  })
   $(document).on("click", ".a-user", function(){
-    $('#send_message').show()
     let id = $(this).attr("Id")
+    socket.emit('get_mess', id)
+    socket.on('list_message', (data)=>{
+      console.log(data.sender)
+      console.log(data.receiver)
+    })
+    $('#list_mess').show(1000)
     $("#send").click(() => {
       let message = $("#input-message").val()
-      socket.emit("message", {
+      socket.emit("send_message", {
         id,
         message
       });
     });
+  })
+  socket.on('user-message', (data)=>{
+    console.log(data)
   })
 });
