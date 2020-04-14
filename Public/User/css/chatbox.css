@@ -194,3 +194,6 @@ img {
   height: 516px;
   overflow-y: auto;
 }
+li {
+  background-color: #fff;
+}

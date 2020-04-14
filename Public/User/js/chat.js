@@ -26,30 +26,30 @@ $(document).ready(() => {
   });
   socket.on("chat_tutor", (data) => {
     let tutor =
-      "<div Id ='" +
+      "<li id='chat-icon'><div Id ='" +
       data.tutor_id +
       "' name ='" +
       data.tutor_full +
-      "' class='a-user' id='chat-icon'><img src='/static/images/" +
+      "' class='a-user'><img src='/static/images/" +
       data.tutor_avatar +
       "' alt='sunil' class='chat_img'><div class='chat_title' >" +
       data.tutor_full +
-      "</div><div class='chat_date'>Dec 25</div><br><div class='chat_ib'>Test, which is a new approach to have all solutions astrology under one roof.</div></div>";
-    $("#chat_user").append(tutor);
+      "</div><div class='chat_date'>Dec 25</div><br><div class='chat_ib'>Test, which is a new approach to have all solutions astrology under one roof.</div></div></li>";
+    $(".list_people").append(tutor);
   });
   socket.on("chat_student", (data) => {
     data.students.forEach((student) => {
       let user =
-        "<div Id ='" +
+        "<li id='chat-icon'><div Id ='" +
         student._id +
         "'  name ='" +
         student.User_full +
-        "'class='a-user' id='chat-icon'><img src='/static/images/" +
+        "'class='a-user'><img src='/static/images/" +
         student.User_avatar +
         "' alt='sunil' class='chat_img'><div class='chat_title' >" +
         student.User_full +
-        "</div><div class='chat_date'>Dec 25</div><br><div class='chat_ib'>Test, which is a new approach to have all solutions astrology under one roof.</div></div>";
-      $("#chat_user").append(user);
+        "</div><div class='chat_date'>Dec 25</div><br><div class='chat_ib'>Test, which is a new approach to have all solutions astrology under one roof.</div></div></li>";
+      $(".list_people").append(user);
     });
   });
   $(document).one("click", ".a-user", function () {
@@ -92,8 +92,8 @@ $(document).ready(() => {
             "</span>";
           $("#msg_come").append(msg);
         });
+        $("#list_mess").show(500);
       }
-      $("#list_mess").show(500);
     });
     $("#input-message").on("keyup", (event) => {
       if (event.keyCode === 13) {
@@ -129,5 +129,11 @@ $(document).ready(() => {
       data.time +
       "</span>";
     $("#msg_come").append(msg_come);
+    let bt = setInterval(() => {
+      $("#chat-icon").css("background-color", "blue");
+    },1);
+    $(document).one("click", "#chat-icon", function () {
+      clearInterval(bt)
+    })
   });
 });

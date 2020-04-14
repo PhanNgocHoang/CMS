@@ -63,23 +63,23 @@ io.on("connection", (socket) => {
         time, 
         img
       });
-      if(sender == null)
-      {
-          let new_mess_sender = new Models.MessageModel({
-              Sender: socket.user,
-              Receiver: data.id,
-              Message: [
-                {
-                  message: message,
-                  Date: data.time
-                }
-              ]
-          })
-          await new_mess_sender.save()
-      }
-      else{
-        await Models.MessageModel.findByIdAndUpdate({_id: sender._id},{$addToSet:{Message: {message: message, Date: data.time}}})
-      }
+      // if(sender == null)
+      // {
+      //     let new_mess_sender = new Models.MessageModel({
+      //         Sender: socket.user,
+      //         Receiver: data.id,
+      //         Message: [
+      //           {
+      //             message: message,
+      //             Date: data.time
+      //           }
+      //         ]
+      //     })
+      //     await new_mess_sender.save()
+      // }
+      // else{
+      //   await Models.MessageModel.findByIdAndUpdate({_id: sender._id},{$addToSet:{Message: {message: message, Date: data.time}}})
+      // }
     });
     socket.on("get_mess", async (data) => {
       let sender = await Models.MessageModel.findOne({
