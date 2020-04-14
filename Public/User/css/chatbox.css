@@ -85,7 +85,7 @@ img {
   margin-left: 60px;
 }
 .chat_title {
-  width: 100px;
+  width: 65%;
   float: left;
   margin-left: 10px;
   font-size: 15px;
@@ -116,7 +116,6 @@ img {
 
 .incoming_msg_img {
   display: inline-block;
-  width: 6%;
 }
 .received_msg {
   display: inline-block;
@@ -194,6 +193,6 @@ img {
   height: 516px;
   overflow-y: auto;
 }
-li {
+/* li {
   background-color: #fff;
-}
+} */

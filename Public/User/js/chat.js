@@ -59,13 +59,13 @@ $(document).ready(() => {
     socket.on("list_message", (sender, receiver, name) => {
       if (receiver != null) {
         let sender_info = new Array(sender.Sender);
-        sender_info.forEach((img_sender) => {
-          let img =
-            "<img class='chat_img 'src='/static/images/" +
-            img_sender.User_avatar +
-            "' alt='sunil'>";
-          $("#img_out").append(img);
-        });
+        // sender_info.forEach((img_sender) => {
+        //   let img =
+        //     "<img class='chat_img 'src='/static/images/" +
+        //     img_sender.User_avatar +
+        //     "' alt='sunil'>";
+        //   $("#img_out").append(img);
+        // });
         sender.Message.forEach((msg_sender) => {
           let msg =
             "<p>" +
