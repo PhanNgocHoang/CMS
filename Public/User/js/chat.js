@@ -55,17 +55,10 @@ $(document).ready(() => {
   $(document).one("click", ".a-user", function () {
     let id = $(this).attr("Id");
     let name = $(this).attr("name");
+    $("#list_mess").show(500);
     socket.emit("get_mess", { id, name });
     socket.on("list_message", (sender, receiver, name) => {
-      if (receiver != null) {
-        let sender_info = new Array(sender.Sender);
-        // sender_info.forEach((img_sender) => {
-        //   let img =
-        //     "<img class='chat_img 'src='/static/images/" +
-        //     img_sender.User_avatar +
-        //     "' alt='sunil'>";
-        //   $("#img_out").append(img);
-        // });
+      // if (receiver != null) {
         sender.Message.forEach((msg_sender) => {
           let msg =
             "<p>" +
@@ -92,8 +85,7 @@ $(document).ready(() => {
             "</span>";
           $("#msg_come").append(msg);
         });
-        $("#list_mess").show(500);
-      }
+      // }
     });
     $("#input-message").on("keyup", (event) => {
       if (event.keyCode === 13) {

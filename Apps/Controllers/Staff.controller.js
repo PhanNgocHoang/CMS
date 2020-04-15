@@ -447,8 +447,13 @@ async function Chart_Role(req, res)
   let role_id = req.params.role_id
   let role = await Models.RoleModel.findById({_id: role_id})
   let Role_Name = role.roleName
-  let User = await Models.UserModel.find({User_role: role_id})
-  return res.render('StaffPage/report/chart', {User_info:{Role_Name: Role_Name, User: User}})
+  return res.render('StaffPage/report/chart', {Role:{Role_Name: Role_Name, role_id: role_id}})
+}
+async function Detail_Mess(req, res)
+{
+  let user_id = req.params.user_id
+  let User = await Models.UserModel.findById({_id: user_id})
+  return res.render('StaffPage/report/detail', {user_info:{User: User}})
 }
 
 module.exports = {
@@ -481,4 +486,5 @@ module.exports = {
   Post_SendMail_For_Account: Post_SendMail_For_Account,
   Chart: Chart,
   Chart_Role: Chart_Role,
+  Detail_Mess: Detail_Mess
 };

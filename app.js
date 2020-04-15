@@ -94,6 +94,38 @@ io.on("connection", (socket) => {
       socket.emit("list_message", sender, receiver ,name);
     });
   });
+  socket.on('RoleId', async(data)=>{
+    let User = await Models.UserModel.find({User_role: data})
+    let arr_sender = []
+    let arr_receiver = []
+    for(let i =0; i<= User.length-1; i++)
+    {
+      let sender = await Models.MessageModel.find({Sender: User[i]._id})
+      arr_sender.push(sender.length)
+      let receiver = await Models.MessageModel.find({Receiver: User[i]._id})
+      arr_receiver.push(receiver.length)
+    }
+    socket.emit("Sender_Receiver", arr_sender, arr_receiver,User)
+  })
+  socket.on('detail-mess', async(data)=>{
+  let arr_mess_sent = new Array()
+  let arr_mess_receiver = new Array()
+  let Mess_send = await Models.MessageModel.find({Sender: data})
+  let Mess_receive = await Models.MessageModel.find({Receiver: data})
+  Mess_send.forEach(message=>{
+    for(i =0; i<=message.Message.length-1; i++)
+    {
+      arr_mess_sent.push(message.Message[i])
+    }
+  })
+  Mess_receive.forEach(message=>{
+    for(i =0; i<=message.Message.length-1; i++)
+    {
+      arr_mess_receiver.push(message.Message[i])
+    }
+  })
+    socket.emit('message_detail', arr_mess_sent, arr_mess_receiver)
+  })
 });
 server.listen(1000);
 module.exports = app;

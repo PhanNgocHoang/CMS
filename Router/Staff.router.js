@@ -53,5 +53,7 @@ router.route('/chart')
     .get(StaffController.Chart)
 router.route('/chart/:role_id')
     .get(StaffController.Chart_Role)
+router.route('/DetailMessage/:user_id')
+    .get(StaffController.Detail_Mess)
 
 module.exports = router
