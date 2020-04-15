@@ -71,7 +71,7 @@ $(document).ready(() => {
         let receiver_info = new Array(receiver.Sender);
         receiver_info.forEach((img_receiver) => {
           let img =
-            "<img class='chat_img' src='/static/images/" +
+            "<img class='chat_img_right' src='/static/images/" +
             img_receiver.User_avatar +
             "' alt='sunil'>";
           $("#img_come").append(img);
@@ -91,7 +91,7 @@ $(document).ready(() => {
       if (event.keyCode === 13) {
         let message = $("#input-message").val();
         let img =
-          "<img class='chat_img' src='/static/images/" +
+          "<img class='chat_img_right' src='/static/images/" +
           user_img +
           "' alt='sunil'>";
         $("#img_out").append(img);
@@ -112,7 +112,7 @@ $(document).ready(() => {
     let img =
       "<img src=' /static/images/" +
       data.img +
-      "' alt='sunil' class='chat_img >";
+      "' alt='sunil' class='chat_img_right' >";
     $("#img_come").append(img);
     let msg_come =
       "<p>" +
