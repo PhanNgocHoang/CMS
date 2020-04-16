@@ -59,5 +59,7 @@ router.route('/StudentSupport')
     .get(StaffController.Student_Support)
 router.route('/TutorChart')
     .get(StaffController.Chart_Personal_Tutor)
+router.route('/TutorChart/:user_id')
+    .get(StaffController.Detail_Personal_Tutor)
 
 module.exports = router

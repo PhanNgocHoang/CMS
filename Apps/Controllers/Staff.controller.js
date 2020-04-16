@@ -466,6 +466,11 @@ async function Chart_Personal_Tutor(req, res)
   let tutor = await Models.RoleModel.findOne({roleName: "Tutor"})
   return res.render('StaffPage/report/chartTutor', {data:{tutor_id: tutor._id}})
 }
+async function Detail_Personal_Tutor(req, res)
+{
+  let Tutor = await Models.UserModel.findById({_id: req.params.user_id})
+  return res.render('StaffPage/report/detailTutor', {data:{Tutor: Tutor}})
+}
 module.exports = {
   Page_Index: Page_Index,
   Staff_Profile: Staff_Profile,
@@ -498,5 +503,6 @@ module.exports = {
   Chart_Role: Chart_Role,
   Detail_Mess: Detail_Mess,
   Student_Support: Student_Support,
-  Chart_Personal_Tutor: Chart_Personal_Tutor
+  Chart_Personal_Tutor: Chart_Personal_Tutor,
+  Detail_Personal_Tutor: Detail_Personal_Tutor
 };

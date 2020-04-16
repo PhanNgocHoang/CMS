@@ -169,6 +169,15 @@ io.on("connection", (socket) => {
     let student = await Models.UserModel.find({_id: list_student})
     socket.emit('list_student', list_student, student)
   })
+  socket.on('list_student_support', async(tutor_id)=>{
+    let group = await Models.GroupModel.find({Tutor_id: tutor_id})
+    let list_student =[]
+    group.forEach(student=>{
+      list_student = list_student.concat(student.Student_id)
+    })
+    let Student = await Models.UserModel.find({_id: list_student})
+    socket.emit('sum_student_support', list_student, Student)
+  })
 });
 server.listen(1000);
 module.exports = app;

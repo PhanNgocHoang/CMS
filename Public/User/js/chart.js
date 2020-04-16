@@ -48,4 +48,15 @@ $(document).ready(()=>{
         })
     })
     socket.emit('tutor', $('#tutor_id').val())
+    let tutor_id = $('#tutor_id').val()
+    socket.emit('list_student_support', tutor_id)
+    socket.on('sum_student_support', (list_student, Student)=>{
+        Student.forEach(student=>{
+            let user_full = "<li>"+student.User_full+"</li></br>"
+            let student_id = "<li>"+student.User_ID+"</li></br>"
+            $('#student_name').append(user_full)
+            $('#student_id').append(student_id)
+
+        })
+    })
 })

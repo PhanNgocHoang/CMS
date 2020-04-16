@@ -8,19 +8,13 @@
             <div class="module-inner">
                <h3 class="fieldset-title">Personal Tutor Support</h3>
                <input type="hidden" value="<%=data.tutor_id%>" id="tutor_id">
-               <div class="content-panel">
-                  <canvas id="bar-chart-grouped" width="800" height="450"></canvas>
-               </div>
             </div>
             <div class="clearfix"></div>
-            <h3 style="text-align: center;">Statistics the number of people interacting</h3>
+            <h3 style="text-align: center;"></h3>
             <div class="table-responsive">
                <table class="table table-striped table-hover" border="2">
                   <tr id="user_full">
                      <th>Full Name</th>
-                  </tr>
-                  <tr id="sum">
-                     <th>Number of Student</th>
                   </tr>
                </table>
             </div>
@@ -42,19 +36,10 @@
         let user = []
         for(i =0; i<=Tutor.length-1; i++)
         {
-            let user_full = "<td>"+Tutor[i].User_full+"| <a href='/staff/DetailSum/"+Tutor[i]._id+"' title='Detail'><i class='fa fa-eye'>Detail</i></a></th>"
+            let user_full = "<td>"+Tutor[i].User_full+"| <a href='/staff/TutorChart/"+Tutor[i]._id+"' title='Detail'><i class='fa fa-eye'>Detail</i></a></th>"
             $('#user_full').append(user_full)
             user.push(Tutor[i].User_full)
         }
-        let sum_student_in_group = []
-        sum_student.forEach(sum=>{
-            for(i =0; i<= sum.length-1; i++)
-            {
-                console.log(sum[i].Student_id.length)
-                let sum_student = "<td>"+sum[i].Student_id.length+"</td>"
-                $('#sum').append(sum_student)
-            }
-        })
     })
 </script>
 

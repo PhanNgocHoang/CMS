@@ -10,4 +10,6 @@ router.route('/chat')
     .get(Student.Chat)
 router.route('/dashboard/:user_id')
     .get(Student.Dashboard)
+router.route('/contact/:id')
+    .get(Student.Get_Contact)
 module.exports = router
