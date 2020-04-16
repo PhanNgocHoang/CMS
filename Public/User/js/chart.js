@@ -31,7 +31,21 @@ $(document).ready(()=>{
          {
              arr_receive.push(arr_mess_receiver[i].Date)
          }
-         $('#h_sent').append(arr_sent.join(';'))
-         $('#h_receive').append(arr_receive.join(';'))
+         $('#h_sent').append(arr_sent.join(' ; '))
+         $('#h_receive').append(arr_receive.join(' ; '))
     })
+    socket.emit('student_support')
+    socket.on('detail_student', (List_student, Student_notSupport)=>{
+        List_student.forEach(student=>{
+            let ls_student = new Array()
+            ls_student.push(student.User_full)
+            $('#st_tutor').append(ls_student.join(' ;'))
+        })
+        Student_notSupport.forEach(student=>{
+            let ls_student = new Array()
+            ls_student.push(student.User_full)
+            $('#st_not_tutor').append(ls_student.join(' ;'))
+        })
+    })
+    socket.emit('tutor', $('#tutor_id').val())
 })

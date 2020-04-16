@@ -455,7 +455,17 @@ async function Detail_Mess(req, res)
   let User = await Models.UserModel.findById({_id: user_id})
   return res.render('StaffPage/report/detail', {user_info:{User: User}})
 }
-
+async function Student_Support(req, res)
+{
+  let student = await Models.RoleModel.findOne({roleName: "Student"})
+  let Sum_student= await Models.UserModel.find({User_role: student._id})
+  return res.render('StaffPage/report/chartStudentSupport', {data:{sum_student: Sum_student.length}})
+}
+async function Chart_Personal_Tutor(req, res)
+{
+  let tutor = await Models.RoleModel.findOne({roleName: "Tutor"})
+  return res.render('StaffPage/report/chartTutor', {data:{tutor_id: tutor._id}})
+}
 module.exports = {
   Page_Index: Page_Index,
   Staff_Profile: Staff_Profile,
@@ -486,5 +496,7 @@ module.exports = {
   Post_SendMail_For_Account: Post_SendMail_For_Account,
   Chart: Chart,
   Chart_Role: Chart_Role,
-  Detail_Mess: Detail_Mess
+  Detail_Mess: Detail_Mess,
+  Student_Support: Student_Support,
+  Chart_Personal_Tutor: Chart_Personal_Tutor
 };

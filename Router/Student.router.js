@@ -8,4 +8,6 @@ router.route('/profile')
     .get(Student.Profile_Page)
 router.route('/chat')
     .get(Student.Chat)
+router.route('/dashboard/:user_id')
+    .get(Student.Dashboard)
 module.exports = router

@@ -126,6 +126,49 @@ io.on("connection", (socket) => {
   })
     socket.emit('message_detail', arr_mess_sent, arr_mess_receiver)
   })
+  socket.on('student_support', async()=>{
+    let student = await Models.RoleModel.findOne({roleName: "Student"})
+    let Student = await Models.UserModel.find({User_role: student._id})
+    let Group = await Models.GroupModel.find({})
+    let Student_support = []
+    let Student_not_Support = []
+    for(i=0; i<= Group.length -1; i++)
+    {
+     Student_support = Student_support.concat(Group[i].Student_id)
+    }
+    for(i = 0; i<= Student.length -1; i++)
+    {
+       Student_not_Support.push(Student[i]._id)
+    }
+    socket.emit('list_student', Student_support, Student_not_Support)
+    socket.on('Student_notSupport', async(Student_not_Support)=>{
+      let List_student = await Models.UserModel.find({_id: Student_support})
+      let Student_notSupport = await Models.UserModel.find({_id: Student_not_Support})
+      socket.emit('detail_student', List_student, Student_notSupport)
+    })
+  })
+  socket.on('tutor', async(tutor_id)=>{
+      let Tutor = await Models.UserModel.find({User_role: tutor_id})
+      let sum_student = []
+        for(i =0; i<= Tutor.length-1; i++)
+        {
+          let group = await Models.GroupModel.find({Tutor_id: Tutor[i]._id})
+          sum_student.push(group)
+        }
+        socket.emit('sum_student_of_tutor', Tutor, sum_student)
+  })
+  socket.on('data_dashboard', async(user_id)=>{
+    let Sent = await Models.MessageModel.find({Sender: user_id}).populate("Receiver")
+    let Receive = await Models.MessageModel.find({Receiver: user_id}).populate("Sender")
+    socket.emit('Your_data', Sent, Receive)
+    let group = await Models.GroupModel.find({Tutor_id: user_id})
+    let list_student = new Array()
+    group.forEach(student=>{
+      list_student= list_student.concat(student.Student_id)
+    })
+    let student = await Models.UserModel.find({_id: list_student})
+    socket.emit('list_student', list_student, student)
+  })
 });
 server.listen(1000);
 module.exports = app;

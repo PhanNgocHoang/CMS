@@ -58,43 +58,36 @@ $(document).ready(() => {
     $("#list_mess").show(500);
     socket.emit("get_mess", { id, name });
     socket.on("list_message", (sender, receiver, name) => {
-      // if (receiver != null) {
-        sender.Message.forEach((msg_sender) => {
-          let msg =
-            "<p>" +
-            msg_sender.message +
-            "</p><span class='time_date'>" +
-            msg_sender.Date +
-            "</span>";
-          $("#my_msg").append(msg);
-        });
-        let receiver_info = new Array(receiver.Sender);
-        receiver_info.forEach((img_receiver) => {
-          let img =
-            "<img class='chat_img_right' src='/static/images/" +
-            img_receiver.User_avatar +
-            "' alt='sunil'>";
-          $("#img_come").append(img);
-        });
-        receiver.Message.forEach((msg_receiver) => {
-          let msg =
-            "<p>" +
-            msg_receiver.message +
-            "</p><span class='time_date'>" +
-            msg_receiver.Date +
-            "</span>";
-          $("#msg_come").append(msg);
-        });
-      // }
+      sender.Message.forEach((msg_sender) => {
+        let msg =
+          "<p>" +
+          msg_sender.message +
+          "</p><span class='time_date'>" +
+          msg_sender.Date +
+          "</span>";
+        $("#my_msg").append(msg);
+      });
+      let receiver_info = new Array(receiver.Sender);
+      receiver_info.forEach((img_receiver) => {
+        let img =
+          "<img class='chat_img' src='/static/images/" +
+          img_receiver.User_avatar +
+          "' alt='sunil'>";
+        $("#img_come").append(img);
+      });
+      receiver.Message.forEach((msg_receiver) => {
+        let msg =
+          "<p>" +
+          msg_receiver.message +
+          "</p><span class='time_date'>" +
+          msg_receiver.Date +
+          "</span>";
+        $("#msg_come").append(msg);
+      });
     });
     $("#input-message").on("keyup", (event) => {
       if (event.keyCode === 13) {
         let message = $("#input-message").val();
-        let img =
-          "<img class='chat_img_right' src='/static/images/" +
-          user_img +
-          "' alt='sunil'>";
-        $("#img_out").append(img);
         let my_msg =
           "<p>" + message + "</p><span class='time_date'>" + date + "</span>";
         $("#my_msg").append(my_msg);
@@ -112,7 +105,7 @@ $(document).ready(() => {
     let img =
       "<img src=' /static/images/" +
       data.img +
-      "' alt='sunil' class='chat_img_right' >";
+      "' alt='sunil' class='chat_img >";
     $("#img_come").append(img);
     let msg_come =
       "<p>" +
@@ -123,9 +116,9 @@ $(document).ready(() => {
     $("#msg_come").append(msg_come);
     let bt = setInterval(() => {
       $("#chat-icon").css("background-color", "blue");
-    },1);
+    }, 1);
     $(document).one("click", "#chat-icon", function () {
-      clearInterval(bt)
-    })
+      clearInterval(bt);
+    });
   });
 });

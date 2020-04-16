@@ -20,6 +20,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
     <!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script> -->
 
@@ -64,8 +65,10 @@
                     <div class="navbar-collapse collapse color">
                         <ul class="nav navbar-nav">
                             <li><a href="/user">Home</a></li>
-                            <li><a href="/user/chat">Chat With Tutor</a></li>
-                            <li><a href="/user/chart">DashBoard</a></li>
+                            <li><a href="/user/chat">Chat</a></li>
+                            <%for(x in locals.user){%>
+                            <li><a href="/user/dashboard/<%=locals.user[x]._id%>">DashBoard</a></li>
+                            <%}%>
                         </ul>
                     </div>
                 </div>
