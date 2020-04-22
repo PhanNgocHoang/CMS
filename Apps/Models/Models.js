@@ -31,6 +31,14 @@ const GroupSchema = new Schema({
 });
 const MessageSchema = new Schema({
   _id: { type: mongoose.Schema.ObjectId, auto: true },
+  Meet: [
+    {
+      Date: {type: String, require: true},
+      Time: {type: String, require: true},
+      Place: {type: String, require: true},
+      Note: {type: String}
+    }
+  ],
   Sender: { type: Schema.Types.ObjectId, ref: "User" },
   Receiver: { type: Schema.Types.ObjectId, ref: "User" },
   Message: [

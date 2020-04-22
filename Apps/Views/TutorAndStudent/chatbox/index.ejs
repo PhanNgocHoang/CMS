@@ -54,50 +54,50 @@
                             <input type="button" value="Send" class="msg_send_btn" id="send">
                             <div class="file">
                                 <label class="myLabel">
-                                    <input type="file">
+                                    <input type="file" id="file">
                                     <span><i class="fas fa-paperclip"></i></span>
                                 </label>
-                            </div>
+                            </div><br>
                         </div>
-                        <form class="form-horizontal" action="" method="POST" style="font-size: 15px; margin-top: 30px; border: 1px solid #c4c4c4; padding: 10px;">
+                        <input type="button" id="set_meet" value="Set meet">
+                        <div style="font-size: 15px; margin-top: 30px; border: 1px solid #c4c4c4; padding: 10px;" id="set_met">
                             <h4 style="text-align: center; font-weight: bold;">Set Schedual Form</h4>
                             <br>
                             <fieldset>
                                 <div class="form-group">
                                     <label class="col-md-2 col-sm-3 col-xs-12">Date</label>
                                     <div class="col-md-10 col-sm-9 col-xs-12">
-                                        <input type="date" class="form-control" value="" name="date_schedual">
+                                        <input type="date" class="form-control"  id="Date">
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-md-2 col-sm-3 col-xs-12">Hours</label>
                                     <div class="col-md-10 col-sm-9 col-xs-12">
-                                        <input type="time" class="form-control" value="" name="Hours_schedual">
+                                        <input type="time" class="form-control" id="hours">
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-md-2 col-sm-3 col-xs-12">Place</label>
                                     <div class="col-md-10 col-sm-9 col-xs-12">
-                                        <textarea name="place_schedual" required placeholder="" cols="80" rows="3" ></textarea>
+                                        <textarea required placeholder="" cols="80" rows="3" id="place"></textarea>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-md-2 col-sm-3 col-xs-12">Note</label>
                                     <div class="col-md-10 col-sm-9 col-xs-12">
-                                        <textarea name="place_schedual" required placeholder="" cols="80" rows="3" ></textarea>
+                                        <textarea required placeholder="" cols="80" rows="3" id="note"></textarea>
                                     </div>
                                 </div>
-                                
                                 <div class="form-group">
                                     <div class="col-md-10 col-sm-9 col-xs-12 col-md-push-2 col-sm-push-3 col-xs-push-0">
-                                        <input class="btn btn-primary" type="submit" value="Set Schedual">
+                                        <button class="btn btn-info" id="set">Set</button>
                                     </div>
                                 </div>
                             </fieldset>
-                        </form>
+                        </div>
                     </div>
                     <div class="list-file-schedual">
                         <div class="table-responsive" style="border-bottom: 1px solid #c4c4c4;">
@@ -122,21 +122,42 @@
                         </div>
     
                         <div class="table-responsive" style="border-bottom: 1px solid #c4c4c4;">
-                            <h5 style="margin-top: 10px; margin-left: 10px;">List File Shared</h5>
+                            <h5 style="margin-top: 10px; margin-left: 10px;">List Meet</h5>
                             <table class="table table-striped table-hover" border="1" style="margin-top: 10px;">
                                 <tr>
-                                    <td>
-                                        abc
-                                    </td>
+                                    <th>
+                                        Date
+                                    </th>
+                                    <th>
+                                        Time
+                                    </th>
+                                    <th>
+                                        Place
+                                    </th>
+                                    <th>
+                                        Note
+                                    </th>
                                 </tr>
-                                <tr>
-                                    <td>
-                                        abc
+                                <tr id="tb-set-meet">
+                                    <td id="li-date">
+                                        <ul id="date_meet">
+
+                                        </ul>
                                     </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        abc
+                                    <td id="li-time">
+                                        <ul id="time_meet">
+
+                                        </ul>
+                                    </td>
+                                    <td id="li-place">
+                                        <ul id="place_meet">
+
+                                        </ul>
+                                    </td>
+                                    <td id="li-note">
+                                        <ul id="note_meet">
+
+                                        </ul>
                                     </td>
                                 </tr>
                             </table>

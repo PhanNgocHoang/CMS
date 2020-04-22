@@ -54,27 +54,25 @@ io.on("connection", (socket) => {
         Receiver: socket.user,
       });
       let message = data.message;
-      let name = socket.name;
       let time = data.time
-      let img = data.user_img
-      // if(sender == null)
-      // {
-      //     let new_mess_sender = new Models.MessageModel({
-      //         Sender: socket.user,
-      //         Receiver: data.id,
-      //         Message: [
-      //           {
-      //             message: message,
-      //             Date: data.time
-      //           }
-      //         ]
-      //     })
-      //     await new_mess_sender.save()
-      // }
-      // else{
-      //   await Models.MessageModel.findByIdAndUpdate({_id: sender._id},{$addToSet:{Message: {message: message, Date: data.time}}})
-      // }
-      io.sockets.to(data.id).emit("user-message", {
+      if(sender == null)
+      {
+          let new_mess_sender = new Models.MessageModel({
+              Sender: socket.user,
+              Receiver: data.id,
+              Message: [
+                {
+                  message: message,
+                  Date: data.time
+                }
+              ]
+          })
+          await new_mess_sender.save()
+      }
+      else{
+        await Models.MessageModel.findByIdAndUpdate({_id: sender._id},{$addToSet:{Message: {message: message, Date: data.time}}})
+      }
+      io.sockets.to(data.id).emit("user-message", {message, time
       });
     });
     socket.on("get_mess", async (data) => {
@@ -89,6 +87,18 @@ io.on("connection", (socket) => {
       let name = data.name
       socket.emit("list_message", sender, receiver ,name);
     });
+    socket.on('Set-meet', async (date, hours, place, note, id)=>{
+      //  await Models.MessageModel.findOneAndUpdate({
+      //   Sender: socket.user,
+      //   Receiver: id,
+      // }, {$addToSet:{Meet:{Date: date, Time: hours, Place: place, Note: note}}});
+      //   await Models.MessageModel.findOneAndUpdate({
+      //   Sender: id,
+      //   Receiver: socket.user,
+      // }, {$addToSet:{Meet:{Date: date, Time: hours, Place: place, Note: note}}});
+
+      io.sockets.to(id).emit('P-set-meet', {date, hours, place, note})
+    })
   });
   socket.on('RoleId', async(data)=>{
     let User = await Models.UserModel.find({User_role: data})

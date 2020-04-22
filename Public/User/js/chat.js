@@ -1,5 +1,6 @@
 const socket = io();
 $("#list_mess").hide();
+$("#set_met").hide()
 let Create_at = new Date();
 let date =
   Create_at.getFullYear() +
@@ -58,8 +59,8 @@ $(document).ready(() => {
     $("#list_mess").show(500);
     socket.emit("get_mess", { id, name });
     socket.on("list_message", (sender, receiver, name) => {
+      $("#my_msg").html('')
       sender.Message.forEach((msg_sender) => {
-        $("#my_msg").html('')
         let msg =
           "<p>" +
           msg_sender.message +
@@ -69,9 +70,9 @@ $(document).ready(() => {
         $("#my_msg").append(msg);
       });
       let receiver_info = new Array(receiver.Sender);
+      $("#msg_come").html('')
+      $("#img_come").html('')
       receiver_info.forEach((img_receiver) => {
-        $("#msg_come").html('')
-        $("#img_come").html('')
         let img =
           "<img class='chat_img' src='/static/images/" +
           img_receiver.User_avatar +
@@ -87,7 +88,40 @@ $(document).ready(() => {
           "</span>";
         $("#msg_come").append(msg);
       });
+        $('#date_meet').html('')
+        $('#time_meet').html('')
+        $('#place_meet').html('')
+        $('#note_meet').html('')
+      sender.Meet.forEach(meet=>{
+        let date_meet = "<li>"+meet.Date+"</li>"
+        let time_meet = "<li>"+meet.Time+"</li>"
+        let place_meet = "<li>"+meet.Place+"</li>"
+        let note_meet = "<li>"+meet.Note+"</li>"
+        $('#date_meet').append(date_meet)
+        $('#time_meet').append(time_meet)
+        $('#place_meet').append(place_meet)
+        $('#note_meet').append(note_meet)
+      })
     });
+    $(document).on('click', '#set_meet', ()=>{
+      $("#set_met").show(500)
+      $(document).on('click', '#set', ()=>{
+        let date = $('#Date').val()
+        let hours = $('#hours').val()
+        let place = $('#place').val()
+        let note = $('#note').val()
+        let date_meet = "<li>"+date+"</li>"
+        let time_meet = "<li>"+hours+"</li>"
+        let place_meet = "<li>"+place+"</li>"
+        let note_meet = "<li>"+note+"</li>"
+        $('#date_meet').append(date_meet)
+        $('#time_meet').append(time_meet)
+        $('#place_meet').append(place_meet)
+        $('#note_meet').append(note_meet)
+        socket.emit('Set-meet', date, hours, place, note, id)
+        $("#set_met").hide()
+      })
+    })
     $("#input-message").on("keyup", (event) => {
       let message = $("#input-message").val();
       if (event.keyCode === 13 && message != "") {
@@ -110,14 +144,32 @@ $(document).ready(() => {
     });
   });
   socket.on("user-message", (data) => {
+    let msg =
+          "<p>" +
+          data.message +
+          "</p><span class='time_date'>" +
+          data.time +
+          "</span>";
+        $("#msg_come").append(msg);
      bt = setInterval(() => {
       $("#chat-icon").css("background-color", "blue");
     }, 50);
   });
-  $(document).on('click', '#set_time', ()=>{
-    let time = $('#time').val()
-    let date = $('#date').val()
-    console.log(date)
-    console.log(time)
+  $(document).on('click', '#send', ()=>{
+    let file = $('#file').val()
+    $("#input-message").val(file)
   })
+  socket.on("P-set-meet", (data) => {
+    let date = "<li>"+data.date+"</li>"
+    let time = "<li>"+data.hours+"</li>"
+    let place = "<li>"+data.place+"</li>"
+    let note = "<li>"+data.note+"</li>"
+    $('#date_meet').append(date)
+    $('#time_meet').append(time)
+    $('#place_meet').append(place)
+    $('#note_meet').append(note)
+     bt = setInterval(() => {
+      $("#chat-icon").css("background-color", "blue");
+    }, 50);
+  });
 });
