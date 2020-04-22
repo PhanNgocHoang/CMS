@@ -129,7 +129,7 @@ img {
   margin-top: 15px;
 }
 .inbox_chat {
-    height: 870px;
+    height: 930px;
     overflow-y: scroll;
 }
 
@@ -175,8 +175,8 @@ img {
   width: 70%;
   margin-right: 10px;
   border-right: 1px solid #c4c4c4;
-  padding: 30px 15px 0 25px;
-  height: 912px;
+  padding: 20px 15px 0 25px;
+  height: 972px;
 }
  .sent_msg p {
   background: #05728f none repeat scroll 0 0;
