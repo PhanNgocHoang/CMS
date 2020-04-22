@@ -34,7 +34,7 @@ $(document).ready(() => {
       data.tutor_avatar +
       "' alt='sunil' class='chat_img'><div class='chat_title' >" +
       data.tutor_full +
-      "</div><div class='chat_date'>Dec 25</div><br><div class='chat_ib'>Test, which is a new approach to have all solutions astrology under one roof.</div></div></li>";
+      "</div><div class='chat_date'>Dec 25</div><br><div class='chat_ib'></div><div class='clearfix'></div></div></li>";
     $(".list_people").append(tutor);
   });
   socket.on("chat_student", (data) => {
@@ -48,7 +48,7 @@ $(document).ready(() => {
         student.User_avatar +
         "' alt='sunil' class='chat_img'><div class='chat_title' >" +
         student.User_full +
-        "</div><div class='chat_date'>Dec 25</div><br><div class='chat_ib'>Test, which is a new approach to have all solutions astrology under one roof.</div></div></li>";
+        "</div><div class='chat_date'>Dec 25</div><br><div class='chat_ib'></div><div class='clearfix'></div></div></li>";
       $(".list_people").append(user);
     });
   });

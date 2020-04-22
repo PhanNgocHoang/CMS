@@ -1,7 +1,13 @@
-.container {
+.chatbox {
+  width: 1500px;
+  /* border: 1px solid red; */
+  margin: auto;
+}
+/* .container {
     max-width:1170px; 
     margin:auto;
-}
+    border: 1px solid red;
+} */
 img {
     max-width:100%;
 }
@@ -10,7 +16,7 @@ img {
   background: #f8f8f8 none repeat scroll 0 0;
   float: left;
   overflow: hidden;
-  width: 30%; 
+  width: 22%; 
   border-right:1px solid #c4c4c4;
 }
 .inbox_msg {
@@ -112,13 +118,18 @@ img {
 .chat_list {
   margin: 0;
   border-bottom: 1px solid #c4c4c4;
+
 }
 .list_people {
     margin: 18px 16px 10px;
-    height: 80px;
+    /* height: 80px; */
+}
+
+.list_people li {
+  margin-top: 15px;
 }
 .inbox_chat {
-    height: 550px;
+    height: 870px;
     overflow-y: scroll;
 }
 
@@ -157,10 +168,16 @@ img {
 /* Message */
 .mesgs {
   float: left;
-  padding: 30px 15px 0 25px;
-  width: 65%;
+  width: 78%;
 }
-
+.message {
+  float: left;
+  width: 70%;
+  margin-right: 10px;
+  border-right: 1px solid #c4c4c4;
+  padding: 30px 15px 0 25px;
+  height: 912px;
+}
  .sent_msg p {
   background: #05728f none repeat scroll 0 0;
   border-radius: 3px;
@@ -193,7 +210,8 @@ img {
   color: #fff;
   position: absolute;
   right: 5px;
-  top: 5px;background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+  top: 5px;
+  background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
   color: #4c4c4c;
   font-size: 15px;
   min-height: 30px;
@@ -205,6 +223,45 @@ img {
   height: 516px;
   overflow-y: auto;
 }
-/* li {
-  background-color: #fff;
-} */
+/* End message */
+
+/* File button */
+label.myLabel input[type="file"] {
+  position:absolute;
+  top: -1000px;
+}
+
+.myLabel {
+  border-radius: 4px;
+  padding: 2px 5px;
+  margin: 2px;
+  background: #DDD;
+  display: inline-block;
+  position: absolute; 
+  bottom: 10px;
+  right: 60px;
+}
+.myLabel:hover {
+  background: #CCC;
+}
+.myLabel:active {
+  background: #CCF;
+}
+.myLabel :invalid + span {
+  color: #A44;
+}
+.myLabel :valid + span {
+  color: black;
+}
+/* End file button */
+
+/* Schedual */
+.list-file-schedual {
+  float: left;
+  width: 28%;
+  height:300px;
+
+}
+
+
+/* End schedual */
