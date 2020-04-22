@@ -57,12 +57,6 @@ io.on("connection", (socket) => {
       let name = socket.name;
       let time = data.time
       let img = data.user_img
-      io.sockets.to(data.id).emit("user-message", {
-        name,
-        message,
-        time, 
-        img
-      });
       // if(sender == null)
       // {
       //     let new_mess_sender = new Models.MessageModel({
@@ -80,6 +74,8 @@ io.on("connection", (socket) => {
       // else{
       //   await Models.MessageModel.findByIdAndUpdate({_id: sender._id},{$addToSet:{Message: {message: message, Date: data.time}}})
       // }
+      io.sockets.to(data.id).emit("user-message", {
+      });
     });
     socket.on("get_mess", async (data) => {
       let sender = await Models.MessageModel.findOne({

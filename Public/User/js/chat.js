@@ -52,13 +52,14 @@ $(document).ready(() => {
       $(".list_people").append(user);
     });
   });
-  $(document).one("click", ".a-user", function () {
+  $(document).on("click", ".a-user", function () {
     let id = $(this).attr("Id");
     let name = $(this).attr("name");
     $("#list_mess").show(500);
     socket.emit("get_mess", { id, name });
     socket.on("list_message", (sender, receiver, name) => {
       sender.Message.forEach((msg_sender) => {
+        $("#my_msg").html('')
         let msg =
           "<p>" +
           msg_sender.message +
@@ -69,6 +70,8 @@ $(document).ready(() => {
       });
       let receiver_info = new Array(receiver.Sender);
       receiver_info.forEach((img_receiver) => {
+        $("#msg_come").html('')
+        $("#img_come").html('')
         let img =
           "<img class='chat_img' src='/static/images/" +
           img_receiver.User_avatar +
@@ -86,8 +89,9 @@ $(document).ready(() => {
       });
     });
     $("#input-message").on("keyup", (event) => {
-      if (event.keyCode === 13) {
-        let message = $("#input-message").val();
+      let message = $("#input-message").val();
+      if (event.keyCode === 13 && message != "") {
+        console.log(message)
         let my_msg =
           "<p>" + message + "</p><span class='time_date'>" + date + "</span>";
         $("#my_msg").append(my_msg);
@@ -99,26 +103,21 @@ $(document).ready(() => {
         });
         $("#input-message").val("");
       }
+      else if(event.keyCode === 13)
+      {
+        alert("Please enter your message")
+      }
     });
   });
   socket.on("user-message", (data) => {
-    let img =
-      "<img src=' /static/images/" +
-      data.img +
-      "' alt='sunil' class='chat_img >";
-    $("#img_come").append(img);
-    let msg_come =
-      "<p>" +
-      data.message +
-      "</p><span class='time_date'>" +
-      data.time +
-      "</span>";
-    $("#msg_come").append(msg_come);
-    let bt = setInterval(() => {
+     bt = setInterval(() => {
       $("#chat-icon").css("background-color", "blue");
-    }, 1);
-    $(document).one("click", "#chat-icon", function () {
-      clearInterval(bt);
-    });
+    }, 50);
   });
+  $(document).on('click', '#set_time', ()=>{
+    let time = $('#time').val()
+    let date = $('#date').val()
+    console.log(date)
+    console.log(time)
+  })
 });

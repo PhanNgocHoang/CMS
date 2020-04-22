@@ -60,7 +60,8 @@ async function Post_Contact(req, res)
           })
     }
     else{
-        console.log('ko')
+        let err  = "Please enter email of staff"
+        return res.render('TutorAndStudent/contact/index', {data:{err: err, Staff: List_staff}})
     }
 }
 module.exports = {
