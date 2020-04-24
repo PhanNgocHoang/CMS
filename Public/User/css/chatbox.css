@@ -223,12 +223,16 @@ img {
   height: 516px;
   overflow-y: auto;
 }
+/* .file {
+  margin-top: 10px;
+} */
 /* End message */
 
 /* File button */
 label.myLabel input[type="file"] {
   position:absolute;
-  top: -1000px;
+  right: 1px;
+  top: 40px;
 }
 
 .myLabel {
