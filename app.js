@@ -88,15 +88,50 @@ io.on("connection", (socket) => {
       socket.emit("list_message", sender, receiver ,name);
     });
     socket.on('Set-meet', async (date, hours, place, note, id)=>{
-      //  await Models.MessageModel.findOneAndUpdate({
-      //   Sender: socket.user,
-      //   Receiver: id,
-      // }, {$addToSet:{Meet:{Date: date, Time: hours, Place: place, Note: note}}});
-      //   await Models.MessageModel.findOneAndUpdate({
-      //   Sender: id,
-      //   Receiver: socket.user,
-      // }, {$addToSet:{Meet:{Date: date, Time: hours, Place: place, Note: note}}});
-
+      let sender = await Models.MessageModel.findOne({
+        Sender: socket.user,
+        Receiver: id,
+      });
+      if(sender != null)
+      {
+       await Models.MessageModel.findOneAndUpdate({
+        Sender: socket.user,
+        Receiver: id,
+      }, {$addToSet:{Meet:{Date: date, Time: hours, Place: place, Note: note}}});
+        await Models.MessageModel.findOneAndUpdate({
+        Sender: id,
+        Receiver: socket.user,
+      }, {$addToSet:{Meet:{Date: date, Time: hours, Place: place, Note: note}}});
+    }
+    else
+    {
+      let new_meet_send = new Models.MessageModel({
+        Sender: socket.user,
+        Receiver: id,
+        Meet: [
+          {
+            Date:date,
+            Time: hours,
+            Place:place,
+            Note: note
+          }
+        ]
+      })
+      let new_meet_receive = new Models.MessageModel({
+        Sender: id,
+        Receiver: socket.user,
+        Meet: [
+          {
+            Date:date,
+            Time: hours,
+            Place:place,
+            Note: note
+          }
+        ]
+      })
+      await new_meet_send.save()
+      await new_meet_receive.save()
+    }
       io.sockets.to(id).emit('P-set-meet', {date, hours, place, note})
     })
   });
