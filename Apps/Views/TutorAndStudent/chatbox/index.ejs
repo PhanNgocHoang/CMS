@@ -49,12 +49,17 @@
                         </div>
                         <div class="type_msg" id="send-mess">
                             <div class="input_msg_write">
-                                    <div class="file">
-                                            <input type="file" id="files">
-                                    </div>
-                                <input type="text" placeholder="Type a message" id="input-message"/>
+                            <form action="/" enctype="multipart/form-data" method="post">
+                            <div class="form-group">
+                               <input type="file" id="fileinput" />
+                                <input type="text" class="form-control" placeholder="Number of speakers" name="nspeakers">
+                                <input type="submit" value="Get me the stats!" class="btn btn-default">            
+                            </div>
+                           
+                            <input type="text" placeholder="Type a message" id="input-message"/>
                             </div>
                             <input type="button" value="Send" class="msg_send_btn" id="send">
+                             </form>
                         </div>
                         <br>
                         <input class="btn btn-primary" type="button" id="set_meet" value="Set meet">
