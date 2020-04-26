@@ -1,172 +1,186 @@
 <%-include('../layouts/header.ejs')-%>
-    <div class="chatbox">
-        <%for(x in locals.user){%>
-            <input type="hidden" value="<%=locals.user[x]._id%>" id="user_id">
-            <input type="hidden" value="<%=locals.user[x].User_full%>" id="user_full">
-            <input type="hidden" value=<%=locals.role%> id="role">
-            <input type="hidden" value=<%=locals.user[x].User_avatar%> id="us_img">
-        <%}%>
-        <h3 class="text-center">Messaging</h3>
-        <div class="messaging">
-            <div class="inbox_msg">
-                <div class="inbox_people">
-                    <div class="headind_srch">
-                        <div class="recent_heading">
-                            <h4>Recent</h4>
-                        </div>
-                    </div>
-                    <div class="inbox_chat">
-                        <div class="chat_list active_chat" >
-                            <div class="chat_people">
-                                <ul class="list_people">
-                                </ul>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="mesgs" id="list_mess">
-                    <div class="message">
-                        <div id="title"></div>
-                        <div class="msg_history">
-                            <div class="incoming_msg">
-                                <div class="incoming_msg_img" id="img_come">
+<main class="main-container">
+    <div class="view-account">
+        <section class="module">
+            <div class="module-inner">
+                <div class="content-panel">
+                    <div class="chatbox">
+                        <%for(x in locals.user){%>
+                            <input type="hidden" value="<%=locals.user[x]._id%>" id="user_id">
+                            <input type="hidden" value="<%=locals.user[x].User_full%>" id="user_full">
+                            <input type="hidden" value=<%=locals.role%> id="role">
+                            <input type="hidden" value=<%=locals.user[x].User_avatar%> id="us_img">
+                        <%}%>
+                        
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="messaging">
+                                <h3 class="text-center">Messaging</h3>
+                                <div class="inbox_msg">
+                                    <div class="inbox_people">
+                                        <div class="headind_srch">
+                                            <div class="recent_heading">
+                                                <h4>Recent</h4>
+                                            </div>
+                                        </div>
+                                        <div class="inbox_chat">
+                                            <div class="chat_list active_chat" >
+                                                <div class="chat_people">
+                                                    <ul class="list_people">
+                                                    </ul>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mesgs" id="list_mess">
+                                        <div class="message">
+                                            <div id="title"></div>
+                                            <div class="msg_history">
+                                                <div class="incoming_msg">
+                                                    <div class="incoming_msg_img" id="img_come">
 
-                                </div>
-                                <div class="received_msg">
-                                    <div class="received_withd_msg" id="msg_come">
+                                                    </div>
+                                                    <div class="received_msg">
+                                                        <div class="received_withd_msg" id="msg_come">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="outgoing_msg">
+                                                    <div class="incoming_msg_img" id="img_out">
+
+                                                    </div>
+                                                    <div class="sent_msg" id="my_msg">
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="type_msg" id="send-mess">
+                                                <div class="input_msg_write">
+                                                <div class="form-group">
+                                                <input type="file" id="fileinput" />
+                                                    <input type="text" class="form-control">
+                                                </div>
+                                                <input type="text" placeholder="Type a message" id="input-message"/>
+                                                </div>
+                                                <input type="button" value="Send" class="msg_send_btn" id="send">
+                                            </div>
+                                            <div class="clearfix"></div>
+                                            <br>
+                                            <input class="btn btn-primary" type="button" id="set_meet" value="Set meet">
+                                            <div style="font-size: 12px; border: 0px solid #c4c4c4;" id="set_met">
+                                                <h4 style="text-align: center; font-weight: bold;">Set Schedual Form</h4>
+                                                <br>
+                                                <fieldset class="fieldset">
+                                                    <div class="form-group">
+                                                        <label class="col-md-2 col-sm-12 col-xs-12">Date</label>
+                                                        <div class="col-md-10 col-sm-8 col-xs-4">
+                                                            <input type="date" class="form-control"  id="Date">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="col-md-2 col-sm-12 col-xs-12">Hours</label>
+                                                        <div class="col-md-10 col-sm-8 col-xs-4">
+                                                            <input type="time" class="form-control" id="hours">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="col-md-2 col-sm-12 col-xs-12">Place</label>
+                                                        <div class="col-md-10 col-sm-8 col-xs-4">
+                                                            <textarea required placeholder="" cols="78" rows="3" id="place"></textarea>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="col-md-2 col-sm-12 col-xs-12">Note</label>
+                                                        <div class="col-md-10 col-sm-8 col-xs-4">
+                                                            <textarea required placeholder="" cols="78" rows="3" id="note"></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="col-md-10 col-sm-9 col-xs-12 col-md-push-2 col-sm-push-3 col-xs-push-0">
+                                                            <button class="btn btn-info" id="set">Set</button>
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+                                            </div>
+                                        </div>
+                                        <div class="list-file-schedual">
+                                            <div class="table-responsive" style="border-bottom: 1px solid #c4c4c4;">
+                                                <h5 style="margin-top: 10px;">List File Shared</h5>
+                                                <table class="table table-striped table-hover" border="1" style="margin-top: 10px;">
+                                                    <tr>
+                                                        <th>
+                                                            File Name
+                                                        </th>
+                                                        <th>
+                                                            Note
+                                                        </th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <ul id="list_files">
+
+                                                            </ul>
+                                                        </td>
+                                                        <td></td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                                <a href=""></a>
+                                            <div class="table-responsive" style="border-bottom: 1px solid #c4c4c4;">
+                                                <h5 style="margin-top: 10px; margin-left: 10px;">List Meet</h5>
+                                                <table class="table table-striped table-hover" border="1" style="margin-top: 10px;">
+                                                    <tr>
+                                                        <th>
+                                                            Date
+                                                        </th>
+                                                        <th>
+                                                            Time
+                                                        </th>
+                                                        <th>
+                                                            Place
+                                                        </th>
+                                                        <th>
+                                                            Note
+                                                        </th>
+                                                    </tr>
+                                                    <tr id="tb-set-meet">
+                                                        <td id="li-date">
+                                                            <ul id="date_meet">
+
+                                                            </ul>
+                                                        </td>
+                                                        <td id="li-time">
+                                                            <ul id="time_meet">
+
+                                                            </ul>
+                                                        </td>
+                                                        <td id="li-place">
+                                                            <ul id="place_meet">
+
+                                                            </ul>
+                                                        </td>
+                                                        <td id="li-note">
+                                                            <ul id="note_meet">
+
+                                                            </ul>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="outgoing_msg">
-                                <div class="incoming_msg_img" id="img_out">
-
-                                </div>
-                                <div class="sent_msg" id="my_msg">
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="type_msg" id="send-mess">
-                            <div class="input_msg_write">
-                            <div class="form-group">
-                               <input type="file" id="fileinput" />
-                                <input type="text" class="form-control">
-                            </div>
-                            <input type="text" placeholder="Type a message" id="input-message"/>
-                            </div>
-                            <input type="button" value="Send" class="msg_send_btn" id="send">
-                        </div>
-                        <br>
-                        <input class="btn btn-primary" type="button" id="set_meet" value="Set meet">
-                        <div style="font-size: 15px; margin-top: 30px; border: 1px solid #c4c4c4; padding: 10px;" id="set_met">
-                            <h4 style="text-align: center; font-weight: bold;">Set Schedual Form</h4>
-                            <br>
-                            <fieldset>
-                                <div class="form-group">
-                                    <label class="col-md-2 col-sm-3 col-xs-12">Date</label>
-                                    <div class="col-md-10 col-sm-9 col-xs-12">
-                                        <input type="date" class="form-control"  id="Date">
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="col-md-2 col-sm-3 col-xs-12">Hours</label>
-                                    <div class="col-md-10 col-sm-9 col-xs-12">
-                                        <input type="time" class="form-control" id="hours">
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="col-md-2 col-sm-3 col-xs-12">Place</label>
-                                    <div class="col-md-10 col-sm-9 col-xs-12">
-                                        <textarea required placeholder="" cols="77" rows="3" id="place"></textarea>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="col-md-2 col-sm-3 col-xs-12">Note</label>
-                                    <div class="col-md-10 col-sm-9 col-xs-12">
-                                        <textarea required placeholder="" cols="77" rows="3" id="note"></textarea>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-md-10 col-sm-9 col-xs-12 col-md-push-2 col-sm-push-3 col-xs-push-0">
-                                        <button class="btn btn-info" id="set">Set</button>
-                                    </div>
-                                </div>
-                            </fieldset>
-                        </div>
-                    </div>
-                    <div class="list-file-schedual">
-                        <div class="table-responsive" style="border-bottom: 1px solid #c4c4c4;">
-                            <h5 style="margin-top: 10px; margin-left: 10px;">List File Shared</h5>
-                            <table class="table table-striped table-hover" border="1" style="margin-top: 10px;">
-                                <tr>
-                                    <th>
-                                        File Name
-                                    </th>
-                                    <th>
-                                        Note
-                                    </th>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <ul id="list_files">
-
-                                        </ul>
-                                    </td>
-                                    <td></td>
-                                </tr>
-                            </table>
-                        </div>
-                            <a href=""></a>
-                        <div class="table-responsive" style="border-bottom: 1px solid #c4c4c4;">
-                            <h5 style="margin-top: 10px; margin-left: 10px;">List Meet</h5>
-                            <table class="table table-striped table-hover" border="1" style="margin-top: 10px;">
-                                <tr>
-                                    <th>
-                                        Date
-                                    </th>
-                                    <th>
-                                        Time
-                                    </th>
-                                    <th>
-                                        Place
-                                    </th>
-                                    <th>
-                                        Note
-                                    </th>
-                                </tr>
-                                <tr id="tb-set-meet">
-                                    <td id="li-date">
-                                        <ul id="date_meet">
-
-                                        </ul>
-                                    </td>
-                                    <td id="li-time">
-                                        <ul id="time_meet">
-
-                                        </ul>
-                                    </td>
-                                    <td id="li-place">
-                                        <ul id="place_meet">
-
-                                        </ul>
-                                    </td>
-                                    <td id="li-note">
-                                        <ul id="note_meet">
-
-                                        </ul>
-                                    </td>
-                                </tr>
-                            </table>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
     </div>
+</main>
     <script src="/socket.io/socket.io.js"></script>
     <script src="/static/User/js/chat.js"></script>
 <%-include('../layouts/footer.ejs')-%>
