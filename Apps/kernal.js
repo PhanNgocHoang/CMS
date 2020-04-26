@@ -1,6 +1,6 @@
 module.exports = (app, express, Body_parser, session) => {
 
-    app.use(Body_parser.urlencoded({ extended: false }))
+    app.use(Body_parser.urlencoded({ extended: true }))
         //config Ejs
     app.set('views', __dirname + '/Views')
     app.set('view engine', 'ejs')

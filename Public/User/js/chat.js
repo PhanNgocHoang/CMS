@@ -140,8 +140,24 @@ $(document).ready(() => {
             }
         });
         $(document).on('click', '#send', () => {
-            let myfile = $('#fileinput').prop('files')
-
+            let my_file = $('#fileinput').prop('files')[0]
+            let size_file = my_file.size
+            let name = `${Date.now()}-${my_file.name}`
+            if(size_file > 4194304)
+            {
+                alert('File Qua to')
+            }
+            else
+            {
+                $('#fileinput').val('')
+                socket.emit('send-file', my_file, name,id)
+                let li = "<li filename='"+name+"' class='file'>"+name+"</li>"
+                $('#list_files').append(li)
+            }
+        })
+        $(document).on('click', '.file', ()=>{
+            let filename = $(this).attr("filename");
+            console.log(filename)
         })
     });
     socket.on("user-message", (data) => {

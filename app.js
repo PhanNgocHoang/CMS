@@ -6,6 +6,7 @@ const server = require("http").Server(app);
 const io = require("socket.io")(server);
 const router = express.Router();
 const ejsLint = require("ejs-lint");
+const fs = require('fs')
 const cookieParser = require("cookie-parser");
 const Body_parser = require("body-parser");
 const expressValidator = require("express-validator");
@@ -126,9 +127,9 @@ io.on("connection", (socket) => {
             }
             io.sockets.to(id).emit('P-set-meet', { date, hours, place, note })
         })
-        socket.on('getFile', (data) => {
-
-        })
+        socket.on('send-file', async (my_file, my_filename) => {
+            fs.writeFile(__dirname+'/Public/Files/'+my_filename, my_file, (err)=>{})
+        });
     });
     socket.on('RoleId', async(data) => {
         let User = await Models.UserModel.find({ User_role: data })

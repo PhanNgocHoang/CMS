@@ -337,6 +337,7 @@ function Post_Create_Account(req, res) {
   let form = new formidable.IncomingForm();
   form.parse(req, (err, fields, files) => {
     let oldUrl = files.User_avatar.path;
+    console.log(oldUrl)
     let newUrl = path.join(
       __dirname,
       "../../Public/images",
