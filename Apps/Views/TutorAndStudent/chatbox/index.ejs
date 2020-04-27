@@ -61,12 +61,10 @@
                                                 </div>
                                             </div>
                                             <div class="clearfix"></div>
-                                            <br>
-                                            <br>
-                                            <!-- <input class="btn btn-info" type="button" id="set_meet" value="Set meet">
-                                            <input class="btn btn-info" type="button" id="upload-file" value="Send File">
-                                            <input class="btn btn-info" type="button" id="list_meet" value="List Meet">
-                                            <input class="btn btn-info" type="button" id="list-upload-file" value="List File Share"> -->
+                                            <input class="button btn" type="button" id="set_meet" value="Set meet">
+                                            <input class="button btn" type="button" id="upload-file" value="Send File">
+                                            <input class="button btn" type="button" id="list_meet" value="List Meet">
+                                            <input class="button btn" type="button" id="list-upload-file" value="List File Share">
                                         </div>
                                     </div>
                                 </div>
@@ -142,6 +140,78 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <!-- Set schedual -->
+                        <div class="col-md-6 col-sm-6 col-xs-12 form">
+                            <div style="font-size: 12px; border: 0px solid #c4c4c4;" id="set_met">
+                                <h4 style="text-align: center; font-weight: bold;">Set Schedual Form</h4>
+                                <br>
+                                <fieldset class="fieldset">
+                                    <div class="form-group">
+                                        <label class="col-md-2 col-sm-12 col-xs-12" style="font-size: 15px;">Date</label>
+                                        <div class="col-md-10 col-sm-12 col-xs-12">
+                                            <input type="date" class="form-control"  id="Date">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-md-2 col-sm-12 col-xs-12" style="font-size: 15px;">Hours</label>
+                                        <div class="col-md-10 col-sm-12 col-xs-12">
+                                            <input type="time" class="form-control" id="hours">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-md-2 col-sm-12 col-xs-12" style="font-size: 15px;">Place</label>
+                                        <div class="col-md-10 col-sm-12 col-xs-12">
+                                            <textarea required class="form-control" cols="78" rows="3" id="place"></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-md-2 col-sm-12 col-xs-12" style="font-size: 15px;">Note</label>
+                                        <div class="col-md-10 col-sm-12 col-xs-12">
+                                            <textarea required class="form-control" cols="78" rows="3" id="note"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-10 col-sm-9 col-xs-12 col-md-push-2 col-sm-push-3 col-xs-push-0">
+                                            <button class="btn btn-info" id="set">Set</button>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+                        <!-- End set schedual -->
+                        <!-- Send File -->
+                        <div class="col-md-6 col-sm-6 col-xs-12 form">
+                            <div style="font-size: 12px; border: 0px solid #c4c4c4;" id="send-file">
+                                <h4 style="text-align: center; font-weight: bold;">Send File</h4>
+                                <br>
+                                <fieldset class="fieldset">
+                                    <div class="form-group">
+                                        <label class="col-md-2 col-sm-12 col-xs-12" style="font-size: 15px;">File</label>
+                                        <div class="col-md-10 col-sm-12 col-xs-12">
+                                            <input type="file" class="form-control" id="fileinput">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 col-sm-12 col-xs-12" style="font-size: 15px;">Note</label>
+                                        <div class="col-md-10 col-sm-12 col-xs-12">
+                                            <textarea required class="form-control" cols="79" rows="3" id="note-File"></textarea>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="form-group">
+                                        <div class="col-md-10 col-sm-9 col-xs-12 col-md-push-2 col-sm-push-3 col-xs-push-0">
+                                            <button class="btn btn-info" id="send">Send-file</button>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+                        <!-- End send file -->
                     </div>
                 </div>
             </div>

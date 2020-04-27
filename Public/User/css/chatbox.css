@@ -205,8 +205,13 @@ img {
 }
 
 .type_msg {
-    position: relative;
-    bottom: 50px;
+  position: relative;
+  bottom: 120px;
+}
+.button {
+  position: relative;
+  bottom: 110px;
+  background-color: blue;
 }
 .msg_send_btn {
   color: #fff;
@@ -242,3 +247,10 @@ img {
   border: 1px solid #c4c4c4;
 }
 /* List */
+
+/* send set  */
+.form {
+  padding-bottom: 50px;
+}
+
+/* send set */
