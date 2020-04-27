@@ -122,7 +122,7 @@ $(document).ready(() => {
             $('#l_files').html("")
             $('#note_file').html("")
             sender.Document_Share.forEach((file)=>{
-                let l_file = "<li class='a_file' file_name='"+file.File+"'>"+file.File+"</li>"
+                let l_file = "<li><a href='/static/Files/"+file.File+"' download='/static/Files/"+file.File+"'>"+file.File+"</a></li>"
                 let l_note = "<li>"+file.Note+"</li>"
                 $('#l_files').append(l_file)
                 $('#note_file').append(l_note)
@@ -183,28 +183,17 @@ $(document).ready(() => {
                     $('#fileinput').val('')
                     $('#note-File').val('')
                     socket.emit('send-file', my_file, name,id, note)
-                    let l_file = "<li class='a_file' file_name='"+name+"'>"+name+"</li>"
+                    let l_file = "<li><a href='/static/Files/"+file.File+"' download='/static/Files/"+file.File+"'>"+file.File+"</a></li>"
                     let l_note = "<li>"+note+"</li>"
                     $('#l_files').append(l_file)
                     $('#note_file').append(l_note)
                     $('#send-file').hide()
                 }
             })
-            $(document).on('click', '#upload-file', ()=>{
-                $('#send-file').hide()
-            })
-        })
-        $(document).on('click', '.a_file', function(){
-            let filename = $(this).attr("file_name");
-            socket.emit('get_file', filename)
-            socket.on('link_file', (link)=>{
-                let file = "<a href='"+link+"'>link</a>"
-                $('#l_files').append(file)
-            })
         })
     });
     socket.on('P-send-file', (my_filename, note)=>{
-        let l_file = "<li class='a_file' file_name='"+my_filename+"'>"+my_filename+"</li>"
+        let l_file = "<li><a href='/static/Files/"+file.File+"' download='/static/Files/"+file.File+"'>"+file.File+"</a></li>"
         let l_note = "<li>"+note+"</li>"
         $('#l_files').append(l_file)
         $('#note_file').append(l_note)
