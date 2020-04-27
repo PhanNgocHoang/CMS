@@ -171,16 +171,17 @@ $(document).ready(() => {
             $('#send-file').show(500)
             $(document).on('click', '#send', () => {
                 let my_file = $('#fileinput').prop('files')[0]
-                let note = $('#note').val()
+                let note = $('#note-File').val()
                 let size_file = my_file.size
                 let name = `${Date.now()}-${my_file.name}`
                 if(size_file > 4194304)
                 {
-                    alert('File Qua to')
+                    alert('File is too large')
                 }
                 else
                 {
                     $('#fileinput').val('')
+                    $('#note-File').val('')
                     socket.emit('send-file', my_file, name,id, note)
                     let l_file = "<li class='a_file' file_name='"+name+"'>"+name+"</li>"
                     let l_note = "<li>"+note+"</li>"

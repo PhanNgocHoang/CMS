@@ -130,14 +130,14 @@ io.on("connection", (socket) => {
         })
         socket.on('send-file', async (my_file, my_filename, id, note) => {
             fs.writeFile(__dirname+'/Public/Files/'+my_filename, my_file, (err)=>{})
-            // await Models.MessageModel.findOneAndUpdate({
-            //     Sender: socket.user,
-            //     Receiver: id,
-            // }, { $addToSet: { Document_Share: {File: my_filename, Note: note} } });
-            // await Models.MessageModel.findOneAndUpdate({
-            //     Sender: id,
-            //     Receiver: socket.user,
-            // }, { $addToSet: { Document_Share: {File: my_filename, Note: note} } });
+            //  await Models.MessageModel.findOneAndUpdate({
+            //      Sender: socket.user,
+            //      Receiver: id,
+            //  }, { $addToSet: { Document_Share: {File: my_filename, Note: note} } });
+            //  await Models.MessageModel.findOneAndUpdate({
+            //      Sender: id,
+            //      Receiver: socket.user,
+            //  }, { $addToSet: { Document_Share: {File: my_filename, Note: note} } });
             io.sockets.to(id).emit('P-send-file', my_filename, note)
         });
         socket.on('get_file', (file_name)=>{
