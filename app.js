@@ -21,9 +21,6 @@ app.use(cookieParser("123@123@!T"));
 app.use("/", home);
 app.use("/staff", auth.reqAuth, auth.CheckStaff, staff);
 app.use("/user", auth.reqAuth, auth.CheckTutorAndStudent, Student);
-app.get('/', function(req, res){
-  res.redirect('/')
-})
 
 io.on("connection", (socket) => {
   socket.on("user_info", async (data) => {
