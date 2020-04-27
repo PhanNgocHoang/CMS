@@ -35,7 +35,7 @@ $(document).ready(() => {
             data.tutor_avatar +
             "' alt='sunil' class='chat_img'><div class='chat_title' >" +
             data.tutor_full +
-            "</div><div class='chat_date'>Dec 25</div><br><div class='chat_ib'></div><div class='clearfix'></div></div></li>";
+            "</div><br><div class='chat_ib'></div><div class='clearfix'></div></div></li>";
         $(".list_people").append(tutor);
     });
     socket.on("chat_student", (data) => {
@@ -49,7 +49,7 @@ $(document).ready(() => {
                 student.User_avatar +
                 "' alt='sunil' class='chat_img'><div class='chat_title' >" +
                 student.User_full +
-                "</div><div class='chat_date'>Dec 25</div><br><div class='chat_ib'></div><div class='clearfix'></div></div></li>";
+                "</div><br><div class='chat_ib'></div><div class='clearfix'></div></div></li>";
             $(".list_people").append(user);
         });
     });
@@ -102,6 +102,14 @@ $(document).ready(() => {
                 $("#place_meet").append(place_meet);
                 $("#note_meet").append(note_meet);
             });
+            $('#l_files').html("")
+            $('#note_file').html("")
+            sender.Document_Share.forEach((file)=>{
+                let l_file = "<li class='a_file' file_name='"+file.File+"'>"+file.File+"</li>"
+                let l_note = "<li>"+file.Note+"</li>"
+                $('#l_files').append(l_file)
+                $('#note_file').append(l_note)
+            })
         });
         $(document).on("click", "#set_meet", () => {
             $("#set_met").show(500);
@@ -141,6 +149,7 @@ $(document).ready(() => {
         });
         $(document).on('click', '#send', () => {
             let my_file = $('#fileinput').prop('files')[0]
+            let note = $('#note').val()
             let size_file = my_file.size
             let name = `${Date.now()}-${my_file.name}`
             if(size_file > 4194304)
@@ -150,16 +159,31 @@ $(document).ready(() => {
             else
             {
                 $('#fileinput').val('')
-                socket.emit('send-file', my_file, name,id)
-                let li = "<li filename='"+name+"' class='file'>"+name+"</li>"
-                $('#list_files').append(li)
+                socket.emit('send-file', my_file, name,id, note)
+                let l_file = "<li class='a_file' file_name='"+name+"'>"+name+"</li>"
+                let l_note = "<li>"+note+"</li>"
+                $('#l_files').append(l_file)
+                $('#note_file').append(l_note)
             }
         })
-        $(document).on('click', '.file', ()=>{
-            let filename = $(this).attr("filename");
-            console.log(filename)
+        $(document).on('click', '.a_file', function(){
+            let filename = $(this).attr("file_name");
+            socket.emit('get_file', filename)
+            socket.on('link_file', (link)=>{
+                let file = "<a href='"+link+"'>link</a>"
+                $('#l_files').append(file)
+            })
         })
     });
+    socket.on('P-send-file', (my_filename, note)=>{
+        let l_file = "<li class='a_file' file_name='"+my_filename+"'>"+my_filename+"</li>"
+        let l_note = "<li>"+note+"</li>"
+        $('#l_files').append(l_file)
+        $('#note_file').append(l_note)
+        bt = setInterval(() => {
+            $("#chat-icon").css("background-color", "blue");
+        }, 50);
+    })
     socket.on("user-message", (data) => {
         let msg =
             "<p>" +

@@ -38,7 +38,8 @@ const MessageSchema = new Schema({
         Note: { type: String }
     }],
     Document_Share: [{
-        file: { type: String, require: true }
+        File: { type: String, require: true },
+        Note: {type: String, require: true}
     }],
     Sender: { type: Schema.Types.ObjectId, ref: "User" },
     Receiver: { type: Schema.Types.ObjectId, ref: "User" },

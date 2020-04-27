@@ -7,6 +7,7 @@ const io = require("socket.io")(server);
 const router = express.Router();
 const ejsLint = require("ejs-lint");
 const fs = require('fs')
+const path = require('path')
 const cookieParser = require("cookie-parser");
 const Body_parser = require("body-parser");
 const expressValidator = require("express-validator");
@@ -127,9 +128,25 @@ io.on("connection", (socket) => {
             }
             io.sockets.to(id).emit('P-set-meet', { date, hours, place, note })
         })
-        socket.on('send-file', async (my_file, my_filename) => {
+        socket.on('send-file', async (my_file, my_filename, id, note) => {
             fs.writeFile(__dirname+'/Public/Files/'+my_filename, my_file, (err)=>{})
+            // await Models.MessageModel.findOneAndUpdate({
+            //     Sender: socket.user,
+            //     Receiver: id,
+            // }, { $addToSet: { Document_Share: {File: my_filename, Note: note} } });
+            // await Models.MessageModel.findOneAndUpdate({
+            //     Sender: id,
+            //     Receiver: socket.user,
+            // }, { $addToSet: { Document_Share: {File: my_filename, Note: note} } });
+            io.sockets.to(id).emit('P-send-file', my_filename, note)
         });
+        socket.on('get_file', (file_name)=>{
+            let file_path = path.join(__dirname, '/Public/Files/'+file_name)
+            fs.readFile(file_path, (err, file)=>{
+                console.log(file)
+            })
+            // socket.emit('link_file', file_path)
+        })
     });
     socket.on('RoleId', async(data) => {
         let User = await Models.UserModel.find({ User_role: data })
