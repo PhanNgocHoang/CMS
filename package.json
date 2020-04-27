@@ -1,8 +1,8 @@
 {
   "name": "cmsweb",
-  "engines":{
-    "node":"12.13.x",
-    "npm":"6.14.x"
+  "engines": {
+    "node": "12.13.x",
+    "npm": "6.14.x"
   },
   "version": "1.0.0",
   "description": "",
@@ -36,7 +36,5 @@
     "semantic-ui-css": "^2.4.1",
     "socket.io": "^2.3.0"
   },
-  "devDependencies": {
-    "google-charts": "^2.0.0"
-  }
+  "devDependencies": {}
 }
