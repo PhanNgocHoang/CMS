@@ -1,13 +1,12 @@
 .chatbox {
-  width: 1500px;
+  width: 100%;
   /* border: 1px solid red; */
   margin: auto;
+  height: 100%;
 }
-/* .container {
-    max-width:1170px; 
-    margin:auto;
-    border: 1px solid red;
-} */
+.container {
+    margin: 0px;
+}
 img {
     max-width:100%;
 }
@@ -18,6 +17,7 @@ img {
   overflow: hidden;
   width: 22%; 
   border-right:1px solid #c4c4c4;
+  height: 100%;
 }
 .inbox_msg {
   border: 1px solid #c4c4c4;
@@ -123,6 +123,7 @@ img {
 .list_people {
     margin: 18px 16px 10px;
     /* height: 80px; */
+
 }
 
 .list_people li {
@@ -144,7 +145,7 @@ img {
   display: inline-block;
   padding: 0 0 0 10px;
   vertical-align: top;
-  width: 92%;
+  width: 80%;
  }
  .received_withd_msg p {
   background: #ebebeb none repeat scroll 0 0;
@@ -169,6 +170,7 @@ img {
 .mesgs {
   float: left;
   width: 78%;
+  height: 100%;
 }
 .message {
   float: left;
@@ -176,7 +178,7 @@ img {
   margin-right: 10px;
   border-right: 1px solid #c4c4c4;
   padding: 20px 15px 0 25px;
-  height: 972px;
+  /* height: 972px; */
 }
  .sent_msg p {
   background: #05728f none repeat scroll 0 0;
@@ -229,7 +231,7 @@ img {
 /* End message */
 
 /* File button */
-label.myLabel input[type="file"] {
+/* label.myLabel input[type="file"] {
   position:absolute;
   right: 1px;
   top: 40px;
@@ -256,7 +258,7 @@ label.myLabel input[type="file"] {
 }
 .myLabel :valid + span {
   color: black;
-}
+} */
 /* End file button */
 
 /* Schedual */
