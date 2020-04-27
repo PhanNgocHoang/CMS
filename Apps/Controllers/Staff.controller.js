@@ -373,10 +373,9 @@ async function Detail_Account(req, res) {
 async function Get_Update_Account(req, res) {
   let user_id = req.params.user_id;
   let role = req.params.role_id;
-  let faculty = await Models.FacultyModel.find();
   Models.UserModel.findById({ _id: user_id }).exec((err, user) => {
     return res.render("StaffPage/account/edit", {
-      data: { user: user, role: role, faculty: faculty },
+      data: { user: user, role: role},
     });
   });
 }

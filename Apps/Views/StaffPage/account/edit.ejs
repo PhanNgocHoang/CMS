@@ -68,24 +68,13 @@
                                 <div class="form-group">
                                     <label class="col-md-2  col-sm-3 col-xs-12 control-label">Day Of Birth</label>
                                     <div class="col-md-10 col-sm-9 col-xs-12">
-                                        <input type="date" class="form-control" value="<%=data.user.User_birth%>" name="User_birth" required>
+                                        <input type="text" class="form-control" value="<%=data.user.User_birth%>" name="User_birth" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-2  col-sm-3 col-xs-12 control-label">Phone</label>
                                     <div class="col-md-10 col-sm-9 col-xs-12">
                                         <input type="number" class="form-control" value="<%=data.user.User_phone%>" required>
-                                    </div>
-                                </div>
-                                <input type="hidden" value="<%=data.user.Create_at%>" name="Create_at">
-                                <div class="form-group">
-                                    <label class="col-md-2 col-sm-3 col-xs-12 control-label">Faculty</label>
-                                    <div class="col-md-10 col-sm-9 col-xs-12">
-                                        <select name="Faculty_id" class="form-control">
-                                            <%for (x in data.faculty){%>
-                                                <option <% if(data.faculty[x]._id==data.user.Faculty_id){%>selected<%}%> value=<%=data.faculty[x]._id%>><%=data.faculty[x].Faculty_name%></option>
-                                            <%}%>
-                                        </select>
                                     </div>
                                 </div>
                             </fieldset>
