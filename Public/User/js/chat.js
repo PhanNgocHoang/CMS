@@ -1,6 +1,9 @@
 const socket = io();
 $("#list_mess").hide();
 $("#set_met").hide();
+$("#send-file").hide()
+$("#file_share").hide()
+$("#meet").hide()
 let Create_at = new Date();
 let date =
     Create_at.getFullYear() +
@@ -15,6 +18,20 @@ let date =
     ":" +
     Create_at.getSeconds();
 
+$(document).ready(() => {
+    $(document).on('click', '#list_meet', ()=>{
+        $("#meet").show(500)
+        $(document).on('click', '#list_meet', ()=>{
+            $("#meet").hide()
+        })
+    })
+    $(document).on('click', '#list-upload-file', ()=>{
+        $("#file_share").show(500)
+        $(document).on('click', '#list-upload-file', ()=>{
+            $("#file_share").hide()
+        })
+    })
+})
 $(document).ready(() => {
     let user_id = $("#user_id").val();
     let user_role = $("#role").val();
@@ -129,6 +146,9 @@ $(document).ready(() => {
                 socket.emit("Set-meet", date, hours, place, note, id);
                 $("#set_met").hide();
             });
+            $(document).on('click', '#set_meet', ()=>{
+                $('#set_met').hide()
+            })
         });
         $("#input-message").on("keyup", (event) => {
             let message = $("#input-message").val();
@@ -147,24 +167,31 @@ $(document).ready(() => {
                 alert("Please enter your message");
             }
         });
-        $(document).on('click', '#send', () => {
-            let my_file = $('#fileinput').prop('files')[0]
-            let note = $('#note').val()
-            let size_file = my_file.size
-            let name = `${Date.now()}-${my_file.name}`
-            if(size_file > 4194304)
-            {
-                alert('File Qua to')
-            }
-            else
-            {
-                $('#fileinput').val('')
-                socket.emit('send-file', my_file, name,id, note)
-                let l_file = "<li class='a_file' file_name='"+name+"'>"+name+"</li>"
-                let l_note = "<li>"+note+"</li>"
-                $('#l_files').append(l_file)
-                $('#note_file').append(l_note)
-            }
+        $(document).on('click', '#upload-file', ()=>{
+            $('#send-file').show(500)
+            $(document).on('click', '#send', () => {
+                let my_file = $('#fileinput').prop('files')[0]
+                let note = $('#note').val()
+                let size_file = my_file.size
+                let name = `${Date.now()}-${my_file.name}`
+                if(size_file > 4194304)
+                {
+                    alert('File Qua to')
+                }
+                else
+                {
+                    $('#fileinput').val('')
+                    socket.emit('send-file', my_file, name,id, note)
+                    let l_file = "<li class='a_file' file_name='"+name+"'>"+name+"</li>"
+                    let l_note = "<li>"+note+"</li>"
+                    $('#l_files').append(l_file)
+                    $('#note_file').append(l_note)
+                    $('#send-file').hide()
+                }
+            })
+            $(document).on('click', '#upload-file', ()=>{
+                $('#send-file').hide()
+            })
         })
         $(document).on('click', '.a_file', function(){
             let filename = $(this).attr("file_name");

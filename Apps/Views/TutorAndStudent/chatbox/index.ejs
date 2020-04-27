@@ -62,8 +62,10 @@
                                             <div class="clearfix"></div>
                                             <br>
                                             <br>
-                                            <input class="btn btn-primary" type="button" id="set_meet" value="Set meet">
-                                            <input class="btn btn-primary" type="button" id="" value="Send File">
+                                            <input class="btn btn-info" type="button" id="set_meet" value="Set meet">
+                                            <input class="btn btn-info" type="button" id="upload-file" value="Send File">
+                                            <input class="btn btn-info" type="button" id="list_meet" value="List Meet">
+                                            <input class="btn btn-info" type="button" id="list-upload-file" value="List File Share">
                                             <!-- Set schedual -->
                                             <div style="font-size: 12px; border: 0px solid #c4c4c4;" id="set_met">
                                                 <h4 style="text-align: center; font-weight: bold;">Set Schedual Form</h4>
@@ -106,7 +108,7 @@
                                             <!-- End set schedual -->
 
                                             <!-- Send File -->
-                                            <div style="font-size: 12px; border: 0px solid #c4c4c4;" id="set_met">
+                                            <div style="font-size: 12px; border: 0px solid #c4c4c4;" id="send-file">
                                                 <h4 style="text-align: center; font-weight: bold;">Send File</h4>
                                                 <br>
                                                 <fieldset class="fieldset">
@@ -133,7 +135,7 @@
                                             <!-- End send file -->
                                         </div>
                                         <div class="list-file-schedual">
-                                            <div class="table-responsive" style="border-bottom: 1px solid #c4c4c4;">
+                                            <div class="table-responsive" style="border-bottom: 1px solid #c4c4c4;" id="file_share">
                                                 <h5 style="margin-top: 10px;">List File Shared</h5>
                                                 <table class="table table-striped table-hover" border="1" style="margin-top: 10px;">
                                                     <tr>
@@ -146,16 +148,19 @@
                                                     </tr>
                                                     <tr>
                                                         <td>
-                                                            <ul id="list_files">
+                                                            <ul id="l_files">
 
                                                             </ul>
                                                         </td>
-                                                        <td></td>
+                                                        <td>
+                                                            <ul id="note_file">
+
+                                                            </ul>
+                                                        </td>
                                                     </tr>
                                                 </table>
                                             </div>
-                                                <a href=""></a>
-                                            <div class="table-responsive" style="border-bottom: 1px solid #c4c4c4;">
+                                            <div class="table-responsive" style="border-bottom: 1px solid #c4c4c4;" id="meet">
                                                 <h5 style="margin-top: 10px; margin-left: 10px;">List Meet</h5>
                                                 <table class="table table-striped table-hover" border="1" style="margin-top: 10px;">
                                                     <tr>
