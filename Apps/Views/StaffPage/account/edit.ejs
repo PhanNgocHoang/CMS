@@ -32,7 +32,7 @@
                                 <div class="form-group">
                                     <label class="col-md-2 col-sm-3 col-xs-12 control-label">Full Name</label>
                                     <div class="col-md-10 col-sm-9 col-xs-12">
-                                        <input type="text" class="form-control" value="<%=data.user.User_full%>" name="User_full" required>
+                                        <input type="text" class="form-control" value="<%=data.user.User_full%>" name="User_full" maxlength="50" pattern="[a-zA-Z\s\pL]+" required>
                                     </div>
                                 </div>
 
@@ -60,7 +60,7 @@
                                 <div class="form-group">
                                     <label class="col-md-2 col-sm-3 col-xs-12 control-label">Gender</label>
                                     <div class="col-md-10 col-sm-9 col-xs-12">
-                                        <input type="text" class="form-control" value="<%=data.user.User_gender%>" name="User_gender" required>
+                                        <input type="text" class="form-control" value="<%=data.user.User_gender%>" name="User_gender" pattern="Male|Female" required>
                                     </div>
                                 </div>
                             </fieldset>
@@ -68,13 +68,14 @@
                                 <div class="form-group">
                                     <label class="col-md-2  col-sm-3 col-xs-12 control-label">Day Of Birth</label>
                                     <div class="col-md-10 col-sm-9 col-xs-12">
-                                        <input type="text" class="form-control" value="<%=data.user.User_birth%>" name="User_birth" required>
+                                        <input type="date" class="form-control" value="<%=data.user.User_birth%>" name="User_birth" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-2  col-sm-3 col-xs-12 control-label">Phone</label>
                                     <div class="col-md-10 col-sm-9 col-xs-12">
-                                        <input type="number" class="form-control" value="<%=data.user.User_phone%>" required>
+                                        <input type="text" class="form-control" value="<%=data.user.User_phone%>" attern="(\+84|0)\d{9,10}" 
+                                        title="Please follow vietnamese phone number, max 12 character: +84..../ 0...." required>
                                     </div>
                                 </div>
                             </fieldset>
