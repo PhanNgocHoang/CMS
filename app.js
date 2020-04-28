@@ -284,5 +284,7 @@ io.on("connection", (socket) => {
     socket.emit("sum_student_support", list_student, Student);
   });
 });
-server.listen(process.env.PORT || 3000);
+server.listen((process.env.PORT || 3000), ()=>{
+    console.log('Server run port 3000')
+});
 module.exports = app;
