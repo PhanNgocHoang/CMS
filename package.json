@@ -31,10 +31,11 @@
     "mv": "^2.1.1",
     "node-persist": "^3.0.5",
     "nodemailer": "^6.4.6",
-    "nodemon": "^2.0.2",
     "path": "^0.12.7",
     "semantic-ui-css": "^2.4.1",
     "socket.io": "^2.3.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
 }
