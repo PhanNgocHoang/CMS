@@ -3,7 +3,7 @@ const mongoose = require("../../common/database")();
 const path = require("path");
 const formidable = require("formidable");
 const mv = require("mv");
-const nodemailer = require("nodemailer");
+const nodemailer = require('nodemailer')
 let Create_at = new Date();
 global.date =
   Create_at.getFullYear() +
@@ -62,7 +62,7 @@ async function Group_Page(req, res) {
   });
 }
 async function Get_Create_Group(req, res) {
-  let role = await Models.RoleModel.findOne({ roleName: "Tutor" });
+  let role = await Models.RoleModel.findOne({ roleName: "Personal Tutor" });
   let tutor = await Models.UserModel.find({ User_role: role._id });
   return res.render("StaffPage/groups/create", {
     data: { tutor: tutor },
@@ -428,13 +428,13 @@ function Post_SendMail_For_Account(req, res)
     }
   });
   let mailOptions = {
-      from: '"Admin" <hoangpnc123@gmail.com>',
+      from: '"Admin" <Hoangpnc123@gmail.com>',
       to: email,
       subject: subject,
       text: content
   }
   transporter.sendMail(mailOptions, (err)=>{
-    if(err) throw err
+    if(err) console.log(err)
     return res.redirect('/staff/Account/'+role)
   })
 }
@@ -464,7 +464,7 @@ async function Student_Support(req, res)
 }
 async function Chart_Personal_Tutor(req, res)
 {
-  let tutor = await Models.RoleModel.findOne({roleName: "Tutor"})
+  let tutor = await Models.RoleModel.findOne({roleName: "Personal Tutor"})
   return res.render('StaffPage/report/chartTutor', {data:{tutor_id: tutor._id}})
 }
 async function Detail_Personal_Tutor(req, res)

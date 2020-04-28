@@ -29,7 +29,7 @@ function CheckStaff(req, res, next) {
 }
 function CheckTutorAndStudent(req, res, next) {
   Models.RoleModel.findById({ _id: user_ifo.user_role }).exec((err, role) => {
-    if (role.roleName === "Tutor") {
+    if (role.roleName === "Personal Tutor") {
       res.locals.role = role.roleName;
       return next();
     }
