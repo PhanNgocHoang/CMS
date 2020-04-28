@@ -419,14 +419,16 @@ function Post_SendMail_For_Account(req, res)
   let content = req.body.content
   let role = req.params.role_id
   let transporter = nodemailer.createTransport({
-    service: "Gmail",
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true,
     auth: {
-      user: "hoangpn2201@gmail.com",
-      pass: "Hoang123@",
-    },
+        user: 'Hoangpnc123@gmail.com',
+        pass: 'Hoang123@'
+    }
   });
   let mailOptions = {
-      from: '"Admin" <hoangpn2201@gmail.com>',
+      from: '"Admin" <hoangpnc123@gmail.com>',
       to: email,
       subject: subject,
       text: content

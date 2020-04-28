@@ -41,8 +41,12 @@ io.on("connection", (socket) => {
       });
     }
     if (data.user_role === "Tutor") {
-      let group = await Models.GroupModel.findOne({ Tutor_id: data.user_id });
-      let students = await Models.UserModel.find({ _id: group.Student_id });
+      let group = await Models.GroupModel.find({ Tutor_id: data.user_id });
+      let student_id = new Array()
+      group.forEach(ls_student=>{
+        student_id = student_id.concat(ls_student.Student_id)
+      })
+      let students = await Models.UserModel.find({ _id: student_id });
       socket.emit("chat_student", {
         students,
       });
