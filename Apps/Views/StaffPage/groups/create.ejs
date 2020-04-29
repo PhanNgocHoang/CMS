@@ -15,6 +15,9 @@
         <section class="module">
             <div class="module-inner">
                 <div class="content-panel">
+                    <%if(data && data.error){%>
+                        <div class="alert alert-danger"><%=data.error%></div>
+                    <%}%>
                     <form class="form-horizontal" method="POST">
                         <fieldset class="fieldset">
                             <h3 class="fieldset-title">Create Group Support</h3>
