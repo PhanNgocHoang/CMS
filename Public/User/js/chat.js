@@ -86,6 +86,14 @@ $(document).ready(() => {
         socket.emit("get_mess", { id, name });
         socket.on("list_message", (sender, receiver, name) => {
             $("#my_msg").html("");
+            $("#msg_come").html("");
+            $("#img_come").html("");
+            $("#date_meet").html("");
+            $("#time_meet").html("");
+            $("#place_meet").html("");
+            $("#note_meet").html("");
+            $('#l_files').html("")
+            $('#note_file').html("")
             sender.Message.forEach((msg_sender) => {
                 let msg =
                     "<p>" +
@@ -96,8 +104,6 @@ $(document).ready(() => {
                 $("#my_msg").append(msg);
             });
             let receiver_info = new Array(receiver.Sender);
-            $("#msg_come").html("");
-            $("#img_come").html("");
             receiver_info.forEach((img_receiver) => {
                 let img =
                     "<img class='chat_img' src='/static/images/" +
@@ -114,10 +120,6 @@ $(document).ready(() => {
                     "</span>";
                 $("#msg_come").append(msg);
             });
-            $("#date_meet").html("");
-            $("#time_meet").html("");
-            $("#place_meet").html("");
-            $("#note_meet").html("");
             sender.Meet.forEach((meet) => {
                 let date_meet = "<li>" + meet.Date + "</li>";
                 let time_meet = "<li>" + meet.Time + "</li>";
@@ -128,8 +130,6 @@ $(document).ready(() => {
                 $("#place_meet").append(place_meet);
                 $("#note_meet").append(note_meet);
             });
-            $('#l_files').html("")
-            $('#note_file').html("")
             sender.Document_Share.forEach((file)=>{
                 let l_file = "<li><a href='/static/Files/"+file.File+"' download='/static/Files/"+file.File+"'>"+file.File+"</a></li>"
                 let l_note = "<li>"+file.Note+"</li>"

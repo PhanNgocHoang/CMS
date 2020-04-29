@@ -17,8 +17,8 @@
                         <form class="form-horizontal" method="POST" enctype="multipart/form-data">
                             <fieldset class="fieldset">
                                 <h3 class="fieldset-title">Create A New Account</h3>
-                                <%if(data.err){%>
-                                <div class="col-md-3 col-sm-3 col-xs-12 alert alert-danger"><%=data.err%></div>
+                                <%if(data && data.error){%>
+                                    <div class="alert alert-danger"><%=data.error%></div>
                                 <%}%>
                                 <input type="hidden" name="User_role" value="<%=data.role_id%>">
                                 <div class="form-group">

@@ -63,7 +63,7 @@ async function Group_Page(req, res) {
 }
 async function Get_Create_Group(req, res) {
   let role = await Models.RoleModel.findOne({ roleName: "Personal Tutor" });
-  let tutor = await Models.UserModel.find({ User_role: role._id });
+  global.tutor = await Models.UserModel.find({ User_role: role._id });
   return res.render("StaffPage/groups/create", {
     data: { tutor: tutor },
   });
@@ -72,7 +72,7 @@ async function Post_Create_Group(req, res) {
   let group_id = req.body.group_id;
   let group_name = req.body.group_name;
   let tutor_id = req.body.tutor_id;
-  let New_Group = await new Models.GroupModel({
+  let New_Group = new Models.GroupModel({
     Group_ID: group_id,
     Group_name: group_name,
     Tutor_id: tutor_id,
@@ -82,7 +82,7 @@ async function Post_Create_Group(req, res) {
   New_Group.save((err) => {
     if (err) {
       let error = "Group ID already exist";
-      return res.render("StaffPage/groups/create", { data: { error: error } });
+      return res.render("StaffPage/groups/create", { data: { error: error, tutor:tutor } });
     }
     return res.redirect("/staff/PersonalSupport");
   });
@@ -90,7 +90,7 @@ async function Post_Create_Group(req, res) {
 async function Get_Update_Group(req, res) {
   let group_id = req.params.group_id;
   let Group = await Models.GroupModel.findById({ _id: group_id });
-  let role = await Models.RoleModel.findOne({ roleName: "Tutor" });
+  let role = await Models.RoleModel.findOne({ roleName: "Personal Tutor" });
   let nowTutor = await Models.UserModel.findOne({ _id: Group.Tutor_id });
   let tutor = await Models.UserModel.find({ User_role: role._id });
   return res.render("StaffPage/groups/edit", {
@@ -352,7 +352,7 @@ function Post_Create_Account(req, res) {
         if (err) {
           let error = "Email already exist";
           return res.render("StaffPage/account/create", {
-            data: { error: error },
+            data: { error: error, role_id: fields.User_role },
           });
         }
         return res.redirect("/staff/Account/" + req.params.role_id);

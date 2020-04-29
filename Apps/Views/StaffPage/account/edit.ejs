@@ -15,7 +15,7 @@
             <section class="module">
                 <div class="module-inner">
                     <div class="content-panel">
-                        <form class="form-horizontal" method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
+                        <form class="form-horizontal" method="POST" enctype="multipart/form-data">
                             <fieldset class="fieldset">
                                 <h3 class="fieldset-title">Update Account</h3>
                                 <div class="form-group avatar">
@@ -83,15 +83,9 @@
                             <div class="form-group">
                                 <div class="col-md-10 col-sm-9 col-xs-12 col-md-push-2 col-sm-push-3 col-xs-push-0">
                                     <input class="btn btn-primary" type="submit" value="Update Information">
-                                    <a class="btn btn-secondary" href="/staff/Account/<%=data.role%>">Cancel</a>
+                                    <a class="btn btn-danger" href="/staff/Account/<%=data.role%>">Cancel</a>
                                 </div>
                             </div>
-                            <script type = "text/javascript">
-                                function validateForm()  {
-                                    alert("Update Successfull!")
-                                    return true;
-                                }
-                            </script>
                         </form>
                     </div>
                 </div>
