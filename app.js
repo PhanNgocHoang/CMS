@@ -40,7 +40,7 @@ io.on("connection", (socket) => {
         tutor_avatar,
       });
     }
-    if (data.user_role === "Tutor") {
+    if (data.user_role === "Personal") {
       let group = await Models.GroupModel.find({ Tutor_id: data.user_id });
       let student_id = new Array()
       group.forEach(ls_student=>{
