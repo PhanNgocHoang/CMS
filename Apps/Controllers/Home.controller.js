@@ -33,13 +33,19 @@ async function PostLogin(req, res) {
         algorithm: "HS256",
         expiresIn: "3h",
       });
-      res.cookie("user", token, { maxAge: 10800000, signed: true, secure: true, httpOnly: true, domain: "demoteam.herokuapp.com"});
+      res.cookie("user", token, {
+        maxAge: 10800000,
+        signed: true,
+        secure: true,
+        httpOnly: true,
+        domain: "demoteam.herokuapp.com",
+      });
       //set domain and httpOnly to cookie only send to a domain and https
       Models.RoleModel.findById({ _id: docs.User_role }).exec((err, role) => {
         if (role.roleName === "Staff") {
           return res.redirect("/staff");
         }
-        if (role.roleName === "Student" || role.roleName === "Personal Tutor" ) {
+        if (role.roleName === "Student" || role.roleName === "Personal Tutor") {
           return res.redirect("/user");
         }
       });

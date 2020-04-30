@@ -3,7 +3,7 @@ const mongoose = require("../../common/database")();
 const path = require("path");
 const formidable = require("formidable");
 const mv = require("mv");
-const nodemailer = require('nodemailer')
+const nodemailer = require("nodemailer");
 let Create_at = new Date();
 global.date =
   Create_at.getFullYear() +
@@ -82,7 +82,9 @@ async function Post_Create_Group(req, res) {
   New_Group.save((err) => {
     if (err) {
       let error = "Group ID already exist";
-      return res.render("StaffPage/groups/create", { data: { error: error, tutor:tutor } });
+      return res.render("StaffPage/groups/create", {
+        data: { error: error, tutor: tutor },
+      });
     }
     return res.redirect("/staff/PersonalSupport");
   });
@@ -261,10 +263,9 @@ function Post_Send_Mail_For_Group(req, res) {
   let tutor_mail = req.body.tutor_mail;
   let subject = req.body.subject;
   let content = req.body.content;
-  let group_id = req.params.group_id
-  if(!student_email)
-  {
-    student_email = ""
+  let group_id = req.params.group_id;
+  if (!student_email) {
+    student_email = "";
   }
   let transporter = nodemailer.createTransport({
     service: "Gmail",
@@ -274,15 +275,15 @@ function Post_Send_Mail_For_Group(req, res) {
     },
   });
   let mailOptions = {
-      from: '"Admin" <hoangpn2201@gmail.com>',
-      to: tutor_mail + student_email,
-      subject: subject,
-      text: content
-  }
-  transporter.sendMail(mailOptions, (err)=>{
-    if(err) throw err
-    return res.redirect('/staff/PersonalSupport/GroupDetail/'+group_id)
-  })
+    from: '"Admin" <hoangpn2201@gmail.com>',
+    to: tutor_mail + student_email,
+    subject: subject,
+    text: content,
+  };
+  transporter.sendMail(mailOptions, (err) => {
+    if (err) throw err;
+    return res.redirect("/staff/PersonalSupport/GroupDetail/" + group_id);
+  });
 }
 function Index_Account(req, res) {
   Models.RoleModel.find({}).exec((err, Role) => {
@@ -330,7 +331,7 @@ async function List_Account(req, res) {
 async function Get_Create_Account(req, res) {
   let role_id = req.params.role_id;
   return res.render("StaffPage/account/create", {
-    data: { role_id: role_id},
+    data: { role_id: role_id },
   });
 }
 function Post_Create_Account(req, res) {
@@ -374,7 +375,7 @@ async function Get_Update_Account(req, res) {
   let role = req.params.role_id;
   Models.UserModel.findById({ _id: user_id }).exec((err, user) => {
     return res.render("StaffPage/account/edit", {
-      data: { user: user, role: role},
+      data: { user: user, role: role },
     });
   });
 }
@@ -407,70 +408,68 @@ function Get_Delete_Account(req, res) {
     return res.redirect("/staff/Account/" + role);
   });
 }
-function Get_SendMail_For_Account(req, res)
-{
-  let role = req.params.role_id
-  return res.render('StaffPage/account/email', {data:{role:role}})
+function Get_SendMail_For_Account(req, res) {
+  let role = req.params.role_id;
+  return res.render("StaffPage/account/email", { data: { role: role } });
 }
-function Post_SendMail_For_Account(req, res)
-{
-  let email = req.body.email
-  let subject = req.body.subject
-  let content = req.body.content
-  let role = req.params.role_id
+function Post_SendMail_For_Account(req, res) {
+  let email = req.body.email;
+  let subject = req.body.subject;
+  let content = req.body.content;
+  let role = req.params.role_id;
   let transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
+    host: "smtp.gmail.com",
     port: 465,
     secure: true,
     auth: {
-        user: 'Hoangpnc123@gmail.com',
-        pass: 'Hoang123@'
-    }
+      user: "Hoangpnc123@gmail.com",
+      pass: "Hoang123@",
+    },
   });
   let mailOptions = {
-      from: '"Admin" <Hoangpnc123@gmail.com>',
-      to: email,
-      subject: subject,
-      text: content
-  }
-  transporter.sendMail(mailOptions, (err)=>{
-    if(err) console.log(err)
-    return res.redirect('/staff/Account/'+role)
-  })
+    from: '"Admin" <Hoangpnc123@gmail.com>',
+    to: email,
+    subject: subject,
+    text: content,
+  };
+  transporter.sendMail(mailOptions, (err) => {
+    if (err) console.log(err);
+    return res.redirect("/staff/Account/" + role);
+  });
 }
-async function Chart(req, res)
-{
-  let role = await Models.RoleModel.find({})
-  return res.render('StaffPage/report/index', {role:{User_role: role}})
+async function Chart(req, res) {
+  let role = await Models.RoleModel.find({});
+  return res.render("StaffPage/report/index", { role: { User_role: role } });
 }
-async function Chart_Role(req, res)
-{
-  let role_id = req.params.role_id
-  let role = await Models.RoleModel.findById({_id: role_id})
-  let Role_Name = role.roleName
-  return res.render('StaffPage/report/chart', {Role:{Role_Name: Role_Name, role_id: role_id}})
+async function Chart_Role(req, res) {
+  let role_id = req.params.role_id;
+  let role = await Models.RoleModel.findById({ _id: role_id });
+  let Role_Name = role.roleName;
+  return res.render("StaffPage/report/chart", {
+    Role: { Role_Name: Role_Name, role_id: role_id },
+  });
 }
-async function Detail_Mess(req, res)
-{
-  let user_id = req.params.user_id
-  let User = await Models.UserModel.findById({_id: user_id})
-  return res.render('StaffPage/report/detail', {user_info:{User: User}})
+async function Detail_Mess(req, res) {
+  let user_id = req.params.user_id;
+  let User = await Models.UserModel.findById({ _id: user_id });
+  return res.render("StaffPage/report/detail", { user_info: { User: User } });
 }
-async function Student_Support(req, res)
-{
-  let student = await Models.RoleModel.findOne({roleName: "Student"})
-  let Sum_student= await Models.UserModel.find({User_role: student._id})
-  return res.render('StaffPage/report/chartStudentSupport', {data:{sum_student: Sum_student.length}})
+async function Student_Support(req, res) {
+  let student = await Models.RoleModel.findOne({ roleName: "Student" });
+  let Sum_student = await Models.UserModel.find({ User_role: student._id });
+  return res.render("StaffPage/report/chartStudentSupport", {
+    data: { sum_student: Sum_student.length },
+  });
 }
-async function Chart_Personal_Tutor(req, res)
-{
-  let tutor = await Models.RoleModel.findOne({roleName: "Personal Tutor"})
-  return res.render('StaffPage/report/chartTutor', {data:{tutor_id: tutor._id}})
+async function Chart_Personal_Tutor(req, res) {
+  let tutor = await Models.RoleModel.findOne({ roleName: "Personal Tutor" });
+  return res.render("StaffPage/report/chartTutor", {
+    data: { tutor_id: tutor._id },
+  });
 }
-async function Detail_Personal_Tutor(req, res)
-{
-  let Tutor = await Models.UserModel.findById({_id: req.params.user_id})
-  return res.render('StaffPage/report/detailTutor', {data:{Tutor: Tutor}})
+async function Detail_Personal_Tutor(req, res) {
+  let Tutor = await Models.UserModel.findById({ _id: req.params.user_id });
+  return res.render("StaffPage/report/detailTutor", { data: { Tutor: Tutor } });
 }
 module.exports = {
   Page_Index: Page_Index,
@@ -498,12 +497,12 @@ module.exports = {
   Post_Add_Student: Post_Add_Student,
   Delete_Student_Of_Group: Delete_Student_Of_Group,
   Delete_StudentInListAdd: Delete_StudentInListAdd,
-  Get_SendMail_For_Account:Get_SendMail_For_Account,
+  Get_SendMail_For_Account: Get_SendMail_For_Account,
   Post_SendMail_For_Account: Post_SendMail_For_Account,
   Chart: Chart,
   Chart_Role: Chart_Role,
   Detail_Mess: Detail_Mess,
   Student_Support: Student_Support,
   Chart_Personal_Tutor: Chart_Personal_Tutor,
-  Detail_Personal_Tutor: Detail_Personal_Tutor
+  Detail_Personal_Tutor: Detail_Personal_Tutor,
 };

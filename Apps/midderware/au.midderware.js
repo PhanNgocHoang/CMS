@@ -7,14 +7,15 @@ async function checkAth(req, res, next) {
     return res.redirect("/login");
   }
   let userId = jwt.verify(token, "Team2DevelopmentCms", (err, decode) => {
-    if (err) return res.status(400).send("Error");
+    if (err) return res.redirect("/login");
     global.user_ifo = decode.user;
     Models.UserModel.find({ _id: decode.user.user_id }).exec((err, docs) => {
+      if (err) return res.redirect("/login");
       if (docs == null) {
         return res.redirect("/login");
       }
       res.locals.user = docs;
-      global.User_id = docs._id
+      global.User_id = docs._id;
       return next();
     });
   });
@@ -33,16 +34,15 @@ function CheckTutorAndStudent(req, res, next) {
       res.locals.role = role.roleName;
       return next();
     }
-    if(role.roleName === "Student")
-    {
+    if (role.roleName === "Student") {
       res.locals.role = role.roleName;
       return next();
     }
-     return res.redirect("/login");
+    return res.redirect("/login");
   });
 }
 module.exports = {
   reqAuth: checkAth,
   CheckStaff: CheckStaff,
-  CheckTutorAndStudent: CheckTutorAndStudent
+  CheckTutorAndStudent: CheckTutorAndStudent,
 };
