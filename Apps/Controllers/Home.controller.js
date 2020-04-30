@@ -33,7 +33,7 @@ async function PostLogin(req, res) {
         algorithm: "HS256",
         expiresIn: "3h",
       });
-      res.cookie("user", token, { maxAge: 10800000, signed: true, secure: true});
+      res.cookie("user", token, { maxAge: 10800000, signed: true, secure: true, httpOnly: true});
       //set domain and httpOnly to cookie only send to a domain and https
       Models.RoleModel.findById({ _id: docs.User_role }).exec((err, role) => {
         if (role.roleName === "Staff") {
