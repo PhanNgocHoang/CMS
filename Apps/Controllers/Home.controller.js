@@ -67,9 +67,7 @@ function Post_Forgot_Password(req, res) {
       return res.render("HomePage/Forgotpass", { data: { error: error } });
     } else {
       let transporter = nodemailer.createTransport({
-        shost: "smtp.gmail.com",
-        port: 465,
-        secure: true,
+        shost: "gmail",
         auth: {
           user: "Hoangpnc123@gmail.com",
           pass: "Hoang123@",
