@@ -161,6 +161,10 @@ io.on("connection", (socket) => {
         my_file,
         (err) => {}
       );
+      let sender = await Models.MessageModel.findOne({
+        Sender: socket.user,
+        Receiver: id,
+      });
       if (sender != null) {
         await Models.MessageModel.findOneAndUpdate(
           {
