@@ -168,19 +168,22 @@ $(document).ready(() => {
     });
     $("#input-message").on("keyup", (event) => {
       let message = $("#input-message").val();
-      if (event.keyCode === 13 && message != "") {
-        let my_msg =
+      if (event.keyCode === 13) {
+        if(message != ""){
+          let my_msg =
           "<p>" + message + "</p><span class='time_date'>" + date + "</span>";
-        $("#my_msg").append(my_msg);
-        socket.emit("send_message", {
+          $("#my_msg").append(my_msg);
+          socket.emit("send_message", {
           id,
           message,
           time: date,
           user_img,
-        });
+          });
         $("#input-message").val("");
-      } else if (event.keyCode === 13) {
-        alert("Please enter your message");
+        }
+        else{
+          alert("Please enter your message");
+        }
       }
     });
     $(document).on("click", "#upload-file", () => {
