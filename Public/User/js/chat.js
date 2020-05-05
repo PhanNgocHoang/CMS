@@ -147,10 +147,11 @@ $(document).ready(() => {
     $(document).on("click", "#set_meet", () => {
       $("#set_met").show(500);
       $(document).on("click", "#set", () => {
-        let date = $("#Date").val();
-        let hours = $("#hours").val();
-        let place = $("#place").val();
-        let note = $("#note").val();
+        if(date === "" || hours==="" || place === "" || note ==="")
+        {
+          alert("Please complete all the meeting related information")
+        }
+        else{
         let date_meet = "<li>" + date + "</li>";
         let time_meet = "<li>" + hours + "</li>";
         let place_meet = "<li>" + place + "</li>";
@@ -161,6 +162,7 @@ $(document).ready(() => {
         $("#note_meet").append(note_meet);
         socket.emit("Set-meet", date, hours, place, note, id);
         $("#set_met").hide();
+        }
       });
     });
     $(document).on("click", "#hidden_set", () => {
