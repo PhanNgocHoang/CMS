@@ -57,20 +57,22 @@
 <script src="/socket.io/socket.io.js"></script>
 <script src="/static/User/js/chart.js"></script>
 <script>
+   function arrayRemove(arr, value) {
+      return arr.filter(function (ele) {
+        return ele != value;
+      });
+    }
    socket.on('list_student', (Student_support, Student_not_Support)=>{
       let student_be_support =[]
        for(i = 0; i <= Student_not_Support.length; i++)
        {
-           student_be_support = Student_support.filter(num => num !== Student_not_Support[i])
+           student_be_support = Student_support.filter(num => num != Student_not_Support[i])
        }
-       for(i =0; i< student_be_support.length -1; i++)
+       for(c =0; c <= student_be_support.length -1; c++)
        {
-          for(x = 0; x <= Student_not_Support.length-1; x++)
+          for( x = 0; x <= Student_not_Support.length-1; x++)
           {
-              if(Student_not_Support[x] === student_be_support[i])
-              {
-                  Student_not_Support.splice(i, student_be_support.length)
-              }
+            Student_not_Support = arrayRemove(Student_not_Support, student_be_support[c])
           }
        }
        socket.emit('Student_notSupport', Student_not_Support)

@@ -42,10 +42,10 @@ io.on("connection", (socket) => {
     }
     if (data.user_role === "Personal") {
       let group = await Models.GroupModel.find({ Tutor_id: data.user_id });
-      let student_id = new Array();
-      group.forEach(ls_student => {
-        student_id = student_id.concat(ls_student.Student_id);
-      });
+      let student_id = new Array()
+      group.forEach(ls_student=>{
+        student_id = student_id.concat(ls_student.Student_id)
+      })
       let students = await Models.UserModel.find({ _id: student_id });
       socket.emit("chat_student", {
         students,
@@ -259,12 +259,7 @@ io.on("connection", (socket) => {
   });
   socket.on("tutor", async (tutor_id) => {
     let Tutor = await Models.UserModel.find({ User_role: tutor_id });
-    let sum_student = [];
-    for (i = 0; i <= Tutor.length - 1; i++) {
-      let group = await Models.GroupModel.find({ Tutor_id: Tutor[i]._id });
-      sum_student.push(group);
-    }
-    socket.emit("sum_student_of_tutor", Tutor, sum_student);
+    socket.emit("list_tutor", Tutor);
   });
   socket.on("data_dashboard", async (user_id) => {
     let Sent = await Models.MessageModel.find({ Sender: user_id }).populate(
@@ -292,5 +287,5 @@ io.on("connection", (socket) => {
     socket.emit("sum_student_support", list_student, Student);
   });
 });
-server.listen(process.env.PORT || 3000);
+server.listen(process.env.PORT || 3000)
 module.exports = app;
