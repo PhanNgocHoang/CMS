@@ -264,19 +264,20 @@ function Post_Send_Mail_For_Group(req, res) {
   let subject = req.body.subject;
   let content = req.body.content;
   let group_id = req.params.group_id;
-  if (!student_email) {
-    student_email = "";
-  }
+  let arr_mail = new Array()
+  arr_mail = arr_mail.concat(student_email, tutor_mail)
   let transporter = nodemailer.createTransport({
-    service: "Gmail",
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true,
     auth: {
-      user: "hoangpn2201@gmail.com",
+      user: "Hoangpnc123@gmail.com",
       pass: "Hoang123@",
     },
   });
   let mailOptions = {
-    from: '"Admin" <hoangpn2201@gmail.com>',
-    to: tutor_mail + student_email,
+    from: '"Admin" <Hoangpnc123@gmail.com>',
+    to: arr_mail,
     subject: subject,
     text: content,
   };
