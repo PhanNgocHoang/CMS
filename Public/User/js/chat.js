@@ -203,7 +203,6 @@ $(document).ready(() => {
         let note = $("#note-File").val();
         let size_file = my_file.size;
         let name = `${Date.now()}-${my_file.name}`;
-        console.log(name)
         if (size_file > 4194304) {
           alert("File is too large");
         } else {
