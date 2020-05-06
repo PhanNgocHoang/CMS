@@ -147,6 +147,10 @@ $(document).ready(() => {
     $(document).on("click", "#set_meet", () => {
       $("#set_met").show(500);
       $(document).on("click", "#set", () => {
+        let date = $("#Date").val();
+        let hours = $("#hours").val();
+        let place = $("#place").val();
+        let note = $("#note").val();
         if(date === "" || hours==="" || place === "" || note ==="")
         {
           alert("Please complete all the meeting related information")
@@ -160,6 +164,10 @@ $(document).ready(() => {
         $("#time_meet").append(time_meet);
         $("#place_meet").append(place_meet);
         $("#note_meet").append(note_meet);
+        $("#Date").val("");
+        $("#hours").val("");
+        $("#place").val("");
+        $("#note").val("");
         socket.emit("Set-meet", date, hours, place, note, id);
         $("#set_met").hide();
         }
@@ -195,6 +203,7 @@ $(document).ready(() => {
         let note = $("#note-File").val();
         let size_file = my_file.size;
         let name = `${Date.now()}-${my_file.name}`;
+        console.log(name)
         if (size_file > 4194304) {
           alert("File is too large");
         } else {
@@ -203,11 +212,11 @@ $(document).ready(() => {
           socket.emit("send-file", my_file, name, id, note);
           let l_file =
             "<li><a href='/static/Files/" +
-            file.File +
+            name +
             "' download='/static/Files/" +
-            file.File +
+            name +
             "'>" +
-            file.File +
+            name +
             "</a></li>";
           let l_note = "<li>" + note + "</li>";
           $("#l_files").append(l_file);

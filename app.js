@@ -62,7 +62,7 @@ io.on("connection", (socket) => {
       });
       let message = data.message;
       let time = data.time;
-      if (sender == null) {
+      if (sender == {}) {
         let new_mess_sender = new Models.MessageModel({
           Sender: socket.user,
           Receiver: data.id,
@@ -73,7 +73,18 @@ io.on("connection", (socket) => {
             },
           ],
         });
+        let new_mess_receiver = new Models.MessageModel({
+          Sender: socket.user,
+          Receiver: data.id,
+          Message: [
+            {
+              message: message,
+              Date: data.time,
+            },
+          ],
+        });
         await new_mess_sender.save();
+        await new_mess_receiver.save()
       } else {
         await Models.MessageModel.findByIdAndUpdate(
           { _id: sender._id },
@@ -102,8 +113,35 @@ io.on("connection", (socket) => {
         Sender: socket.user,
         Receiver: id,
       });
-      if (sender != null) {
-        await Models.MessageModel.findOneAndUpdate(
+      if (sender == {}) {
+        let new_meet_send = new Models.MessageModel({
+              Sender: socket.user,
+              Receiver: id,
+              Meet: [
+                {
+                  Date: date,
+                  Time: hours,
+                  Place: place,
+                  Note: note,
+                },
+              ],
+            });
+            let new_meet_receive = new Models.MessageModel({
+              Sender: id,
+              Receiver: socket.user,
+              Meet: [
+                {
+                  Date: date,
+                  Time: hours,
+                  Place: place,
+                  Note: note,
+                },
+              ],
+            });
+            await new_meet_send.save();
+            await new_meet_receive.save();
+      } else {
+          await Models.MessageModel.findOneAndUpdate(
           {
             Sender: socket.user,
             Receiver: id,
@@ -125,33 +163,6 @@ io.on("connection", (socket) => {
             },
           }
         );
-      } else {
-        let new_meet_send = new Models.MessageModel({
-          Sender: socket.user,
-          Receiver: id,
-          Meet: [
-            {
-              Date: date,
-              Time: hours,
-              Place: place,
-              Note: note,
-            },
-          ],
-        });
-        let new_meet_receive = new Models.MessageModel({
-          Sender: id,
-          Receiver: socket.user,
-          Meet: [
-            {
-              Date: date,
-              Time: hours,
-              Place: place,
-              Note: note,
-            },
-          ],
-        });
-        await new_meet_send.save();
-        await new_meet_receive.save();
       }
       io.sockets.to(id).emit("P-set-meet", { date, hours, place, note });
     });
@@ -165,22 +176,7 @@ io.on("connection", (socket) => {
         Sender: socket.user,
         Receiver: id,
       });
-      if (sender != null) {
-        await Models.MessageModel.findOneAndUpdate(
-          {
-            Sender: socket.user,
-            Receiver: id,
-          },
-          { $addToSet: { Document_Share: { File: my_filename, Note: note } } }
-        );
-        await Models.MessageModel.findOneAndUpdate(
-          {
-            Sender: id,
-            Receiver: socket.user,
-          },
-          { $addToSet: { Document_Share: { File: my_filename, Note: note } } }
-        );
-      } else {
+      if (sender == {}) {
         let new_file_sender = new Models.MessageModel({
           Sender: socket.user,
           Receiver: id,
@@ -203,6 +199,21 @@ io.on("connection", (socket) => {
         });
         await new_file_sender.save();
         await new_file_receive.save();
+      } else {
+        await Models.MessageModel.findOneAndUpdate(
+          {
+            Sender: socket.user,
+            Receiver: id,
+          },
+          { $addToSet: { Document_Share: { File: my_filename, Note: note } } }
+        );
+        await Models.MessageModel.findOneAndUpdate(
+          {
+            Sender: id,
+            Receiver: socket.user,
+          },
+          { $addToSet: { Document_Share: { File: my_filename, Note: note } } }
+        );
       }
       io.sockets.to(id).emit("P-send-file", my_filename, note);
     });
