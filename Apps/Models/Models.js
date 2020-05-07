@@ -12,7 +12,6 @@ const UserSchema = new Schema({
     User_pass: String,
     User_role: [{ type: Schema.Types.ObjectId, ref: "Role" }],
     User_mail: { type: String, unique: true },
-    User_address: String,
     User_gender: String,
     User_phone: String,
     User_avatar: String,
