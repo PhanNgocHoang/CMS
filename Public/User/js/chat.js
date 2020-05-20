@@ -149,8 +149,8 @@ $(document).ready(() => {
       $(document).on("click", "#set", () => {
         let date = $("#Date").val();
         let hours = $("#hours").val();
-        let place = $("#place").val();
-        let note = $("#note").val();
+        let place = $("#place").val().trim();
+        let note = $("#note").val().trim();
         if(date === "" || hours==="" || place === "" || note ==="")
         {
           alert("Please complete all the meeting related information")
@@ -177,7 +177,7 @@ $(document).ready(() => {
       $("#set_met").hide();
     });
     $("#input-message").on("keyup", (event) => {
-      let message = $("#input-message").val();
+      let message = $("#input-message").val().trim();
       if (event.keyCode === 13) {
         if(message != ""){
           let my_msg =
@@ -200,12 +200,17 @@ $(document).ready(() => {
       $("#send-file").show(50);
       $(document).on("click", "#send", () => {
         let my_file = $("#fileinput").prop("files")[0];
-        let note = $("#note-File").val();
+        let note = $("#note-File").val().trim();
         let size_file = my_file.size;
         let name = `${Date.now()}-${my_file.name}`;
+        console.log(name)
         if (size_file > 4194304) {
           alert("File is too large");
-        } else {
+        } 
+        else if(note == ""){
+          alert("Please enter a note")
+        }
+        else {
           $("#fileinput").val("");
           $("#note-File").val("");
           socket.emit("send-file", my_file, name, id, note);

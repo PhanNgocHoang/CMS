@@ -42,10 +42,10 @@ io.on("connection", (socket) => {
     }
     if (data.user_role === "Personal") {
       let group = await Models.GroupModel.find({ Tutor_id: data.user_id });
-      let student_id = new Array();
-      group.forEach((ls_student) => {
-        student_id = student_id.concat(ls_student.Student_id);
-      });
+      let student_id = new Array()
+      group.forEach(ls_student=>{
+        student_id = student_id.concat(ls_student.Student_id)
+      })
       let students = await Models.UserModel.find({ _id: student_id });
       socket.emit("chat_student", {
         students,
@@ -56,13 +56,9 @@ io.on("connection", (socket) => {
         Sender: socket.user,
         Receiver: data.id,
       });
-      let receiver = await Models.MessageModel.findOne({
-        Sender: data.id,
-        Receiver: socket.user,
-      });
       let message = data.message;
       let time = data.time;
-      if (sender == {}) {
+      if (sender == null) {
         let new_mess_sender = new Models.MessageModel({
           Sender: socket.user,
           Receiver: data.id,
@@ -74,8 +70,8 @@ io.on("connection", (socket) => {
           ],
         });
         let new_mess_receiver = new Models.MessageModel({
-          Sender: socket.user,
-          Receiver: data.id,
+          Sender: data.id,
+          Receiver: socket.user,
           Message: [
             {
               message: message,
@@ -84,7 +80,7 @@ io.on("connection", (socket) => {
           ],
         });
         await new_mess_sender.save();
-        await new_mess_receiver.save();
+        await new_mess_receiver.save()
       } else {
         await Models.MessageModel.findByIdAndUpdate(
           { _id: sender._id },
@@ -113,35 +109,35 @@ io.on("connection", (socket) => {
         Sender: socket.user,
         Receiver: id,
       });
-      if (sender == {}) {
+      if (sender == null) {
         let new_meet_send = new Models.MessageModel({
-          Sender: socket.user,
-          Receiver: id,
-          Meet: [
-            {
-              Date: date,
-              Time: hours,
-              Place: place,
-              Note: note,
-            },
-          ],
-        });
-        let new_meet_receive = new Models.MessageModel({
-          Sender: id,
-          Receiver: socket.user,
-          Meet: [
-            {
-              Date: date,
-              Time: hours,
-              Place: place,
-              Note: note,
-            },
-          ],
-        });
-        await new_meet_send.save();
-        await new_meet_receive.save();
+              Sender: socket.user,
+              Receiver: id,
+              Meet: [
+                {
+                  Date: date,
+                  Time: hours,
+                  Place: place,
+                  Note: note,
+                },
+              ],
+            });
+            let new_meet_receive = new Models.MessageModel({
+              Sender: id,
+              Receiver: socket.user,
+              Meet: [
+                {
+                  Date: date,
+                  Time: hours,
+                  Place: place,
+                  Note: note,
+                },
+              ],
+            });
+            await new_meet_send.save();
+            await new_meet_receive.save();
       } else {
-        await Models.MessageModel.findOneAndUpdate(
+          await Models.MessageModel.findOneAndUpdate(
           {
             Sender: socket.user,
             Receiver: id,
@@ -176,7 +172,7 @@ io.on("connection", (socket) => {
         Sender: socket.user,
         Receiver: id,
       });
-      if (sender == {}) {
+      if (sender == null) {
         let new_file_sender = new Models.MessageModel({
           Sender: socket.user,
           Receiver: id,
@@ -298,5 +294,5 @@ io.on("connection", (socket) => {
     socket.emit("sum_student_support", list_student, Student);
   });
 });
-server.listen(process.env.PORT || 3000);
+server.listen(process.env.PORT || 3000)
 module.exports = app;
